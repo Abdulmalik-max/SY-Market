@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark" data-bs-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0d1117" />
+  <title>الأسئلة الشائعة | متجر الشحن السعودي اليمني</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static/css/custom.css">
+  <link rel="stylesheet" href="static/css/store.css">
+  <style>
+    .faq-category-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      font-family: var(--font-display);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .faq-category-btn:hover {
+      background: var(--surface-3);
+      color: var(--text);
+    }
+    .faq-category-btn.active {
+      background: var(--brand);
+      color: #ffffff;
+      border-color: var(--brand);
+    }
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: border-color 0.15s ease;
+    }
+    .faq-item:hover {
+      border-color: var(--border-light);
+    }
+    .faq-question {
+      padding: 1.15rem 1.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      user-select: none;
+    }
+    .faq-question h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--text);
+    }
+    .faq-arrow {
+      color: var(--muted);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-arrow {
+      transform: rotate(180deg);
+      color: var(--brand-light);
+    }
+    .faq-answer {
+      display: none;
+      padding: 0 1.4rem 1.25rem;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      border-top: 1px solid transparent;
+    }
+    .faq-item.open .faq-answer {
+      display: block;
+      border-top-color: var(--border);
+      padding-top: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="app-header sticky-top">
+    <div class="container-xxl">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 header-top-row">
+        <a href="index.html" class="brand-badge-link" title="الرئيسية">
+          <div class="brand-monogram">SY</div>
+          <div class="brand-text-col">
+            <span class="brand-main-title">متجر الشحن السعودي اليمني</span>
+            <span class="brand-sub-tag">شحن فوري مباشر وبطاقات معتمدة</span>
+          </div>
+        </a>
+
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+          <a href="index.html" class="btn btn-ghost" style="height:36px;padding:0 0.9rem;">
+            <span>← العودة للمتجر</span>
+          </a>
+          <button id="btnThemeToggle" type="button" class="theme-toggle" aria-label="تبديل المظهر"></button>
+          <a href="accounts/login.html" class="icon-btn auth-login-btn d-none d-sm-inline-flex">
+            <span>دخول</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN ================= -->
+  <main class="container-xxl py-5 flex-grow-1">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-9">
+
+        <div class="text-center mb-4">
+          <div class="hero-tag-strip mx-auto mb-2">
+            <span class="hero-tag-text">إجابات وتوضيحات فورية</span>
+          </div>
+          <h1 class="hero-heading" style="font-size: 1.85rem;">الأسئلة الأكثر شيوعاً حول الشحن والخدمات</h1>
+          <p class="text-secondary mx-auto" style="font-size: 0.9rem; max-width: 620px;">
+            تعرّف على كافة تفاصيل الشحن السريع، وسائل الدفع في السعودية واليمن، وسياسة الضمان وحفظ الحقوق.
+          </p>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap mb-4" id="faqFilterTabs">
+          <button type="button" class="faq-category-btn active" data-cat="all">جميع الأسئلة</button>
+          <button type="button" class="faq-category-btn" data-cat="speed">سرعة التسليم والتنفيذ</button>
+          <button type="button" class="faq-category-btn" data-cat="payment">وسائل الدفع والتحويل</button>
+          <button type="button" class="faq-category-btn" data-cat="games">شحن الألعاب والـ ID</button>
+          <button type="button" class="faq-category-btn" data-cat="cards">الأكواد والبطاقات الرقمية</button>
+          <button type="button" class="faq-category-btn" data-cat="guarantee">الضمان والاسترجاع</button>
+        </div>
+
+        <!-- FAQ List Container -->
+        <div class="d-flex flex-column gap-3 mb-5" id="faqAccordion">
+
+          <!-- Item 1 -->
+          <div class="faq-item open" data-cat="speed">
+            <div class="faq-question">
+              <h3>كم يستغرق وصول الشحن إلى حسابي في اللعبة؟</h3>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              تتم جميع عمليات الشحن عن طريق الربط المباشر مع خوادم الألعاب عبر واجهات برمجة التطبيقات (API). يصل الرصيد عادةً إلى حسابك في غضون <strong>30 إلى 60 ثانية</strong> فور إتمام الدفع.
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="faq-item" data-cat="payment">
+            <div class="faq-question">
+              <h3>ما هي وسائل الدفع المدعومة في السعودية واليمن؟</h3>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              • <strong>في المملكة العربية السعودية:</strong> بطاقات مدى (Mada)، STC Pay، أبل باي (Apple Pay)، والتحويل البنكي المباشر.<br>
+              • <strong>في الجمهورية اليمنية:</strong> محفظة جيب (Jaib)، محفظة ون كاش (One Cash)، حساب بنك الكريمي (إيداع مميز)، وشبكة النجم للحوالات.<br>
+              • <strong>الدفع بالرصيد الداخلي:</strong> يمكنك أيضاً شحن رصيد محفظتك على الموقع والشراء بنقرة واحدة في أي وقت.
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="faq-item" data-cat="payment">
+            <div class="faq-question">
+              <h3>كيف يتم احتساب أسعار الصرف بين الريال السعودي واليمني والدولار؟</h3>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              يتم تحديث أسعار الصرف بشكل دوري في لوحة الإدارة بناءً على أسعار السوق المصرفية اليومية في الرياض وصنعاء وعدن، دون فرض أي هوامش ربح خفية، مع وضوح السعر الإجمالي بالعملة المختارة قبل الضغط على زر الشحن.
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="faq-item" data-cat="games">
+            <div class="faq-question">
+              <h3>هل يطلب المتجر كلمة مرور حسابي أو تسجيل الدخول إلى اللعبة؟</h3>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              <strong>قطعاً لا.</strong> نحن لا نطلب إطلاقاً كلمة المرور أو رمز التحقق أو تسجيل الدخول إلى حسابك. كل ما نحتاجه هو معرف اللاعب العام (Player ID) فقط، ويصل الشحن لحسابك مباشرة بينما تبقى لعبتك قيد التشغيل بأمان تام.
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="faq-item" data-cat="games">
+            <div class="faq-question">
+              <h3>كيف أضمن عدم إدخال معرف لاعب (Player ID) خاطئ؟</h3>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              يتضمن نموذج الشحن زر <strong>«تحقق من المعرف»</strong>، والذي يتصل بخوادم اللعبة للتأكد من وجود الحساب وعرض اسم اللاعب التقديري للتأكد منه قبل السداد. نوصي دائماً بنسخ المعرف ولصقه مباشرة من داخل بروفايل اللعبة.
+            </div>
+          </div>
+
+          <!-- Item 6 -->
+          <div class="faq-item" data-cat="cards">
+            <div class="faq-question">
+              <h3>أين أجد كود البطاقة الرقمية بعد الشراء؟</h3>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              يظهر كود البطاقة أو مفتاح الترخيص فوراً في شاشة الإيصال الرقمي مع زر نسخ بنقرة واحدة، كما يتم إدراجه تلقائياً في سجل طلباتك داخل المتجر للرجوع إليه في أي وقت.
+            </div>
+          </div>
+
+          <!-- Item 7 -->
+          <div class="faq-item" data-cat="guarantee">
+            <div class="faq-question">
+              <h3>ما هو الضمان المالي في حال تعثر وصول الشحن؟</h3>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              نلتزم بضمان استرجاع 100% للمبلغ المسدد. إذا واجهت خوادم اللعبة أي عطل حال دون وصول الرصيد خلال 15 دقيقة، يُعاد المبلغ بالكامل فوراً إلى محفظتك أو حسابك البنكي بناءً على رغبتك.
+            </div>
+          </div>
+
+          <!-- Item 8 -->
+          <div class="faq-item" data-cat="speed">
+            <div class="faq-question">
+              <h3>كيف أتتبع حالة طلبي بعد إتمام العملية؟</h3>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              يمكنك الانتقال إلى صفحة <a href="track-order.html" class="auth-link">استعلام وتتبع الطلب</a> وكتابة الرقم المرجعي للطلب (مثل: <code>#849201</code>) أو معرف اللاعب لمتابعة خطوات المعالجة والتسليم في الوقت الفعلي.
+            </div>
+          </div>
+
+          <!-- Item 9 -->
+          <div class="faq-item" data-cat="payment">
+            <div class="faq-question">
+              <h3>كيف أستفيد من محفظة جيب أو ون كاش في اليمن؟</h3>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              عند اختيار «محفظة Jaib» أو «محفظة One Cash» كوسيلة دفع، يتم ربط العملية برقم حساب محفظتك المسجل، ويمكنك أيضاً تعبئة رصيدك في المتجر عبر هذه المحافظ لاستخدامه في شحن ألعابك بمرونة عالية.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Help Banner -->
+        <div class="editorial-hero text-center py-4">
+          <h3 class="fw-bold mb-2" style="font-size: 1.15rem;">لم تجد إجابة لاستفسارك؟</h3>
+          <p class="text-secondary mb-3" style="font-size: 0.88rem;">فريق الدعم الفني جاهز لمساعدتك عبر الواتساب على مدار الساعة.</p>
+          <div class="d-flex gap-2 justify-content-center flex-wrap">
+            <a href="https://wa.me/966500000000" target="_blank" class="btn btn-brand px-4 py-2">
+              تواصل معنا عبر واتساب
+            </a>
+            <a href="contact.html" class="btn btn-ghost px-4 py-2">
+              إرسال تذكرة دعم
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="app-footer">
+    <div class="container-xxl d-flex flex-wrap align-items-center justify-content-between gap-3">
+      <div>
+        <strong>متجر الشحن السعودي اليمني</strong>
+        <span style="color:var(--muted)">— إجابات واضحة ودعم فني متواصل.</span>
+      </div>
+      <div class="footer-nav-links">
+        <a href="index.html" class="footer-auth-link">المتجر الرئيسي</a>
+        <span>•</span>
+        <a href="about.html" class="footer-auth-link">عن المتجر</a>
+        <span>•</span>
+        <a href="track-order.html" class="footer-auth-link">تتبع الطلب</a>
+        <span>•</span>
+        <a href="terms.html" class="footer-auth-link">الشروط والضمان</a>
+        <span>•</span>
+        <a href="contact.html" class="footer-auth-link">الدعم الفني</a>
+        <span>•</span>
+        <a href="accounts/login.html" class="footer-auth-link">تسجيل الدخول</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="static/js/bootstrap.min.js"></script>
+  <script>
+    const THEME_KEY = 'mdarahim-theme';
+    const SUN_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+    const MOON_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.setAttribute('data-bs-theme', theme);
+      const btn = document.getElementById('btnThemeToggle');
+      if (btn) btn.innerHTML = theme === 'dark' ? SUN_ICON : MOON_ICON;
+    }
+    let curTheme = 'dark';
+    try { curTheme = localStorage.getItem(THEME_KEY) || 'dark'; } catch(_) {}
+    applyTheme(curTheme);
+    document.getElementById('btnThemeToggle')?.addEventListener('click', () => {
+      curTheme = curTheme === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem(THEME_KEY, curTheme); } catch(_) {}
+      applyTheme(curTheme);
+    });
+
+    // Accordion Toggle
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.closest('.faq-item');
+        item.classList.toggle('open');
+      });
+    });
+
+    // Category Tabs Filter
+    document.querySelectorAll('.faq-category-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.faq-category-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.cat;
+        document.querySelectorAll('.faq-item').forEach(item => {
+          if (cat === 'all' || item.dataset.cat === cat) {
+            item.style.display = '';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

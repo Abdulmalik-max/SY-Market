@@ -1,0 +1,428 @@
+/* =========================================================
+   DESIGN TOKENS & BASE FOUNDATION
+   Understated, Modern, Human-Crafted Aesthetic
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* ===== DARK THEME (Default) ===== */
+:root,
+[data-bs-theme="dark"],
+[data-theme="dark"] {
+    /* Brand Colors - Sophisticated Deep Slate & Forest Teal */
+    --brand: #1f7a5b;
+    --brand-dark: #155740;
+    --brand-light: #2ba87e;
+    --brand-hover: #23926d;
+    --brand-soft: rgba(31, 122, 91, 0.12);
+
+    --accent: #b47539;
+    --accent-dark: #8c5726;
+    --accent-light: #d4914d;
+    --accent-soft: rgba(180, 117, 57, 0.12);
+
+    /* Neutral Surface Architecture */
+    --bg: #0d1117;
+    --bg-elevated: #161b22;
+    --surface: #171c24;
+    --surface-2: #1f2530;
+    --surface-3: #272f3d;
+    --surface-highlight: #323c4d;
+    --surface-glass: rgba(23, 28, 36, 0.92);
+
+    --border: #283342;
+    --border-light: rgba(255, 255, 255, 0.08);
+    --border-focus: var(--brand-light);
+
+    /* Typography & Contrast */
+    --font-display: 'Alexandria', 'Tajawal', system-ui, sans-serif;
+    --font-body: 'Tajawal', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --text: #f0f3f6;
+    --text-secondary: #9aa8b8;
+    --muted: #627184;
+    --text-inverse: #0d1117;
+    --success: #2ba87e;
+    --warning: #e3963e;
+    --danger: #e05252;
+    --info: #3b82f6;
+
+    /* Geometry & Subtle Elevation */
+    --radius-xs: 4px;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 9999px;
+
+    --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.25);
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.35);
+    --shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.45);
+    --shadow-dropdown: 0 10px 25px rgba(0, 0, 0, 0.55);
+
+    --header-bg: rgba(13, 17, 23, 0.92);
+    --modal-overlay: rgba(5, 7, 10, 0.78);
+    --card-gradient-from: #171c24;
+    --card-gradient-to: #171c24;
+    --search-clear-bg: #222935;
+    --code-bg: #12151b;
+    --code-color: #2ba87e;
+
+    /* Bootstrap Overrides */
+    --bs-body-bg: var(--bg);
+    --bs-body-color: var(--text);
+    --bs-primary: var(--brand);
+    --bs-primary-rgb: 31, 122, 91;
+    --bs-border-color: var(--border);
+    --bs-border-radius: var(--radius-md);
+    --bs-body-font-family: var(--font-body);
+}
+
+/* ===== LIGHT THEME ===== */
+[data-theme="light"],
+[data-bs-theme="light"] {
+    --brand: #1a694e;
+    --brand-dark: #124b37;
+    --brand-light: #238a67;
+    --brand-hover: #1f7a5b;
+    --brand-soft: rgba(26, 105, 78, 0.08);
+
+    --accent: #9a622d;
+    --accent-dark: #76491e;
+    --accent-light: #b47539;
+    --accent-soft: rgba(154, 98, 45, 0.08);
+
+    --bg: #f6f8fa;
+    --bg-elevated: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #f0f3f6;
+    --surface-3: #e4e8ed;
+    --surface-highlight: #d2d8e0;
+    --surface-glass: rgba(255, 255, 255, 0.94);
+
+    --border: #d4dae2;
+    --border-light: rgba(0, 0, 0, 0.06);
+    --border-focus: var(--brand);
+
+    --text: #171c24;
+    --text-secondary: #4a5666;
+    --muted: #6b7787;
+    --text-inverse: #ffffff;
+    --success: #1a694e;
+    --warning: #b86e24;
+    --danger: #cf3838;
+    --info: #2563eb;
+
+    --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-card: 0 2px 6px rgba(0, 0, 0, 0.06);
+    --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.09);
+    --shadow-dropdown: 0 10px 24px rgba(0, 0, 0, 0.12);
+
+    --header-bg: rgba(246, 248, 250, 0.94);
+    --modal-overlay: rgba(15, 20, 26, 0.55);
+    --card-gradient-from: #ffffff;
+    --card-gradient-to: #ffffff;
+    --search-clear-bg: #e4e8ed;
+    --code-bg: #eef2f6;
+    --code-color: #1a694e;
+
+    --bs-body-bg: var(--bg);
+    --bs-body-color: var(--text);
+    --bs-primary: var(--brand);
+    --bs-primary-rgb: 26, 105, 78;
+    --bs-border-color: var(--border);
+    --bs-border-radius: var(--radius-md);
+    --bs-body-font-family: var(--font-body);
+}
+
+/* =========================================================
+   BASE RESET & TYPOGRAPHY
+   ========================================================= */
+*, *::before, *::after {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: var(--text);
+    background-color: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    position: relative;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, .brand-title, .section-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+}
+
+p {
+    margin-bottom: 0.75rem;
+}
+
+a {
+    color: var(--brand-light);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+a:hover {
+    color: var(--brand-hover);
+}
+
+code, kbd, samp, pre {
+    font-family: var(--font-mono);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--surface-3);
+    border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--muted);
+}
+
+/* =========================================================
+   BUTTON DESIGN SYSTEM
+   Clean, Solid, Understated
+   ========================================================= */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 0.55rem 1.15rem;
+    border-radius: var(--radius-sm);
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 1.4;
+    border: 1px solid transparent;
+    user-select: none;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn:disabled, .btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Primary Brand Button */
+.btn-brand {
+    color: #ffffff !important;
+    background-color: var(--brand);
+    border-color: var(--brand);
+}
+
+.btn-brand:hover {
+    background-color: var(--brand-hover);
+    border-color: var(--brand-hover);
+    color: #ffffff !important;
+}
+
+/* Ghost / Surface Button */
+.btn-ghost {
+    background-color: var(--surface-2);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+.btn-ghost:hover {
+    background-color: var(--surface-3);
+    border-color: var(--brand-light);
+    color: var(--text);
+}
+
+/* Accent Button */
+.btn-accent {
+    color: #ffffff !important;
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.btn-accent:hover {
+    background-color: var(--accent-light);
+    border-color: var(--accent-light);
+    color: #ffffff !important;
+}
+
+/* Icon / Header Button */
+.icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    height: 36px;
+    padding: 0 0.8rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.icon-btn:hover {
+    background: var(--surface-3);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+    background: var(--surface-3);
+    color: var(--text);
+}
+
+.theme-toggle svg {
+    width: 17px;
+    height: 17px;
+}
+
+/* =========================================================
+   FORM CONTROLS & INPUT SYSTEM
+   ========================================================= */
+.form-label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+    font-family: var(--font-display);
+}
+
+.form-control,
+.form-select {
+    width: 100%;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background-color: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.88rem;
+    padding: 0.5rem 0.85rem;
+    font-family: inherit;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--surface);
+    color: var(--text);
+    border-color: var(--brand-light);
+    box-shadow: 0 0 0 2px var(--brand-soft);
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: var(--muted);
+    font-size: 0.84rem;
+}
+
+.form-control.is-invalid {
+    border-color: var(--danger);
+}
+
+.form-control.is-valid {
+    border-color: var(--success);
+}
+
+.field-error {
+    color: var(--danger);
+    font-size: 0.76rem;
+    font-weight: 500;
+    margin-top: 0.3rem;
+}
+
+/* =========================================================
+   TOAST SYSTEM
+   ========================================================= */
+.toast-app {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translate(-50%, 25px);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 1.35rem;
+    border-radius: var(--radius-full);
+    background: var(--surface-3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-dropdown);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    z-index: 1099;
+    white-space: nowrap;
+}
+
+.toast-app.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

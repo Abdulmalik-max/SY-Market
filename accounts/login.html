@@ -2,57 +2,106 @@
 <html lang="ar" dir="rtl" data-theme="dark" data-bs-theme="dark">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0a0e14">
-    <title>تسجيل الدخول | متجر الشحن السعودي اليمني</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d1117">
+  <title>تسجيل الدخول | متجر الشحن السعودي اليمني</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/css/custom.css">
-    <link rel="stylesheet" href="../static/css/auth.css">
+  <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/css/custom.css">
+  <link rel="stylesheet" href="../static/css/auth.css">
 </head>
 
 <body class="auth-page">
-    <main class="auth-card">
-        <button id="btnThemeToggle" type="button" class="theme-toggle" aria-label="تبديل الوضع الليلي/النهاري"></button>
+  <main class="auth-card">
+    <button id="btnThemeToggle" type="button" class="theme-toggle" aria-label="تبديل المظهر"></button>
 
-        <div class="auth-logo">SY</div>
-        <h1 class="auth-title">تسجيل الدخول</h1>
-        <p class="auth-sub">مرحباً بعودتك — سجّل الدخول لمتابعة طلباتك وشحن رصيدك</p>
+    <div class="auth-logo">SY</div>
+    <h1 class="auth-title">تسجيل الدخول</h1>
+    <p class="auth-sub">سجّل الدخول للوصول إلى محفظتك وسجل شحناتك</p>
 
-        <form action="" method="post" class="form" novalidate>
-            <div class="mb-3">
-                <label for="emailInput" class="form-label">البريد الإلكتروني</label>
-                <input id="emailInput" name="email" type="email" class="form-control" placeholder="name@example.com"
-                    dir="ltr" autocomplete="email" required>
-            </div>
+    <form id="loginForm" action="#" method="post" class="form" novalidate>
+      <div class="mb-3">
+        <label for="emailInput" class="form-label">البريد الإلكتروني أو رقم الهاتف</label>
+        <div class="input-with-icon-wrap">
+          <span class="input-lead-icon" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </span>
+          <input id="emailInput" name="email" type="text" class="form-control" placeholder="name@example.com أو 05XXXXXXXX"
+            dir="ltr" autocomplete="email" required>
+        </div>
+      </div>
 
-            <div class="mb-4">
-                <label for="passwordInput" class="form-label">كلمة المرور</label>
-                <input id="passwordInput" name="password" type="password" class="form-control" placeholder="••••••••"
-                    dir="ltr" autocomplete="current-password" required>
-            </div>
+      <div class="mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <label for="passwordInput" class="form-label mb-0">كلمة المرور</label>
+          <a href="https://wa.me/966500000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D9%86%D8%B3%D9%8A%D8%AA%20%D9%83%D9%84%D9%85%D8%A9%20%D9%85%D8%B1%D9%88%D8%B1%20%D8%AD%D8%B3%D8%A7%D8%A8%D9%8A" target="_blank" class="auth-link" style="font-size:0.78rem;">نسيت كلمة المرور؟</a>
+        </div>
+        <div class="password-wrap">
+          <span class="input-lead-icon" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </span>
+          <input id="passwordInput" name="password" type="password" class="form-control" placeholder="••••••••"
+            dir="ltr" autocomplete="current-password" required>
+          <button type="button" class="password-toggle-btn" id="btnTogglePassword" aria-label="إظهار/إخفاء كلمة المرور">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
+      </div>
 
-            <button type="submit" class="btn btn-brand w-100">تسجيل الدخول</button>
+      <div class="d-flex align-items-center justify-content-between mb-4">
+        <div class="form-check m-0">
+          <input class="form-check-input" type="checkbox" id="rememberMe" checked>
+          <label class="form-check-label" for="rememberMe" style="font-size:0.8rem;color:var(--text-secondary);cursor:pointer">
+            تذكر تسجيل الدخول
+          </label>
+        </div>
+      </div>
 
-            <div class="auth-divider">أو</div>
+      <button type="submit" class="btn btn-brand w-100 py-2" id="btnLoginSubmit" style="font-size:0.92rem;">
+        تسجيل الدخول
+      </button>
 
-            <p class="auth-foot mb-0">
-                ليس لديك حساب؟
-                <a href="signup.html" class="auth-link">إنشاء حساب جديد</a>
-            </p>
+      <div class="auth-divider">أو</div>
 
-            <p class="auth-foot mt-3 mb-0">
-                <a href="../index.html" class="auth-link" style="font-size:.78rem">← العودة إلى المتجر</a>
-            </p>
-        </form>
-    </main>
+      <p class="auth-foot mb-0">
+        ليس لديك حساب بعد؟
+        <a href="signup.html" class="auth-link">إنشاء حساب جديد</a>
+      </p>
 
-    <script src="../static/js/bootstrap.min.js"></script>
-    <script src="../static/js/auth.js"></script>
+      <p class="auth-foot mt-3 mb-0">
+        <a href="../index.html" class="auth-link" style="font-size:.82rem">← العودة إلى المتجر الرئيسي</a>
+      </p>
+
+      <div class="auth-security-badge">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span>اتصال مشفر ومحمي ببروتوكول الأمان SSL 256-bit</span>
+      </div>
+    </form>
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toastBox" class="toast-app" role="status" aria-live="polite">
+    <span id="toastMsg"></span>
+  </div>
+
+  <script src="../static/js/bootstrap.min.js"></script>
+  <script src="../static/js/auth.js"></script>
 </body>
 
 </html>

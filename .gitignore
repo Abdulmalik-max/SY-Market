@@ -1,4 +1,4 @@
-static
-package.json
-vercel.json
 .idea
+node_modules
+.DS_Store
+*.log
