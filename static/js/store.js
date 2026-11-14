@@ -136,9 +136,11 @@
     function refreshWallet() {
         const a = $('#walletBalanceDisplay');
         const b = $('#walletModalBalance');
+        const c = $('#drawerWalletBalanceDisplay');
         const formatted = fmt(wallet);
         if (a) a.textContent = formatted;
         if (b) b.textContent = formatted;
+        if (c) c.textContent = formatted;
         try { localStorage.setItem('mdarahim-wallet', String(wallet)); } catch (_) {}
     }
 
@@ -180,7 +182,9 @@
     function renderOrders() {
         const box   = $('#ordersListContainer');
         const badge = $('#ordersCountBadge');
+        const dBadge = $('#drawerOrdersCountBadge');
         if (badge) badge.textContent = String(orders.length);
+        if (dBadge) dBadge.textContent = String(orders.length);
         if (!box) return;
 
         if (orders.length === 0) {
@@ -216,6 +220,8 @@
 
     const badge = $('#ordersCountBadge');
     if (badge) badge.textContent = String(orders.length);
+    const dBadge = $('#drawerOrdersCountBadge');
+    if (dBadge) dBadge.textContent = String(orders.length);
 
     /* ---------- Header Actions Wiring ---------- */
     const wire = (id, fn) => {
