@@ -193,7 +193,7 @@
               <p class="text-secondary mb-2" style="font-size:0.82rem;line-height:1.6">
                 محادثة فورية مع مسؤولي الشحن ومتابعة حالة المعاملات واستقبال إيصالات التحويل.
               </p>
-              <a id="whatsappContactBtn" href="https://wa.me/+967774060647" target="_blank" class="btn btn-brand btn-sm mt-auto">
+              <a id="whatsappContactBtn" href="https://wa.me/967774060647" target="_blank" class="btn btn-brand btn-sm mt-auto">
                 فتح محادثة واتساب
               </a>
             </div>
@@ -418,12 +418,12 @@
     btnClose?.addEventListener('click', closeDrawer);
     backdrop?.addEventListener('click', closeDrawer);
 
-    let adminPhone = '966500000000';
+    let adminPhone = '967774060647';
     try {
       const savedAdmin = localStorage.getItem('mdarahim-admin');
       if (savedAdmin) {
         const p = JSON.parse(savedAdmin);
-        if (p.whatsapp) adminPhone = p.whatsapp;
+        if (p.whatsapp && p.whatsapp !== '966500000000') adminPhone = p.whatsapp;
       }
     } catch (_) {}
     const waLink = document.getElementById('whatsappContactBtn');

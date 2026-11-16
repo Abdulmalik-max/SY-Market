@@ -961,12 +961,12 @@
 
     /* ---------- Send WhatsApp Receipt ---------- */
     $('#btnSendWhatsappReceipt')?.addEventListener('click', () => {
-        let adminPhone = '966500000000';
+        let adminPhone = '967774060647';
         try {
             const savedAdmin = localStorage.getItem('mdarahim-admin');
             if (savedAdmin) {
                 const parsed = JSON.parse(savedAdmin);
-                if (parsed.whatsapp) adminPhone = parsed.whatsapp;
+                if (parsed.whatsapp && parsed.whatsapp !== '966500000000') adminPhone = parsed.whatsapp;
             }
         } catch (_) {}
 
@@ -989,7 +989,7 @@
         if (savedAdmin) {
             const parsed = JSON.parse(savedAdmin);
             if (parsed.storeName && $('#adminStoreName')) $('#adminStoreName').value = parsed.storeName;
-            if (parsed.whatsapp && $('#adminWhatsappNum')) $('#adminWhatsappNum').value = parsed.whatsapp;
+            if (parsed.whatsapp && parsed.whatsapp !== '966500000000' && $('#adminWhatsappNum')) $('#adminWhatsappNum').value = parsed.whatsapp;
             if (parsed.rateSar && $('#adminRateSar')) $('#adminRateSar').value = parsed.rateSar;
             if (parsed.rateUsd && $('#adminRateUsd')) $('#adminRateUsd').value = parsed.rateUsd;
         }
@@ -999,7 +999,7 @@
         const rateSar = Number($('#adminRateSar')?.value) || 3.75;
         const rateYer = Number($('#adminRateUsd')?.value) || 530;
         const storeName = $('#adminStoreName')?.value || 'متجر الشحن السعودي اليمني';
-        const whatsapp = $('#adminWhatsappNum')?.value || '966500000000';
+        const whatsapp = $('#adminWhatsappNum')?.value || '967774060647';
 
         RATES.SAR = 1;
         RATES.USD = 1 / rateSar;

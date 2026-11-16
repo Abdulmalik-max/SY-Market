@@ -282,7 +282,7 @@
 
             <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-3 pt-3 border-top border-secondary border-opacity-25" style="font-size: 0.8rem; color: var(--muted);">
               <span>يتم تنفيذ معظم عمليات الشحن آلياً في أقل من 60 ثانية.</span>
-              <a id="directSupportLink" href="https://wa.me/966500000000" target="_blank" style="color:var(--brand-light); text-decoration:none; font-weight:600;">الدعم المباشر عبر واتساب</a>
+              <a id="directSupportLink" href="https://wa.me/967774060647" target="_blank" style="color:var(--brand-light); text-decoration:none; font-weight:600;">الدعم المباشر عبر واتساب</a>
             </div>
           </form>
         </div>
@@ -553,17 +553,21 @@
         document.getElementById('resPay').textContent = 'مدى Mada';
       }
 
-      let adminPhone = '966500000000';
+      let adminPhone = '967774060647';
       try {
         const savedAdmin = localStorage.getItem('mdarahim-admin');
         if (savedAdmin) {
           const p = JSON.parse(savedAdmin);
-          if (p.whatsapp) adminPhone = p.whatsapp;
+          if (p.whatsapp && p.whatsapp !== '966500000000') adminPhone = p.whatsapp;
         }
       } catch (_) {}
 
+      const cleanPhone = adminPhone.replace(/[^0-9]/g, '');
       const waMsg = encodeURIComponent('مرحباً متجر الشحن، أستعلم عن حالة طلبي رقم ' + orderNum);
-      document.getElementById('resWhatsappBtn').href = 'https://wa.me/' + adminPhone.replace(/[^0-9]/g, '') + '?text=' + waMsg;
+      const resWa = document.getElementById('resWhatsappBtn');
+      if (resWa) resWa.href = 'https://wa.me/' + cleanPhone + '?text=' + waMsg;
+      const directSup = document.getElementById('directSupportLink');
+      if (directSup) directSup.href = 'https://wa.me/' + cleanPhone;
 
       resBox.classList.remove('d-none');
       resBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
