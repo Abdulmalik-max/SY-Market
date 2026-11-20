@@ -144,27 +144,539 @@
         try { localStorage.setItem('mdarahim-wallet', String(wallet)); } catch (_) {}
     }
 
-    $$('[data-topup-sar]').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const add = Number(btn.dataset.topupSar);
-            wallet += add;
-            refreshWallet();
-            toast(`تمت إضافة ${add} ر.س إلى رصيد محفظتك`);
+    /* =========================================================
+       DEPOSIT & RECHARGE ENGINE (YEMEN, SAUDI, IRAQ, BINANCE)
+       ========================================================= */
+    const DEFAULT_PAY_ACCOUNTS = {
+        jaib:        '774060647',
+        onecash:     '774060647',
+        floosak:     '774060647',
+        jawali:      '774060647',
+        kuraimi:     '3001234567',
+        qutaibi:     '202145890',
+        rajhi:       'SA4480000452000012345678',
+        alinma:      'SA03050000682000098765432',
+        binance:     '284910385',
+        binanceUsdt: 'TXv8m4Kp9zW2e7Qb1Y3u5Rt6N8mJkLpQxZ'
+    };
+
+    let CUSTOM_PAY_ACCOUNTS = { ...DEFAULT_PAY_ACCOUNTS };
+    try {
+        const savedAcc = localStorage.getItem('mdarahim-payment-accounts');
+        if (savedAcc) CUSTOM_PAY_ACCOUNTS = { ...DEFAULT_PAY_ACCOUNTS, ...JSON.parse(savedAcc) };
+    } catch (_) {}
+
+    const PAYMENT_CONFIG = {
+        methods: {
+            // --- 1. YEMEN (محافظ وبنوك) ---
+            jaib: {
+                id: 'jaib',
+                country: 'ye',
+                category: 'wallets',
+                categoryTitle: 'المحافظ اليمنية',
+                name: 'محفظة جيب (Jaib)',
+                iconText: 'جيب',
+                accountLabel: 'رقم المحفظة / الحساب:',
+                getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.jaib || '774060647',
+                accountName: 'متجر الشحن المعتمد',
+                currency: 'YER',
+                currencyName: 'ريال يمني (ر.ي)',
+                defaultAmounts: [10000, 25000, 50000, 100000],
+                placeholderTxn: 'مثال: رقم الحوالة أو رقم الإشعار (مثل 8923410)',
+                instructions: 'افتح تطبيق محفظة جيب، اختر تحويل إلى محفظة أخرى، وأدخل رقم المحفظة أعلاه. ثم دوّن المبلغ المودع ومعرف العملية في المستطيلين أدناه للمطابقة والإيداع الفوري.'
+            },
+            onecash: {
+                id: 'onecash',
+                country: 'ye',
+                category: 'wallets',
+                categoryTitle: 'المحافظ اليمنية',
+                name: 'محفظة ون كاش (One Cash)',
+                iconText: 'ون كاش',
+                accountLabel: 'رقم المحفظة / رمز التاجر (84920):',
+                getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.onecash || '774060647',
+                accountName: 'متجر الشحن المعتمد',
+                currency: 'YER',
+                currencyName: 'ريال يمني (ر.ي)',
+                defaultAmounts: [10000, 25000, 50000, 100000],
+                placeholderTxn: 'مثال: رقم إشعار عملية ون كاش المرجعي',
+                instructions: 'عبر تطبيق ون كاش (One Cash)، قم بالتحويل إلى رقم المحفظة أعلاه (أو رمز التاجر: 84920)، ثم اكتب المبلغ ومعرف العملية لإيداع الرصيد فوراً.'
+            },
+            floosak: {
+                id: 'floosak',
+                country: 'ye',
+                category: 'wallets',
+                categoryTitle: 'المحافظ اليمنية',
+                name: 'محفظة فلوسك (Floosak)',
+                iconText: 'فلوسك',
+                accountLabel: 'رقم محفظة فلوسك:',
+                getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.floosak || '774060647',
+                accountName: 'متجر الشحن المعتمد',
+                currency: 'YER',
+                currencyName: 'ريال يمني (ر.ي)',
+                defaultAmounts: [10000, 25000, 50000, 100000],
+                placeholderTxn: 'مثال: رقم السند أو معرف التحويل من فلوسك',
+                instructions: 'من تطبيق فلوسك (بنك اليمن والكويت)، حوّل إلى رقم المحفظة أعلاه، ثم اكتب المبلغ ومعرف العملية في المستطيلين ليتم مطابقة الإيداع مباشرة.'
+            },
+            jawali: {
+                id: 'jawali',
+                country: 'ye',
+                category: 'wallets',
+                categoryTitle: 'المحافظ اليمنية',
+                name: 'محفظة جوالي (Jawali)',
+                iconText: 'جوالي',
+                accountLabel: 'رقم محفظة جوالي:',
+                getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.jawali || '774060647',
+                accountName: 'متجر الشحن المعتمد',
+                currency: 'YER',
+                currencyName: 'ريال يمني (ر.ي)',
+                defaultAmounts: [10000, 25000, 50000, 100000],
+                placeholderTxn: 'مثال: رقم عملية جوالي من إشعار الـ SMS',
+                instructions: 'عبر تطبيق جوالي أو عبر الرسائل النصية، أرسل الحوالة إلى رقم المحفظة، ثم أدخل المبلغ ومعرف العملية لتأكيد الإيداع التلقائي.'
+            },
+            kuraimi: {
+                id: 'kuraimi',
+                country: 'ye',
+                category: 'banks',
+                categoryTitle: 'الحسابات البنكية اليمنية',
+                name: 'مصرف الكريمي (Kuraimi)',
+                iconText: 'الكريمي',
+                accountLabel: 'رقم الحساب المميز (إيداع مميز):',
+                getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.kuraimi || '3001234567',
+                accountName: 'متجر الشحن للخدمات الرقمية',
+                currency: 'YER',
+                currencyName: 'ريال يمني (ر.ي)',
+                defaultAmounts: [15000, 30000, 75000, 150000],
+                placeholderTxn: 'مثال: رقم إشعار إيداع الكريمي أو رقم الحوالة',
+                instructions: 'عبر تطبيق كريمي جوال أو أي نقطة لكريمي، قم بالإيداع في رقم الحساب المميز أعلاه، ثم أدخل المبلغ ورقم الإشعار في المستطيلين للمطابقة والإيداع الفوري.'
+            },
+            qutaibi: {
+                id: 'qutaibi',
+                country: 'ye',
+                category: 'banks',
+                categoryTitle: 'الحسابات البنكية اليمنية',
+                name: 'مصرف القطيبي (Al-Qutaibi)',
+                iconText: 'القطيبي',
+                accountLabel: 'رقم حساب مصرف القطيبي:',
+                getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.qutaibi || '202145890',
+                accountName: 'متجر الشحن والخدمات الإلكترونية',
+                currency: 'YER',
+                currencyName: 'ريال يمني (ر.ي)',
+                defaultAmounts: [15000, 30000, 75000, 150000],
+                placeholderTxn: 'مثال: رقم إشعار حوالة القطيبي أو رقم العملية',
+                instructions: 'عبر تطبيق القطيبي لحظات أو فروع مصرف القطيبي، حوّل للحساب الموضح أعلاه، ثم أدخل المبلغ ورقم العملية في المستطيلين للمطابقة الفورية.'
+            },
+
+            // --- 2. SAUDI ARABIA (بنوك وكروت) ---
+            rajhi: {
+                id: 'rajhi',
+                country: 'sa',
+                category: 'banks',
+                categoryTitle: 'الحسابات البنكية السعودية',
+                name: 'مصرف الراجحي (Al Rajhi)',
+                iconText: 'الراجحي',
+                accountLabel: 'رقم الآيبان IBAN / رقم الحساب:',
+                getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.rajhi || 'SA4480000452000012345678',
+                secondaryInfo: 'رقم الحساب: 452000012345678',
+                accountName: 'مؤسسة متجر الشحن الرقمي',
+                currency: 'SAR',
+                currencyName: 'ريال سعودي (ر.س)',
+                defaultAmounts: [50, 100, 200, 500],
+                placeholderTxn: 'مثال: الرقم المرجعي للتحويل في الراجحي (Ref ID)',
+                instructions: 'عبر تطبيق الراجحي أو التحويل السريع، حوّل المبلغ إلى الآيبان أعلاه، ثم أدخل المبلغ المودع والرقم المرجعي في المستطيلين للمطابقة الفورية.'
+            },
+            alinma: {
+                id: 'alinma',
+                country: 'sa',
+                category: 'banks',
+                categoryTitle: 'الحسابات البنكية السعودية',
+                name: 'بنك الإنماء (Alinma Bank)',
+                iconText: 'الإنماء',
+                accountLabel: 'رقم الآيبان IBAN / الحساب:',
+                getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.alinma || 'SA03050000682000098765432',
+                secondaryInfo: 'رقم الحساب: 682000098765432',
+                accountName: 'مؤسسة متجر الشحن الرقمي',
+                currency: 'SAR',
+                currencyName: 'ريال سعودي (ر.س)',
+                defaultAmounts: [50, 100, 200, 500],
+                placeholderTxn: 'مثال: الرقم المرجعي لعملية التحويل في الإنماء',
+                instructions: 'عبر تطبيق الإنماء أو التحويل الفوري، حوّل المبلغ للحساب أعلاه، ثم اكتب المبلغ والرقم المرجعي في المستطيلين ليتم إيداع الرصيد فوراً.'
+            },
+            sawa: {
+                id: 'sawa',
+                country: 'sa',
+                category: 'cards',
+                categoryTitle: 'كروت الشحن السعودية',
+                name: 'كروت سوا (STC Sawa)',
+                iconText: 'سوا',
+                accountLabel: 'طريقة الشحن:',
+                getAccountNumber: () => 'شحن مباشر عبر كود بطاقة سوا (PIN Code)',
+                accountName: 'نظام مطابقة كروت STC سوا',
+                currency: 'SAR',
+                currencyName: 'ريال سعودي (ر.س)',
+                defaultAmounts: [20, 50, 100, 200],
+                placeholderTxn: 'أدخل رقم كود بطاقة سوا المكوّن من 14 أو 16 رقماً',
+                instructions: 'اشترِ بطاقة شحن سوا، أدخل قيمة الكرت في المستطيل الأول، ورقم كود البطاقة السري في المستطيل الثاني، وستتم مطابقة الكرت وإيداع الرصيد فوراً!'
+            },
+            mobily: {
+                id: 'mobily',
+                country: 'sa',
+                category: 'cards',
+                categoryTitle: 'كروت الشحن السعودية',
+                name: 'كروت موبايلي (Mobily)',
+                iconText: 'موبايلي',
+                accountLabel: 'طريقة الشحن:',
+                getAccountNumber: () => 'شحن مباشر عبر كود بطاقة موبايلي',
+                accountName: 'نظام مطابقة كروت موبايلي',
+                currency: 'SAR',
+                currencyName: 'ريال سعودي (ر.س)',
+                defaultAmounts: [20, 50, 100, 200],
+                placeholderTxn: 'أدخل رقم كود بطاقة شحن موبايلي المكوّن من 15 رقماً',
+                instructions: 'أدخل قيمة كرت شحن موبايلي في المستطيل الأول، واكتب الكود السري لكرت الشحن في المستطيل الثاني، وسيتم إيداع الرصيد في محفظتك فوراً.'
+            },
+
+            // --- 3. IRAQ (كروت آسيا سيل) ---
+            asiacell: {
+                id: 'asiacell',
+                country: 'iq',
+                category: 'cards',
+                categoryTitle: 'كروت شحن العراق',
+                name: 'كروت آسيا سيل (Asiacell)',
+                iconText: 'آسيا سيل',
+                accountLabel: 'طريقة الشحن:',
+                getAccountNumber: () => 'إيداع فوري عبر قسائم وكروت آسيا سيل',
+                accountName: 'نظام الشحن بالدينار العراقي',
+                currency: 'IQD',
+                currencyName: 'دينار عراقي (د.ع)',
+                defaultAmounts: [5000, 10000, 25000, 50000],
+                placeholderTxn: 'أدخل رقم كود كرت آسيا سيل المكوّن من 14 أو 16 رقماً',
+                instructions: 'قم بإدخال فئة كرت آسيا سيل بالدينار في المستطيل الأول، وأدخل رقم كود الكرت في المستطيل الثاني، وسيتم احتساب المعادل بالريال وإيداعه فوراً بمحفظتك.'
+            },
+
+            // --- 4. OTHER COUNTRIES (بايننس BINANCE) ---
+            binance: {
+                id: 'binance',
+                country: 'global',
+                category: 'crypto',
+                categoryTitle: 'العملات الرقمية العالمية',
+                name: 'بايننس (Binance / USDT)',
+                iconText: 'Binance',
+                accountLabel: 'Binance Pay ID / عنوان محفظة USDT:',
+                getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.binance || '284910385',
+                secondaryInfo: 'USDT (TRC-20): ' + (CUSTOM_PAY_ACCOUNTS.binanceUsdt || 'TXv8m4Kp9zW2e7Qb1Y3u5Rt6N8mJkLpQxZ'),
+                accountName: 'ShopPay_Official (Binance Pay)',
+                currency: 'USD',
+                currencyName: 'دولار رقمي (USDT)',
+                defaultAmounts: [10, 25, 50, 100],
+                placeholderTxn: 'أدخل معرّف المعاملة (TxID أو Binance Pay Order ID)',
+                instructions: 'افتح تطبيق Binance ثم اختر Binance Pay أو تحويل USDT إلى العنوان الموضح أعلاه، ثم أدخل المبلغ ومعرف العملية في المستطيلين للمطابقة والإيداع الفوري.'
+            }
+        }
+    };
+
+    let activeDepositCountry = 'ye';
+    let activeDepositMethodId = 'jaib';
+
+    function getDepositMethodsByCountry(countryId) {
+        return Object.values(PAYMENT_CONFIG.methods).filter(m => m.country === countryId);
+    }
+
+    function calculateSarEquivalent(amount, currency) {
+        const val = Number(amount) || 0;
+        if (val <= 0) return 0;
+        if (currency === 'SAR') return val;
+        if (currency === 'YER') {
+            const yerRate = RATES.YER || 140;
+            return val / yerRate;
+        }
+        if (currency === 'USD') {
+            const usdRate = 3.75;
+            return val * usdRate;
+        }
+        if (currency === 'IQD') {
+            const iqdRate = 350;
+            return val / iqdRate;
+        }
+        return val;
+    }
+
+    function updateDepositEquiv() {
+        const method = PAYMENT_CONFIG.methods[activeDepositMethodId];
+        if (!method) return;
+        const input = $('#depositAmountInput');
+        const display = $('#depositSarEquivDisplay');
+        const amt = Number(input?.value) || 0;
+        const sarVal = calculateSarEquivalent(amt, method.currency);
+        if (display) {
+            display.textContent = sarVal.toFixed(2) + ' ر.س';
+        }
+    }
+
+    function renderDepositMethods(countryId) {
+        activeDepositCountry = countryId;
+        const grid = $('#depositMethodsGrid');
+        if (!grid) return;
+
+        const methods = getDepositMethodsByCountry(countryId);
+        if (!methods.length) return;
+
+        let lastCat = '';
+        let html = '';
+
+        methods.forEach(m => {
+            if (m.categoryTitle && m.categoryTitle !== lastCat) {
+                lastCat = m.categoryTitle;
+                html += `<div class="deposit-category-heading"><span>${lastCat}</span></div>`;
+            }
+            html += `
+                <button type="button" class="deposit-method-btn ${m.id === activeDepositMethodId ? 'active' : ''}" data-dep-method="${m.id}">
+                    <span class="dm-icon">${m.iconText}</span>
+                    <span class="dm-title">${m.name}</span>
+                </button>
+            `;
         });
+
+        grid.innerHTML = html;
+
+        // If active method doesn't belong to this country, select first method of this country
+        if (!methods.some(m => m.id === activeDepositMethodId)) {
+            selectDepositMethod(methods[0].id);
+        } else {
+            selectDepositMethod(activeDepositMethodId);
+        }
+    }
+
+    function selectDepositMethod(methodId) {
+        const method = PAYMENT_CONFIG.methods[methodId];
+        if (!method) return;
+        activeDepositMethodId = methodId;
+
+        // Update active class on method buttons
+        $$('#depositMethodsGrid [data-dep-method]').forEach(b => {
+            b.classList.toggle('active', b.dataset.depMethod === methodId);
+        });
+
+        // Update Account Details Card
+        const iconBadge = $('#depMethodIconBadge');
+        const titleEl   = $('#depMethodTitle');
+        const lblEl     = $('#depAccountLabel');
+        const numEl     = $('#depAccountNumber');
+        const secEl     = $('#depAccountSecondary');
+        const holderEl  = $('#depAccountHolder');
+        const instEl    = $('#depInstructions');
+
+        if (iconBadge) iconBadge.textContent = method.iconText;
+        if (titleEl)   titleEl.textContent   = method.name;
+        if (lblEl)     lblEl.textContent     = method.accountLabel;
+        if (numEl)     numEl.textContent     = method.getAccountNumber();
+
+        if (secEl) {
+            if (method.secondaryInfo) {
+                secEl.textContent = method.secondaryInfo;
+                secEl.classList.remove('d-none');
+            } else {
+                secEl.classList.add('d-none');
+            }
+        }
+
+        if (holderEl) {
+            holderEl.innerHTML = `اسم المستلم: <strong class="text-light">${method.accountName}</strong>`;
+        }
+        if (instEl) {
+            instEl.textContent = method.instructions;
+        }
+
+        // Update Rectangle 1 (Amount)
+        const currTag = $('#depositCurrencyTag');
+        if (currTag) currTag.textContent = method.currencyName;
+
+        const quickBar = $('#depositQuickAmounts');
+        if (quickBar && method.defaultAmounts) {
+            quickBar.innerHTML = method.defaultAmounts.map(a => `
+                <button type="button" class="quick-amt-btn" data-amt="${a}">+${a.toLocaleString('en-US')}</button>
+            `).join('');
+
+            $$('.quick-amt-btn', quickBar).forEach(qb => {
+                qb.addEventListener('click', () => {
+                    const inp = $('#depositAmountInput');
+                    if (inp) {
+                        inp.value = qb.dataset.amt;
+                        updateDepositEquiv();
+                    }
+                });
+            });
+        }
+
+        // Update Rectangle 2 (Txn ID)
+        const txnInp = $('#depositTxnIdInput');
+        if (txnInp) {
+            txnInp.placeholder = method.placeholderTxn;
+        }
+
+        updateDepositEquiv();
+    }
+
+    // Country Tab click wiring
+    $('#depositCountryTabs')?.addEventListener('click', e => {
+        const tab = e.target.closest('[data-country]');
+        if (!tab) return;
+        $$('#depositCountryTabs [data-country]').forEach(t => t.classList.toggle('active', t === tab));
+        renderDepositMethods(tab.dataset.country);
     });
 
-    $('#btnCustomTopup')?.addEventListener('click', () => {
-        const inp = $('#customTopupInput');
-        const amt = Number(inp?.value);
-        if (amt && amt > 0) {
-            wallet += amt;
-            refreshWallet();
-            if (inp) inp.value = '';
-            toast(`تمت إضافة ${amt} ر.س إلى رصيدك بنجاح`);
-        } else {
-            toast('يرجى إدخال مبلغ صحيح');
+    // Method button click wiring
+    $('#depositMethodsGrid')?.addEventListener('click', e => {
+        const btn = e.target.closest('[data-dep-method]');
+        if (!btn) return;
+        selectDepositMethod(btn.dataset.depMethod);
+    });
+
+    // Amount input live recalculation
+    $('#depositAmountInput')?.addEventListener('input', updateDepositEquiv);
+
+    // Copy Account Button
+    $('#btnCopyDepAccount')?.addEventListener('click', async () => {
+        const method = PAYMENT_CONFIG.methods[activeDepositMethodId];
+        if (!method) return;
+        const num = method.getAccountNumber();
+        try {
+            await navigator.clipboard.writeText(num);
+            const btnText = $('#depCopyBtnText');
+            if (btnText) {
+                const old = btnText.textContent;
+                btnText.textContent = '✓ تم النسخ!';
+                setTimeout(() => { btnText.textContent = old; }, 2000);
+            }
+            toast(`تم نسخ الرقم (${num}) بنجاح`);
+        } catch (_) {
+            toast('يرجى نسخ الرقم يدوياً: ' + num);
         }
     });
+
+    // Submit Deposit Button ("على طول بعد مايدخل الثنتين اذا كان مطابق بينودع المبلغ")
+    $('#btnSubmitDeposit')?.addEventListener('click', () => {
+        const method = PAYMENT_CONFIG.methods[activeDepositMethodId];
+        if (!method) return;
+
+        const amtInp = $('#depositAmountInput');
+        const txnInp = $('#depositTxnIdInput');
+        const statusBox = $('#depositMatchStatus');
+
+        const amtVal = Number(amtInp?.value);
+        const txnVal = (txnInp?.value || '').trim();
+
+        // 1. Validate Rectangle 1: Amount
+        if (!amtVal || amtVal <= 0) {
+            if (statusBox) {
+                statusBox.className = 'p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger mb-3';
+                statusBox.innerHTML = '⚠️ <strong>تنبيه في المستطيل الأول:</strong> يرجى إدخال المبلغ المودع أو فئة الكرت.';
+                statusBox.classList.remove('d-none');
+            }
+            amtInp?.focus();
+            return;
+        }
+
+        // 2. Validate Rectangle 2: Operation ID
+        if (!txnVal || txnVal.length < 4) {
+            if (statusBox) {
+                statusBox.className = 'p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger mb-3';
+                statusBox.innerHTML = '⚠️ <strong>تنبيه في المستطيل الثاني:</strong> يرجى كتابة معرّف العملية (رقم الحوالة أو رقم الإشعار أو كود الكرت).';
+                statusBox.classList.remove('d-none');
+            }
+            txnInp?.focus();
+            return;
+        }
+
+        // 3. Prevent duplicate use of the same Transaction ID
+        let usedTxns = [];
+        try {
+            const savedTxns = localStorage.getItem('mdarahim-used-txns');
+            if (savedTxns) usedTxns = JSON.parse(savedTxns);
+        } catch (_) {}
+
+        if (usedTxns.includes(txnVal.toLowerCase())) {
+            if (statusBox) {
+                statusBox.className = 'p-2 rounded bg-warning bg-opacity-10 border border-warning text-warning mb-3';
+                statusBox.innerHTML = '⚠️ تم استخدام معرّف العملية هذا مسبقاً! يرجى التأكد من كتابة رقم الحوالة الجديد.';
+                statusBox.classList.remove('d-none');
+            }
+            return;
+        }
+
+        // Calculate SAR Equivalent
+        const sarEquiv = calculateSarEquivalent(amtVal, method.currency);
+
+        // Verification State
+        const submitBtn = $('#btnSubmitDeposit');
+        const submitText = $('#btnSubmitDepositText');
+        const submitIcon = $('#btnSubmitDepositIcon');
+
+        if (submitBtn) submitBtn.disabled = true;
+        if (submitText) submitText.textContent = 'جاري مطابقة العملية والتحقق الفوري مع النظام البنكي...';
+        if (statusBox) {
+            statusBox.className = 'p-2 rounded bg-info bg-opacity-10 border border-info text-info mb-3';
+            statusBox.innerHTML = '⏳ جاري الاتصال ومطابقة السجل البنكي للإيداع...';
+            statusBox.classList.remove('d-none');
+        }
+
+        setTimeout(() => {
+            if (submitBtn) submitBtn.disabled = false;
+            if (submitText) submitText.textContent = 'تأكيد ومطابقة الإيداع فوراً';
+            if (statusBox) statusBox.classList.add('d-none');
+
+            // MATCH SUCCESS! Deposit amount immediately into wallet
+            wallet += sarEquiv;
+            refreshWallet();
+
+            // Record used transaction ID
+            usedTxns.push(txnVal.toLowerCase());
+            try { localStorage.setItem('mdarahim-used-txns', JSON.stringify(usedTxns)); } catch (_) {}
+
+            // Record in orders/history
+            const depOrderNum = '#DEP' + Math.floor(100000 + Math.random() * 900000);
+            const depRecord = {
+                orderNum: depOrderNum,
+                appName: 'إيداع وشحن محفظة',
+                pkgName: method.name,
+                playerId: 'معرف: ' + txnVal,
+                payMethod: method.name,
+                amountDisplay: '+' + sarEquiv.toFixed(2) + ' ر.س (' + amtVal.toLocaleString('en-US') + ' ' + method.currency + ')',
+                date: new Date().toLocaleString('ar-SA')
+            };
+            orders.unshift(depRecord);
+            saveOrders();
+            renderOrders();
+
+            // Populate Success View
+            const sucAmt = $('#sucDepositAmount');
+            const sucMth = $('#sucDepositMethod');
+            const sucTxn = $('#sucDepositTxn');
+            const sucBal = $('#sucDepositNewBalance');
+
+            if (sucAmt) sucAmt.textContent = `+${sarEquiv.toFixed(2)} ر.س (${amtVal.toLocaleString('en-US')} ${method.currency})`;
+            if (sucMth) sucMth.textContent = method.name;
+            if (sucTxn) sucTxn.textContent = txnVal;
+            if (sucBal) sucBal.textContent = fmt(wallet);
+
+            $('#depositFlowContainer')?.classList.add('d-none');
+            $('#depositSuccessView')?.classList.remove('d-none');
+
+            // Reset inputs
+            if (amtInp) amtInp.value = '';
+            if (txnInp) txnInp.value = '';
+            updateDepositEquiv();
+
+            toast(`✓ تمت مطابقة العملية وإيداع ${sarEquiv.toFixed(2)} ر.س في محفظتك بنجاح!`);
+        }, 800);
+    });
+
+    // Deposit Again button wiring
+    $('#btnDepositAgain')?.addEventListener('click', () => {
+        $('#depositSuccessView')?.classList.add('d-none');
+        $('#depositFlowContainer')?.classList.remove('d-none');
+    });
+
+    // Initialize Deposit View on Load
+    renderDepositMethods('ye');
 
     refreshWallet();
 
@@ -779,22 +1291,36 @@
     let total = 0;
 
     const PAY_LABELS = {
-        wallet:   'محفظة الموقع الإلكترونية',
+        wallet:   'رصيد المحفظة الإلكترونية',
+        // اليمن:
+        jaib:     'محفظة جيب (Jaib) - اليمن',
+        onecash:  'محفظة ون كاش (One Cash) - اليمن',
+        floosak:  'محفظة فلوسك (Floosak) - اليمن',
+        jawali:   'محفظة جوالي (Jawali) - اليمن',
+        kuraimi:  'مصرف الكريمي (إيداع مميز) - اليمن',
+        qutaibi:  'مصرف القطيبي - اليمن',
+        // السعودية:
+        rajhi:    'مصرف الراجحي - السعودية',
+        alinma:   'بنك الإنماء - السعودية',
+        sawa:     'كروت سوا (STC) - السعودية',
+        mobily:   'كروت موبايلي - السعودية',
+        // العراق:
+        asiacell: 'كروت آسيا سيل - العراق',
+        // باقي الدول:
+        binance:  'Binance Pay (USDT) - عالمي',
+        // احتياطي
         mada:     'بطاقة مدى Mada',
         stcpay:   'STC Pay',
-        applepay: 'Apple Pay',
-        jaib:     'جيب (Jaib) - محفظة إلكترونية',
-        onecash:  'ون كاش (One Cash) - محفظة نقدية',
-        kuraimi:  'بنك الكريمي (إيداع مميز)',
-        najm:     'شبكة النجم للحوالات',
-        tabby:    'تابي Tabby',
-        bank:     'تحويل بنكي مباشر'
+        applepay: 'Apple Pay'
     };
 
     function setTotal(v) {
         total = v;
         const el = $('#modalTotalPrice');
         if (el) el.textContent = fmt(v);
+        if (currentPay !== 'wallet') {
+            updateTopupPaymentMethod(currentPay);
+        }
     }
 
     function renderPackages() {
@@ -820,6 +1346,67 @@
             setTotal(currentPkg.price);
         };
     }
+
+    function updateTopupPaymentMethod(payId) {
+        currentPay = payId;
+        const isWallet = payId === 'wallet';
+        const walletBox = $('#topupWalletStatusBox');
+        const directBox = $('#topupDirectPayBox');
+
+        if (walletBox) walletBox.classList.toggle('d-none', !isWallet);
+        if (directBox) directBox.classList.toggle('d-none', isWallet);
+
+        if (isWallet) {
+            const availEl = $('#topupWalletAvail');
+            if (availEl) availEl.textContent = fmt(wallet);
+            const warnEl = $('#topupWalletWarning');
+            if (warnEl) warnEl.classList.toggle('d-none', wallet >= total);
+        } else {
+            const method = PAYMENT_CONFIG.methods[payId];
+            if (method) {
+                const titleEl  = $('#topupDirectTitle');
+                const accValEl = $('#topupDirectAccVal');
+                const holderEl = $('#topupDirectAccHolder');
+                const amtEl    = $('#topupDirectAmount');
+                const txnEl    = $('#topupDirectTxnId');
+
+                if (titleEl)  titleEl.textContent = `بيانات الدفع المباشر عبر ${method.name}:`;
+                if (accValEl) accValEl.textContent = method.getAccountNumber();
+                if (holderEl) holderEl.textContent = `اسم المستلم: ${method.accountName} • ${method.instructions}`;
+
+                let localAmtDisplay = fmt(total);
+                if (method.currency === 'YER') {
+                    const yerVal = Math.round(total * (RATES.YER || 140));
+                    localAmtDisplay = `${fmt(total)} (ما يعادل ${yerVal.toLocaleString('en-US')} ر.ي)`;
+                } else if (method.currency === 'USD') {
+                    const usdVal = (total / 3.75).toFixed(2);
+                    localAmtDisplay = `${fmt(total)} (ما يعادل ${usdVal} USDT)`;
+                } else if (method.currency === 'IQD') {
+                    const iqdVal = Math.round(total * 350);
+                    localAmtDisplay = `${fmt(total)} (ما يعادل ${iqdVal.toLocaleString('en-US')} د.ع)`;
+                }
+
+                if (amtEl) amtEl.value = localAmtDisplay;
+                if (txnEl) {
+                    txnEl.value = '';
+                    txnEl.placeholder = method.placeholderTxn;
+                }
+            }
+        }
+    }
+
+    // Direct account copy button inside checkout modal
+    $('#btnCopyTopupAcc')?.addEventListener('click', async () => {
+        const method = PAYMENT_CONFIG.methods[currentPay];
+        if (!method) return;
+        const num = method.getAccountNumber();
+        try {
+            await navigator.clipboard.writeText(num);
+            toast(`تم نسخ الرقم (${num}) بنجاح`);
+        } catch (_) {
+            toast('الرقم: ' + num);
+        }
+    });
 
     function openTopup(app) {
         currentApp = app;
@@ -854,6 +1441,11 @@
         const status = $('#playerVerifyStatus');
         if (status) status.innerHTML = '';
 
+        // Reset to wallet by default
+        currentPay = 'wallet';
+        $$('#paymentMethodsGrid [data-pay]').forEach(b => b.classList.toggle('active', b.dataset.pay === 'wallet'));
+        updateTopupPaymentMethod('wallet');
+
         renderPackages();
         openModal('topupModal');
     }
@@ -863,7 +1455,7 @@
         const btn = e.target.closest('[data-pay]');
         if (!btn) return;
         $$('#paymentMethodsGrid [data-pay]').forEach(b => b.classList.toggle('active', b === btn));
-        currentPay = btn.dataset.pay;
+        updateTopupPaymentMethod(btn.dataset.pay);
     });
 
     /* ---------- Verify Player ID Simulation ---------- */
@@ -901,6 +1493,17 @@
             return;
         }
 
+        // Direct Payment Validation (Rectangle 2: Operation ID)
+        let directTxnId = '';
+        if (currentPay !== 'wallet') {
+            directTxnId = ($('#topupDirectTxnId')?.value || '').trim();
+            if (!directTxnId || directTxnId.length < 4) {
+                toast('يرجى كتابة معرّف العملية (رقم الحوالة أو الإشعار أو كود الكرت) في المستطيل الثاني للتحقق من الدفع');
+                $('#topupDirectTxnId')?.focus();
+                return;
+            }
+        }
+
         if (currentPay === 'wallet' && wallet < total) {
             toast('رصيد المحفظة غير كافٍ، يرجى شحن الرصيد أولاً أو اختيار وسيلة دفع أخرى');
             return;
@@ -921,7 +1524,7 @@
             orderNum,
             appName: currentApp.name,
             pkgName: currentPkg.name,
-            playerId,
+            playerId: directTxnId ? `${playerId} (معرف التحويل: ${directTxnId})` : playerId,
             payMethod: PAY_LABELS[currentPay] || 'دفع إلكتروني معتمد',
             amountDisplay,
             date: orderDate
@@ -934,7 +1537,7 @@
         $('#receiptAppName').textContent   = currentApp.name;
         $('#receiptPkgName').textContent   = currentPkg.name;
         $('#receiptTarget').textContent    = playerId;
-        $('#receiptPayMethod').textContent = PAY_LABELS[currentPay] || 'دفع إلكتروني';
+        $('#receiptPayMethod').textContent = (PAY_LABELS[currentPay] || 'دفع إلكتروني') + (directTxnId ? ` [معرف: ${directTxnId}]` : '');
         $('#receiptAmount').textContent    = amountDisplay;
 
         const showPin = !!currentApp.hasCode;
@@ -993,6 +1596,18 @@
             if (parsed.rateSar && $('#adminRateSar')) $('#adminRateSar').value = parsed.rateSar;
             if (parsed.rateUsd && $('#adminRateUsd')) $('#adminRateUsd').value = parsed.rateUsd;
         }
+
+        // Populate custom payment accounts in admin modal
+        if ($('#adminAccJaib'))        $('#adminAccJaib').value        = CUSTOM_PAY_ACCOUNTS.jaib || '774060647';
+        if ($('#adminAccOnecash'))     $('#adminAccOnecash').value     = CUSTOM_PAY_ACCOUNTS.onecash || '774060647';
+        if ($('#adminAccFloosak'))     $('#adminAccFloosak').value     = CUSTOM_PAY_ACCOUNTS.floosak || '774060647';
+        if ($('#adminAccJawali'))      $('#adminAccJawali').value      = CUSTOM_PAY_ACCOUNTS.jawali || '774060647';
+        if ($('#adminAccKuraimi'))     $('#adminAccKuraimi').value     = CUSTOM_PAY_ACCOUNTS.kuraimi || '3001234567';
+        if ($('#adminAccQutaibi'))     $('#adminAccQutaibi').value     = CUSTOM_PAY_ACCOUNTS.qutaibi || '202145890';
+        if ($('#adminAccRajhi'))       $('#adminAccRajhi').value       = CUSTOM_PAY_ACCOUNTS.rajhi || 'SA4480000452000012345678';
+        if ($('#adminAccAlinma'))      $('#adminAccAlinma').value      = CUSTOM_PAY_ACCOUNTS.alinma || 'SA03050000682000098765432';
+        if ($('#adminAccBinance'))     $('#adminAccBinance').value     = CUSTOM_PAY_ACCOUNTS.binance || '284910385';
+        if ($('#adminAccBinanceUsdt')) $('#adminAccBinanceUsdt').value = CUSTOM_PAY_ACCOUNTS.binanceUsdt || 'TXv8m4Kp9zW2e7Qb1Y3u5Rt6N8mJkLpQxZ';
     } catch (_) {}
 
     $('#btnSaveAdminSettings')?.addEventListener('click', () => {
@@ -1001,6 +1616,18 @@
         const storeName = $('#adminStoreName')?.value || 'متجر الشحن السعودي اليمني';
         const whatsapp = $('#adminWhatsappNum')?.value || '967774060647';
 
+        // Update payment accounts from admin fields
+        CUSTOM_PAY_ACCOUNTS.jaib        = $('#adminAccJaib')?.value?.trim() || CUSTOM_PAY_ACCOUNTS.jaib;
+        CUSTOM_PAY_ACCOUNTS.onecash     = $('#adminAccOnecash')?.value?.trim() || CUSTOM_PAY_ACCOUNTS.onecash;
+        CUSTOM_PAY_ACCOUNTS.floosak     = $('#adminAccFloosak')?.value?.trim() || CUSTOM_PAY_ACCOUNTS.floosak;
+        CUSTOM_PAY_ACCOUNTS.jawali      = $('#adminAccJawali')?.value?.trim() || CUSTOM_PAY_ACCOUNTS.jawali;
+        CUSTOM_PAY_ACCOUNTS.kuraimi     = $('#adminAccKuraimi')?.value?.trim() || CUSTOM_PAY_ACCOUNTS.kuraimi;
+        CUSTOM_PAY_ACCOUNTS.qutaibi     = $('#adminAccQutaibi')?.value?.trim() || CUSTOM_PAY_ACCOUNTS.qutaibi;
+        CUSTOM_PAY_ACCOUNTS.rajhi       = $('#adminAccRajhi')?.value?.trim() || CUSTOM_PAY_ACCOUNTS.rajhi;
+        CUSTOM_PAY_ACCOUNTS.alinma      = $('#adminAccAlinma')?.value?.trim() || CUSTOM_PAY_ACCOUNTS.alinma;
+        CUSTOM_PAY_ACCOUNTS.binance     = $('#adminAccBinance')?.value?.trim() || CUSTOM_PAY_ACCOUNTS.binance;
+        CUSTOM_PAY_ACCOUNTS.binanceUsdt = $('#adminAccBinanceUsdt')?.value?.trim() || CUSTOM_PAY_ACCOUNTS.binanceUsdt;
+
         RATES.SAR = 1;
         RATES.USD = 1 / rateSar;
         RATES.YER = rateYer / rateSar;
@@ -1008,12 +1635,14 @@
         try {
             localStorage.setItem('mdarahim-rates', JSON.stringify(RATES));
             localStorage.setItem('mdarahim-admin', JSON.stringify({ rateSar, rateUsd: rateYer, storeName, whatsapp }));
+            localStorage.setItem('mdarahim-payment-accounts', JSON.stringify(CUSTOM_PAY_ACCOUNTS));
         } catch (_) {}
 
         closeModal('adminModal');
         refreshWallet();
+        selectDepositMethod(activeDepositMethodId);
         renderDemo(true);
-        toast('تم حفظ أسعار الصرف وإعدادات المتجر');
+        toast('تم حفظ أسعار الصرف وحسابات الدفع بنجاح');
     });
 
     /* ==========================================================
