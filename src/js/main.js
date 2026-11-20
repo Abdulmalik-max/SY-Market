@@ -1,4 +1,4 @@
-/* =========================================================
+﻿/* =========================================================
    Store page logic (index.html)
    Clean, Understated, Professional Product Architecture
    Includes complete catalog with 72 tailored services/games,
@@ -100,7 +100,7 @@
         if (!$('.app-modal.show')) document.body.style.overflow = '';
     }
     window.openAppModal  = openModal;
-    window.closeAppModal = closeModal;
+    window.closeAppModal = closeModal; window.openOrdersModal = () => { renderOrders(); openModal('ordersModal'); };
 
     $$('.app-modal').forEach(m => {
         m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); });
@@ -724,7 +724,7 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center pt-1" style="font-size:.72rem;">
                     <span style="color:var(--muted)">${o.date || 'اليوم'}</span>
-                    <a href="track-order.html?order=${encodeURIComponent(o.orderNum)}" class="auth-link" style="font-size:.74rem">تتبع حالة الشحن ←</a>
+                    <a href="pages/track-order.html?order=${encodeURIComponent(o.orderNum)}" class="auth-link" style="font-size:.74rem">تتبع حالة الشحن ←</a>
                 </div>
             </div>
         `).join('');
@@ -1653,108 +1653,108 @@
             cat: 'games',
             label: 'ألعاب الفيديو والشحن الفوري',
             items: [
-                { name: 'PUBG Mobile', image: 'images/pubg.png', price: 19.99, popular: true },
-                { name: 'Free Fire', image: 'images/freefire.png', price: 9.99, popular: true },
-                { name: 'Call of Duty Mobile', image: 'images/call of duty.png', price: 14.99, popular: true },
-                { name: 'Fortnite V-Bucks', image: 'images/fortnite.png', price: 39.99, popular: true },
-                { name: 'eFootball PES', image: 'images/efootball.png', price: 18.00, isNew: true, popular: true },
-                { name: 'Roblox Robux', image: 'images/Roblox.png', price: 24.99, popular: true },
-                { name: 'Yalla Ludo', image: 'images/Yalla Ludo.png', price: 12.99, popular: true },
-                { name: 'Jawaker', image: 'images/jawaker.png', price: 19.99, popular: true },
-                { name: 'Brawl Stars', image: 'images/BrawlStars.png', price: 15.00, popular: true },
-                { name: 'Clash of Clans', image: 'images/clash-of-clans.png', price: 24.99, popular: true },
-                { name: 'Clash Royale', image: 'images/ClashRoyale.png', price: 24.99 },
-                { name: 'Mobile Legends', image: 'images/mobile-legends.png', price: 14.99, popular: true },
-                { name: 'Genshin Impact', image: 'images/Genshin Impact.png', price: 26.00, isNew: true },
-                { name: 'Minecraft', image: 'images/minecraft.png', price: 39.99, popular: true },
-                { name: 'Delta Force', image: 'images/DeltaForce.png', price: 34.99, isNew: true },
-                { name: 'Arena Breakout', image: 'images/ArenaBreakout.png', price: 12.00, isNew: true },
-                { name: 'Blood Strike', image: 'images/BloodStrike.png', price: 11.99, isNew: true },
-                { name: 'Farlight 84', image: 'images/farlight84.png', price: 12.00, isNew: true },
-                { name: 'Apex Legends', image: 'images/Apex.png', price: 44.99, isNew: true },
-                { name: 'Honor of Kings', image: 'images/HonorOfKings.png', price: 12.99, isNew: true },
-                { name: 'Whiteout Survival', image: 'images/WhiteoutSurvival.png', price: 18.00, isNew: true, popular: true },
-                { name: 'Last War: Survival', image: 'images/LastWarSurvival.png', price: 16.00, isNew: true },
-                { name: 'Revenge of the Sultans', image: 'images/Revenge of the Sultans.png', price: 19.00, popular: true },
-                { name: '8 Ball Pool', image: 'images/BallPool8.png', price: 15.99, popular: true },
-                { name: 'TopTop', image: 'images/TopTop.png', price: 15.00, popular: true },
-                { name: 'Lords Mobile', image: 'images/LordsMobile.png', price: 15.00 },
-                { name: 'Boom Beach', image: 'images/BoomBeach.png', price: 24.99 },
-                { name: 'Hay Day', image: 'images/HayDay.png', price: 19.99 },
-                { name: 'King Shot', image: 'images/Kinfshot.png', price: 14.00 },
-                { name: 'King of Avalon', image: 'images/KingOfAvalon.png', price: 18.00 },
-                { name: 'Ludo Club', image: 'images/LudoClub.png', price: 14.99 },
-                { name: 'Ludo World', image: 'images/LudoWorld.png', price: 14.99 },
-                { name: 'Top War Battle Game', image: 'images/TopWarBattleGame.png', price: 15.00 },
-                { name: 'War Robots', image: 'images/WarRobots.png', price: 18.00 }
+                { name: 'PUBG Mobile', image: 'public/images/games/pubg.png', price: 19.99, popular: true },
+                { name: 'Free Fire', image: 'public/images/games/freefire.png', price: 9.99, popular: true },
+                { name: 'Call of Duty Mobile', image: 'public/images/games/call-of-duty.png', price: 14.99, popular: true },
+                { name: 'Fortnite V-Bucks', image: 'public/images/games/fortnite.png', price: 39.99, popular: true },
+                { name: 'eFootball PES', image: 'public/images/games/efootball.png', price: 18.00, isNew: true, popular: true },
+                { name: 'Roblox Robux', image: 'public/images/games/Roblox.png', price: 24.99, popular: true },
+                { name: 'Yalla Ludo', image: 'public/images/games/yalla-ludo.png', price: 12.99, popular: true },
+                { name: 'Jawaker', image: 'public/images/games/jawaker.png', price: 19.99, popular: true },
+                { name: 'Brawl Stars', image: 'public/images/games/BrawlStars.png', price: 15.00, popular: true },
+                { name: 'Clash of Clans', image: 'public/images/games/clash-of-clans.png', price: 24.99, popular: true },
+                { name: 'Clash Royale', image: 'public/images/games/ClashRoyale.png', price: 24.99 },
+                { name: 'Mobile Legends', image: 'public/images/games/mobile-legends.png', price: 14.99, popular: true },
+                { name: 'Genshin Impact', image: 'public/images/games/genshin-impact.png', price: 26.00, isNew: true },
+                { name: 'Minecraft', image: 'public/images/games/minecraft.png', price: 39.99, popular: true },
+                { name: 'Delta Force', image: 'public/images/games/DeltaForce.png', price: 34.99, isNew: true },
+                { name: 'Arena Breakout', image: 'public/images/games/ArenaBreakout.png', price: 12.00, isNew: true },
+                { name: 'Blood Strike', image: 'public/images/games/BloodStrike.png', price: 11.99, isNew: true },
+                { name: 'Farlight 84', image: 'public/images/games/farlight84.png', price: 12.00, isNew: true },
+                { name: 'Apex Legends', image: 'public/images/games/Apex.png', price: 44.99, isNew: true },
+                { name: 'Honor of Kings', image: 'public/images/games/HonorOfKings.png', price: 12.99, isNew: true },
+                { name: 'Whiteout Survival', image: 'public/images/games/WhiteoutSurvival.png', price: 18.00, isNew: true, popular: true },
+                { name: 'Last War: Survival', image: 'public/images/games/LastWarSurvival.png', price: 16.00, isNew: true },
+                { name: 'Revenge of the Sultans', image: 'public/images/games/revenge-of-the-sultans.png', price: 19.00, popular: true },
+                { name: '8 Ball Pool', image: 'public/images/games/BallPool8.png', price: 15.99, popular: true },
+                { name: 'TopTop', image: 'public/images/games/TopTop.png', price: 15.00, popular: true },
+                { name: 'Lords Mobile', image: 'public/images/games/LordsMobile.png', price: 15.00 },
+                { name: 'Boom Beach', image: 'public/images/games/BoomBeach.png', price: 24.99 },
+                { name: 'Hay Day', image: 'public/images/games/HayDay.png', price: 19.99 },
+                { name: 'King Shot', image: 'public/images/games/Kinfshot.png', price: 14.00 },
+                { name: 'King of Avalon', image: 'public/images/games/KingOfAvalon.png', price: 18.00 },
+                { name: 'Ludo Club', image: 'public/images/games/LudoClub.png', price: 14.99 },
+                { name: 'Ludo World', image: 'public/images/games/LudoWorld.png', price: 14.99 },
+                { name: 'Top War Battle Game', image: 'public/images/games/TopWarBattleGame.png', price: 15.00 },
+                { name: 'War Robots', image: 'public/images/games/WarRobots.png', price: 18.00 }
             ]
         },
         {
             cat: 'cards',
             label: 'بطاقات الشراء والألعاب الرقمية',
             items: [
-                { name: 'Google Play', image: 'images/Google Play.png', price: 19.99, hasCode: true, popular: true },
-                { name: 'Apple Gift Card', image: 'images/Applecard.png', price: 19.99, hasCode: true, popular: true },
-                { name: 'iTunes', image: 'images/iTunes.png', price: 37.50, hasCode: true },
-                { name: 'PlayStation Store', image: 'images/PlayStation.png', price: 39.99, hasCode: true, popular: true },
-                { name: 'Xbox Game Pass', image: 'images/xbox-game-pass.png', price: 59.99, hasCode: true, isNew: true, popular: true },
-                { name: 'Razer Gold', image: 'images/razergold.png', price: 19.00, hasCode: true, popular: true },
-                { name: 'Virtual Mastercard', image: 'images/Mastercard.png', price: 42.00, hasCode: true, popular: true }
+                { name: 'Google Play', image: 'public/images/cards/google-play.png', price: 19.99, hasCode: true, popular: true },
+                { name: 'Apple Gift Card', image: 'public/images/cards/Applecard.png', price: 19.99, hasCode: true, popular: true },
+                { name: 'iTunes', image: 'public/images/cards/iTunes.png', price: 37.50, hasCode: true },
+                { name: 'PlayStation Store', image: 'public/images/cards/PlayStation.png', price: 39.99, hasCode: true, popular: true },
+                { name: 'Xbox Game Pass', image: 'public/images/cards/xbox-game-pass.png', price: 59.99, hasCode: true, isNew: true, popular: true },
+                { name: 'Razer Gold', image: 'public/images/cards/razergold.png', price: 19.00, hasCode: true, popular: true },
+                { name: 'Virtual Mastercard', image: 'public/images/cards/Mastercard.png', price: 42.00, hasCode: true, popular: true }
             ]
         },
         {
             cat: 'services',
             label: 'الذكاء الاصطناعي والخدمات الرقمية',
             items: [
-                { name: 'ChatGPT Plus', image: 'images/chatgpt.png', price: 79.99, isNew: true, popular: true },
-                { name: 'Gemini Advanced', image: 'images/gemini.png', price: 74.99, isNew: true, popular: true },
-                { name: 'Telegram Premium', image: 'images/PremiumTelegramSubscription.png', price: 39.99, isNew: true, popular: true },
-                { name: 'Telegram Stars', image: 'images/TelegramStars.png', price: 12.50, isNew: true, popular: true },
-                { name: 'Telegram Gifts', image: 'images/BuyingAndsellingTelegramGifts.jpg', price: 18.50, isNew: true },
-                { name: 'Snapchat Plus', image: 'images/Snapchat.png', price: 22.00, isNew: true },
-                { name: 'X Premium (Twitter)', image: 'images/x.png', price: 18.00, isNew: true },
-                { name: 'WhatsApp Services', image: 'images/WhatsApp.png', price: 19.00 },
-                { name: 'Telegram Services', image: 'images/Telegram.png', price: 15.00 },
-                { name: 'Instagram Services', image: 'images/instagram.png', price: 20.00 },
-                { name: 'Facebook Services', image: 'images/facebook.png', price: 25.00 }
+                { name: 'ChatGPT Plus', image: 'public/images/services/chatgpt.png', price: 79.99, isNew: true, popular: true },
+                { name: 'Gemini Advanced', image: 'public/images/services/gemini.png', price: 74.99, isNew: true, popular: true },
+                { name: 'Telegram Premium', image: 'public/images/services/PremiumTelegramSubscription.png', price: 39.99, isNew: true, popular: true },
+                { name: 'Telegram Stars', image: 'public/images/services/TelegramStars.png', price: 12.50, isNew: true, popular: true },
+                { name: 'Telegram Gifts', image: 'public/images/services/BuyingAndsellingTelegramGifts.jpg', price: 18.50, isNew: true },
+                { name: 'Snapchat Plus', image: 'public/images/services/Snapchat.png', price: 22.00, isNew: true },
+                { name: 'X Premium (Twitter)', image: 'public/images/services/x.png', price: 18.00, isNew: true },
+                { name: 'WhatsApp Services', image: 'public/images/services/WhatsApp.png', price: 19.00 },
+                { name: 'Telegram Services', image: 'public/images/services/Telegram.png', price: 15.00 },
+                { name: 'Instagram Services', image: 'public/images/services/instagram.png', price: 20.00 },
+                { name: 'Facebook Services', image: 'public/images/services/facebook.png', price: 25.00 }
             ]
         },
         {
             cat: 'entertainment',
             label: 'الترفيه واشتراكات المشاهدة',
             items: [
-                { name: 'Shahid VIP', image: 'images/Shahid VIP.png', price: 39.99, hasCode: true, popular: true },
-                { name: 'Netflix', image: 'images/Netflix.png', price: 49.99, hasCode: true, popular: true },
-                { name: 'Spotify Premium', image: 'images/Spotify.png', price: 29.99, hasCode: true },
-                { name: 'Hydra TV IPTV', image: 'images/HydraTV.png', price: 45.00, hasCode: true },
-                { name: 'Nova IPTV', image: 'images/Nova.png', price: 40.00, hasCode: true }
+                { name: 'Shahid VIP', image: 'public/images/entertainment/shahid-vip.png', price: 39.99, hasCode: true, popular: true },
+                { name: 'Netflix', image: 'public/images/entertainment/Netflix.png', price: 49.99, hasCode: true, popular: true },
+                { name: 'Spotify Premium', image: 'public/images/entertainment/Spotify.png', price: 29.99, hasCode: true },
+                { name: 'Hydra TV IPTV', image: 'public/images/entertainment/HydraTV.png', price: 45.00, hasCode: true },
+                { name: 'Nova IPTV', image: 'public/images/entertainment/Nova.png', price: 40.00, hasCode: true }
             ]
         },
         {
             cat: 'chat',
             label: 'برامج المحادثات الصوتية واللايف',
             items: [
-                { name: 'TikTok Coins', image: 'images/TikTok Coins.png', price: 19.99, popular: true },
-                { name: 'Bigo Live Diamonds', image: 'images/Bigolive.png', price: 24.99, popular: true },
-                { name: 'Imo Diamonds', image: 'images/imo.png', price: 16.50 },
-                { name: 'Likee Diamonds', image: 'images/Likee.png', price: 19.99 },
-                { name: 'Ahlan Chat', image: 'images/Ahlan.png', price: 19.99 },
-                { name: 'YoHo Chat', image: 'images/YoHo.png', price: 24.99 },
-                { name: 'Sugo Chat', image: 'images/Sugo.png', price: 24.99 },
-                { name: 'Talk Show', image: 'images/talk-show.png', price: 29.99 },
-                { name: 'Kafu Chat', image: 'images/Kafu.png', price: 22.00 },
-                { name: 'Party Star', image: 'images/PartyStar.png', price: 21.00 },
-                { name: 'Saya Chat', image: 'images/Saya.png', price: 19.99 },
-                { name: 'YoYo Chat', image: 'images/YoYochat.png', price: 23.50 }
+                { name: 'TikTok Coins', image: 'public/images/chat/tiktok-coins.png', price: 19.99, popular: true },
+                { name: 'Bigo Live Diamonds', image: 'public/images/chat/Bigolive.png', price: 24.99, popular: true },
+                { name: 'Imo Diamonds', image: 'public/images/chat/imo.png', price: 16.50 },
+                { name: 'Likee Diamonds', image: 'public/images/chat/Likee.png', price: 19.99 },
+                { name: 'Ahlan Chat', image: 'public/images/chat/Ahlan.png', price: 19.99 },
+                { name: 'YoHo Chat', image: 'public/images/chat/YoHo.png', price: 24.99 },
+                { name: 'Sugo Chat', image: 'public/images/chat/Sugo.png', price: 24.99 },
+                { name: 'Talk Show', image: 'public/images/chat/talk-show.png', price: 29.99 },
+                { name: 'Kafu Chat', image: 'public/images/chat/Kafu.png', price: 22.00 },
+                { name: 'Party Star', image: 'public/images/chat/PartyStar.png', price: 21.00 },
+                { name: 'Saya Chat', image: 'public/images/chat/Saya.png', price: 19.99 },
+                { name: 'YoYo Chat', image: 'public/images/chat/YoYochat.png', price: 23.50 }
             ]
         },
         {
             cat: 'pc',
             label: 'أنظمة وبرامج الكمبيوتر',
             items: [
-                { name: 'Windows 11 Pro', image: 'images/Windows11.png', price: 159.99, hasCode: true, isNew: true, popular: true },
-                { name: 'Windows 10 Pro', image: 'images/Windows10.png', price: 129.99, hasCode: true },
-                { name: 'Microsoft Office 365', image: 'images/Office 365.png', price: 119.99, hasCode: true, popular: true }
+                { name: 'Windows 11 Pro', image: 'public/images/pc/Windows11.png', price: 159.99, hasCode: true, isNew: true, popular: true },
+                { name: 'Windows 10 Pro', image: 'public/images/pc/Windows10.png', price: 129.99, hasCode: true },
+                { name: 'Microsoft Office 365', image: 'public/images/pc/office-365.png', price: 119.99, hasCode: true, popular: true }
             ]
         }
     ];
@@ -1768,7 +1768,7 @@
 
         if (shouldRender) {
             wrap.innerHTML = DEMO.map(sec => `
-                <section class="app-section" data-cat="${sec.cat}">
+                <section id="sec-${sec.cat}" class="app-section" data-cat="${sec.cat}">
                     <div class="section-head">
                         <h2 class="section-title">
                             ${sec.label}
@@ -1779,7 +1779,7 @@
                         ${sec.items.map(app => `
                             <div class="app-card-col">
                                 <button type="button" class="app-card"
-                                        data-name="${app.name}"
+                                        data-name="${app.name}" data-price="${app.price}"
                                         data-image="${app.image || ''}"
                                         data-icon="${app.icon || ''}"
                                         data-cat="${sec.label}"
@@ -1822,3 +1822,4 @@
 
     renderDemo();
 })();
+
