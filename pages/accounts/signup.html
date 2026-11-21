@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0d1117">
-  <title>إنشاء حساب جديد | منصة رصيد — شحن الألعاب والبطاقات</title>
+  <meta name="theme-color" content="#0b0f15">
+  <title>إنشاء حساب جديد | رصيد — RASEED</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../../src/vendor/bootstrap.min.css">
   <link rel="stylesheet" href="../../src/css/base.css">
@@ -20,11 +20,14 @@
   <main class="auth-card wide">
     <button id="btnThemeToggle" type="button" class="theme-toggle" aria-label="تبديل المظهر"></button>
 
-    <div class="auth-logo">رصيد</div>
-    <h1 class="auth-title">إنشاء حساب جديد</h1>
-    <p class="auth-sub">سجّل الآن للاستفادة من أسعار الشحن المباشرة وسجل العمليات الفوري</p>
+    <a href="../../index.html" class="auth-brand-wrap" title="رصيد | RASEED">
+      <img src="../../public/images/logo-dark.png" alt="رصيد RASEED" class="auth-brand-img logo-for-dark">
+      <img src="../../public/images/logo-light.png" alt="رصيد RASEED" class="auth-brand-img logo-for-light">
+    </a>
 
-    <!-- Account Type Switcher -->
+    <h1 class="auth-title">إنشاء حساب جديد</h1>
+    <p class="auth-sub">سجّل الآن للاستفادة من الشحن المباشر وسجل العمليات</p>
+
     <div class="role-switch">
       <button type="button" class="role-btn active" data-role="user">حساب عميل شخصي</button>
       <button type="button" class="role-btn" data-role="merchant">حساب تاجر / موزع</button>
@@ -34,12 +37,12 @@
       <div class="row g-3">
         <div class="col-12 col-sm-6">
           <label for="firstNameInput" class="form-label">الاسم الأول</label>
-          <input id="firstNameInput" name="first_name" type="text" class="form-control" placeholder="مثال: عبدالملك"
+          <input id="firstNameInput" name="first_name" type="text" class="form-control" placeholder="الاسم الأول"
             autocomplete="given-name" required>
         </div>
         <div class="col-12 col-sm-6">
           <label for="lastNameInput" class="form-label">الاسم الأخير</label>
-          <input id="lastNameInput" name="last_name" type="text" class="form-control" placeholder="مثال: القحطاني"
+          <input id="lastNameInput" name="last_name" type="text" class="form-control" placeholder="الاسم الأخير"
             autocomplete="family-name" required>
         </div>
         <div class="col-12">
@@ -69,7 +72,7 @@
               <option value="+973">+973 (البحرين)</option>
               <option value="+1">+1 (دولي)</option>
             </select>
-            <input id="phoneNumberInput" name="phone" type="tel" class="form-control flex-grow-1" placeholder="7XXXXXXXX أو 05XXXXXXXX أو 07XXXXXXXX"
+            <input id="phoneNumberInput" name="phone" type="tel" class="form-control flex-grow-1" placeholder="7XXXXXXXX أو 05XXXXXXXX"
               dir="ltr" autocomplete="tel" required>
           </div>
         </div>
@@ -131,19 +134,11 @@
       </p>
 
       <p class="auth-foot mt-3 mb-0">
-        <a href="../../index.html" class="auth-link" style="font-size:.82rem">← العودة إلى المتجر الرئيسي</a>
+        <a href="../../index.html" class="auth-link" style="font-size:.82rem">← العودة إلى المتجر</a>
       </p>
-
-      <div class="auth-security-badge">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-        </svg>
-        <span>بيانات مشفرة ومحمية بنظام الأمان المصرفي المعتمد</span>
-      </div>
     </form>
   </main>
 
-  <!-- Toast Notification -->
   <div id="toastBox" class="toast-app" role="status" aria-live="polite">
     <span id="toastMsg"></span>
   </div>
@@ -153,4 +148,3 @@
 </body>
 
 </html>
-

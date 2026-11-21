@@ -30,10 +30,10 @@
           <img src="public/images/logo-light.png" alt="رصيد RASEED" class="brand-logo-img logo-for-light" onerror="this.parentElement.classList.add('use-svg')" />
           <div class="brand-svg-fallback">
             <svg class="brand-emblem-svg" viewBox="0 0 48 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect x="0.5" y="0.5" width="47" height="33" rx="5" fill="#141a23" stroke="rgba(255,255,255,0.12)"/>
-            <path d="M5 5.5C5 4.67 5.67 4 6.5 4H28L20.5 16.5H27L16.5 30H6.5C5.67 30 5 29.33 5 28.5V5.5Z" fill="#1b7a5c"/>
-            <path d="M31.5 4H41.5C42.33 4 43 4.67 43 5.5V28.5C43 29.33 42.33 30 41.5 30H20L29.5 18H23L31.5 4Z" fill="#b87333"/>
-          </svg>
+              <rect x="0.5" y="0.5" width="47" height="33" rx="5" fill="#141a23" stroke="rgba(255,255,255,0.12)"/>
+              <path d="M5 5.5C5 4.67 5.67 4 6.5 4H28L20.5 16.5H27L16.5 30H6.5C5.67 30 5 29.33 5 28.5V5.5Z" fill="#1b7a5c"/>
+              <path d="M31.5 4H41.5C42.33 4 43 4.67 43 5.5V28.5C43 29.33 42.33 30 41.5 30H20L29.5 18H23L31.5 4Z" fill="#b87333"/>
+            </svg>
             <div class="brand-wordmark">
               <span class="brand-wordmark-ar">رصيد</span>
               <span class="brand-wordmark-en">RASEED</span>
@@ -108,102 +108,68 @@
     </div>
   </aside>
 
-  <!-- ================= ENHANCED HEADER ================= -->
+  <!-- ================= COMPACT HEADER ================= -->
   <header class="app-header sticky-top">
-    <!-- Utility Micro-Bar -->
-    <div class="header-utility-bar">
-      <div class="container-xxl d-flex align-items-center justify-content-between flex-wrap gap-2">
-        <div class="d-flex align-items-center gap-3 flex-wrap">
-          <span class="utility-status-pill">
-            <span class="pulse-dot"></span>
-            <span>التنفيذ الآلي: نشط 24/7</span>
-          </span>
-          <span class="utility-fx-pill d-none d-sm-inline-flex" id="headerFxTicker">
-            <span>سعر الصرف:</span>
-            <strong dir="ltr">1 USD = 3.75 SAR</strong>
-            <span>•</span>
-            <strong dir="ltr">530 YER</strong>
-          </span>
-        </div>
-        <div class="d-flex align-items-center gap-3 ms-auto">
-          <a href="pages/track-order.html" class="utility-link d-none d-md-inline">تتبع الطلب</a>
-          <a href="pages/faq.html" class="utility-link">الأسئلة الشائعة</a>
-          <a href="pages/contact.html" class="utility-link">الدعم الفني المباشر</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Main Navigation Bar -->
     <div class="container-xxl">
-      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 header-top-row">
-        
-        <!-- Brand Lockup (Rectangular Logo — Dark & Light Mode Adaptive) -->
-        <a href="index.html" class="brand-badge-link brand-rect-lockup" id="headerLogoBtn" title="رصيد | RASEED — الرئيسية">
+      <div class="header-main-bar">
+
+        <!-- Brand Logo -->
+        <a href="index.html" class="header-brand" id="headerLogoBtn" title="رصيد | RASEED — الرئيسية">
           <div class="brand-logo-media">
             <img src="public/images/logo-dark.png" alt="رصيد RASEED" class="brand-logo-img logo-for-dark" onerror="this.parentElement.classList.add('use-svg')" />
             <img src="public/images/logo-light.png" alt="رصيد RASEED" class="brand-logo-img logo-for-light" onerror="this.parentElement.classList.add('use-svg')" />
             <div class="brand-svg-fallback">
-              <svg class="brand-emblem-svg" viewBox="0 0 48 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect x="0.5" y="0.5" width="47" height="33" rx="5" fill="#141a23" stroke="rgba(255,255,255,0.12)"/>
-            <path d="M5 5.5C5 4.67 5.67 4 6.5 4H28L20.5 16.5H27L16.5 30H6.5C5.67 30 5 29.33 5 28.5V5.5Z" fill="#1b7a5c"/>
-            <path d="M31.5 4H41.5C42.33 4 43 4.67 43 5.5V28.5C43 29.33 42.33 30 41.5 30H20L29.5 18H23L31.5 4Z" fill="#b87333"/>
-          </svg>
               <div class="brand-wordmark">
                 <span class="brand-wordmark-ar">رصيد</span>
                 <span class="brand-wordmark-en">RASEED</span>
               </div>
             </div>
           </div>
-          <span class="brand-verified-tag d-none d-sm-inline-flex">معتمد</span>
         </a>
 
-        <!-- Desktop Navigation Links -->
-        <nav class="main-nav-links" aria-label="التنقل الرئيسي">
-          <a href="index.html" class="main-nav-link active">المتجر</a>
-          <a href="pages/track-order.html" class="main-nav-link">تتبع الطلب</a>
-          <a href="pages/about.html" class="main-nav-link">عن المتجر</a>
-          <a href="pages/faq.html" class="main-nav-link">الأسئلة الشائعة</a>
-          <a href="pages/terms.html" class="main-nav-link">الضمان 100%</a>
-          <a href="pages/contact.html" class="main-nav-link">اتصل بنا</a>
+        <!-- Inline Search (Desktop) -->
+        <div class="header-search-box d-none d-lg-flex">
+          <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" />
+          </svg>
+          <input id="searchInput" type="text" class="form-control header-search-input"
+            placeholder="ابحث عن لعبة، بطاقة، أو اشتراك..." autocomplete="off" />
+          <button id="btnClearSearch" type="button" class="search-clear" aria-label="مسح البحث">✕</button>
+        </div>
+
+        <!-- Primary Navigation -->
+        <nav class="header-nav" aria-label="التنقل الرئيسي">
+          <a href="index.html" class="header-nav-link active">المتجر</a>
+          <a href="pages/track-order.html" class="header-nav-link">تتبع الطلب</a>
+          <a href="pages/faq.html" class="header-nav-link">الأسئلة الشائعة</a>
+          <a href="pages/contact.html" class="header-nav-link">الدعم</a>
         </nav>
 
-        <!-- Action Cluster -->
-        <div class="header-actions-cluster">
-          <select id="currencySelect" class="form-select form-select-sm currency-select" aria-label="العملة المعروضة">
-            <option value="SAR" selected>ر.س (سعودي)</option>
-            <option value="YER">ر.ي (يمني)</option>
-            <option value="USD">$ (دولار)</option>
+        <!-- Actions -->
+        <div class="header-actions">
+          <select id="currencySelect" class="form-select form-select-sm header-currency" aria-label="العملة">
+            <option value="SAR" selected>ر.س</option>
+            <option value="YER">ر.ي</option>
+            <option value="USD">$</option>
           </select>
 
-          <button id="btnOpenWallet" type="button" class="wallet-pill" title="رصيد المحفظة وشحن الرصيد">
-            <span class="wallet-pill-plus" aria-hidden="true">+</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
+          <button id="btnOpenWallet" type="button" class="header-wallet-btn" title="رصيد المحفظة وشحن الرصيد">
+            <span class="wallet-plus" aria-hidden="true">+</span>
             <span id="walletBalanceDisplay">100.00 ر.س</span>
           </button>
 
-          <button id="btnOpenOrders" type="button" class="icon-btn d-none d-sm-inline-flex" title="سجل الطلبات">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"></path><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>
+          <button id="btnOpenOrders" type="button" class="icon-btn d-none d-md-inline-flex" title="سجل الطلبات">
             <span>طلباتي</span>
             <span id="ordersCountBadge" class="count-badge">0</span>
           </button>
 
-          <button id="btnOpenAdmin" type="button" class="icon-btn d-none d-xl-inline-flex" title="إعدادات المتجر وأسعار الصرف">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-            <span>الإدارة</span>
-          </button>
-
-          <span class="header-divider" aria-hidden="true"></span>
+          <a href="pages/merchant.html" class="icon-btn d-none d-xxl-inline-flex">بوابة التجار</a>
 
           <button type="button" class="theme-toggle" aria-label="تبديل المظهر"></button>
 
-          <a href="pages/accounts/login.html" class="icon-btn auth-login-btn d-none d-sm-inline-flex" title="تسجيل الدخول">
-            <span>دخول</span>
-          </a>
-          <a href="pages/accounts/signup.html" class="btn btn-brand auth-signup-btn d-none d-sm-inline-flex" title="إنشاء حساب جديد">
-            <span>حساب جديد</span>
-          </a>
+          <a href="pages/accounts/login.html" class="icon-btn auth-login-btn d-none d-sm-inline-flex">دخول</a>
+          <a href="pages/accounts/signup.html" class="btn btn-brand auth-signup-btn d-none d-md-inline-flex">حساب جديد</a>
 
-          <!-- Mobile Hamburger Toggle -->
           <button id="btnOpenMobileMenu" type="button" class="btn-mobile-menu" aria-label="فتح القائمة">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -212,39 +178,7 @@
             </svg>
           </button>
         </div>
-      </div>
 
-      <!-- Row 2: Search & Category Filter -->
-      <div class="d-flex flex-column gap-2 header-search-row">
-        <div class="search-wrap">
-          <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" />
-          </svg>
-          <input id="searchInput" type="text" class="form-control search-input"
-            placeholder="ابحث عن لعبة أو خدمة (ببجي، فري فاير، قوقل بلاي، شات جي بي تي، تيك توك)..." />
-          <button id="btnClearSearch" type="button" class="search-clear" aria-label="مسح البحث">✕</button>
-        </div>
-
-        <div class="d-flex align-items-center justify-content-between gap-3">
-          <div class="cat-pills-wrap">
-            <div class="cat-pills" id="categoryFilterPills">
-              <button type="button" data-cat="all" class="cat-pill active">الكل (72)</button>
-              <button type="button" data-cat="games" class="cat-pill">الألعاب (34)</button>
-              <button type="button" data-cat="cards" class="cat-pill">بطاقات الشراء (7)</button>
-              <button type="button" data-cat="services" class="cat-pill">الذكاء الاصطناعي والخدمات (11)</button>
-              <button type="button" data-cat="entertainment" class="cat-pill">الترفيه والبث (5)</button>
-              <button type="button" data-cat="chat" class="cat-pill">تطبيقات المحادثة (12)</button>
-              <button type="button" data-cat="pc" class="cat-pill">برامج الكمبيوتر (3)</button>
-              <button type="button" data-cat="new" class="cat-pill">المضافة حديثاً</button>
-            </div>
-          </div>
-
-          <button id="btnToggleGridWidth" type="button"
-            class="btn btn-ghost btn-sm d-none d-md-inline-flex align-items-center gap-2 flex-shrink-0" title="تبديل العرض">
-            <span id="gridModeLabel">العرض الموسع</span>
-          </button>
-        </div>
       </div>
     </div>
   </header>
@@ -382,18 +316,40 @@
       </div>
     </section>
 
-    <!-- Quick Navigation Links -->
-    <div class="quick-nav-strip">
-      <span class="quick-nav-label">روابط سريعة:</span>
-      <a href="pages/track-order.html" class="quick-nav-link">استعلام وتتبع الطلب</a>
-      <a href="pages/about.html" class="quick-nav-link">عن المتجر</a>
-      <a href="pages/faq.html" class="quick-nav-link">الأسئلة الشائعة</a>
-      <a href="pages/terms.html" class="quick-nav-link">الشروط والضمان</a>
-      <a href="pages/privacy.html" class="quick-nav-link">سياسة الخصوصية</a>
-      <a href="pages/contact.html" class="quick-nav-link">الدعم الفني</a>
-      <a href="pages/accounts/login.html" class="quick-nav-link">تسجيل الدخول</a>
-      <a href="pages/accounts/signup.html" class="quick-nav-link">إنشاء حساب</a>
+    <!-- Catalog Filter Bar (Non-Sticky) -->
+    <div class="catalog-toolbar">
+      <div class="header-search-box d-flex d-lg-none mb-2 w-100" style="max-width:none;">
+        <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" />
+        </svg>
+        <input type="text" class="form-control header-search-input"
+          placeholder="ابحث عن لعبة، بطاقة، أو اشتراك..."
+          oninput="const s=document.getElementById('searchInput');if(s){s.value=this.value;s.dispatchEvent(new Event('input',{bubbles:true}));}" />
+      </div>
+
+      <div class="d-flex align-items-center justify-content-between gap-3">
+        <div class="cat-pills-wrap">
+          <div class="cat-pills" id="categoryFilterPills">
+            <button type="button" data-cat="all" class="cat-pill active">الكل (72)</button>
+            <button type="button" data-cat="games" class="cat-pill">الألعاب (34)</button>
+            <button type="button" data-cat="cards" class="cat-pill">بطاقات الشراء (7)</button>
+            <button type="button" data-cat="services" class="cat-pill">الخدمات (11)</button>
+            <button type="button" data-cat="entertainment" class="cat-pill">الترفيه (5)</button>
+            <button type="button" data-cat="chat" class="cat-pill">المحادثة (12)</button>
+            <button type="button" data-cat="pc" class="cat-pill">الكمبيوتر (3)</button>
+            <button type="button" data-cat="new" class="cat-pill">حديثاً</button>
+          </div>
+        </div>
+
+        <button id="btnToggleGridWidth" type="button"
+          class="btn btn-ghost btn-sm d-none d-md-inline-flex flex-shrink-0" title="تبديل العرض">
+          <span id="gridModeLabel">العرض الموسع</span>
+        </button>
+      </div>
     </div>
+
+<!-- Favorites & Quick Reorder Strip -->
+    <section id="quickReorderStrip" class="quick-reorder-strip d-none" aria-label="المفضلة وآخر الطلبات"></section>
 
     <!-- Product Sections Grid -->
     <div id="sectionsWrapper" class="d-flex flex-column gap-4 gap-md-5"></div>
@@ -406,131 +362,83 @@
     </div>
   </main>
 
-  <!-- ================= ENHANCED ARCHITECTURAL FOOTER ================= -->
+  <!-- ================= COMPACT FOOTER ================= -->
   <footer class="app-footer">
-    <!-- Pre-Footer Action Callout Band -->
-    <div class="footer-callout-band">
-      <div class="container-xxl">
-        <div class="footer-callout-inner">
-          <div>
-            <h3 class="footer-callout-title">اشحن محفظتك مرة واحدة وتسوّق بضغطة زر</h3>
-            <p class="footer-callout-sub">إيداع فوري بدون رسوم عبر المحافظ اليمنية، البنوك السعودية، كروت آسيا سيل، وبايننس.</p>
-          </div>
-          <div class="d-flex align-items-center gap-2 flex-wrap">
-            <button type="button" class="btn btn-brand" onclick="window.openAppModal('walletModal')">شحن المحفظة الآن</button>
-            <a href="pages/track-order.html" class="btn btn-ghost">استعلام وتتبع الطلب</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="container-xxl">
-      <!-- 4 Columns Grid -->
-      <div class="footer-top-grid">
-        <!-- Col 1: Brand Info -->
-        <div class="footer-col">
-          <div class="brand-rect-lockup mb-3">
+      <div class="footer-grid">
+
+        <!-- Brand -->
+        <div class="footer-brand-col">
+          <a href="index.html" class="header-brand">
             <div class="brand-logo-media">
               <img src="public/images/logo-dark.png" alt="رصيد RASEED" class="brand-logo-img logo-for-dark" onerror="this.parentElement.classList.add('use-svg')" />
               <img src="public/images/logo-light.png" alt="رصيد RASEED" class="brand-logo-img logo-for-light" onerror="this.parentElement.classList.add('use-svg')" />
               <div class="brand-svg-fallback">
-                <svg class="brand-emblem-svg" viewBox="0 0 48 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect x="0.5" y="0.5" width="47" height="33" rx="5" fill="#141a23" stroke="rgba(255,255,255,0.12)"/>
-            <path d="M5 5.5C5 4.67 5.67 4 6.5 4H28L20.5 16.5H27L16.5 30H6.5C5.67 30 5 29.33 5 28.5V5.5Z" fill="#1b7a5c"/>
-            <path d="M31.5 4H41.5C42.33 4 43 4.67 43 5.5V28.5C43 29.33 42.33 30 41.5 30H20L29.5 18H23L31.5 4Z" fill="#b87333"/>
-          </svg>
                 <div class="brand-wordmark">
                   <span class="brand-wordmark-ar">رصيد</span>
                   <span class="brand-wordmark-en">RASEED</span>
                 </div>
               </div>
             </div>
-          </div>
-          <p class="footer-brand-bio">
-            منصة رصيد (RASEED) — المنصة المعتمدة الأولى لخدمات شحن الألعاب والبطاقات الرقمية واشتراكات التطبيقات في اليمن والمملكة العربية السعودية وجمهورية العراق ودول الخليج، بنظام تنفيذ آلي فوري وتحديث لحظي لأسعار الصرف اليومية.
-          </p>
-          <div class="footer-security-pill">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span>حماية مشددة وتشفير عمليات 256-Bit</span>
-          </div>
-        </div>
-
-        <!-- Col 2: Store Categories -->
-        <div class="footer-col">
-          <h4 class="footer-col-title">أقسام المتجر</h4>
-          <ul class="footer-links-list">
-            <li><a href="index.html#sec-games" class="footer-link">شحن الألعاب المباشرة</a></li>
-            <li><a href="index.html#sec-cards" class="footer-link">بطاقات المتاجر والتطبيقات</a></li>
-            <li><a href="index.html#sec-chat" class="footer-link">تطبيقات التواصل والترفيه</a></li>
-            <li><a href="index.html#sec-services" class="footer-link">الاشتراكات والبرامج الرقمية</a></li>
-            <li><a href="pages/track-order.html" class="footer-link">استعلام وتتبع الطلب</a></li>
-          </ul>
-        </div>
-
-        <!-- Col 3: Support & Information -->
-        <div class="footer-col">
-          <h4 class="footer-col-title">المساعدة والسياسات</h4>
-          <ul class="footer-links-list">
-            <li><a href="pages/about.html" class="footer-link">عن المتجر ورؤيتنا</a></li>
-            <li><a href="pages/faq.html" class="footer-link">الأسئلة الشائعة والإجابات</a></li>
-            <li><a href="pages/terms.html" class="footer-link">الشروط وسياسة الضمان</a></li>
-            <li><a href="pages/privacy.html" class="footer-link">سياسة الخصوصية والأمان</a></li>
-            <li><a href="pages/contact.html" class="footer-link">الدعم الفني وخدمة العملاء</a></li>
-          </ul>
-        </div>
-
-        <!-- Col 4: Regional Coverage & Support -->
-        <div class="footer-col">
-          <h4 class="footer-col-title">التغطية الإقليمية والدعم</h4>
-          <div class="footer-region-card mb-3">
-            <div class="footer-region-row"><span>الجمهورية اليمنية</span><strong>YER • 6 وسائل</strong></div>
-            <div class="footer-region-row"><span>السعودية ودول الخليج</span><strong>SAR • 4 وسائل</strong></div>
-            <div class="footer-region-row"><span>جمهورية العراق</span><strong>IQD • آسيا سيل</strong></div>
-            <div class="footer-region-row"><span>الدول العربية وباقي العالم</span><strong>USDT • Binance</strong></div>
-          </div>
-          <a href="pages/contact.html" class="footer-link" style="color:var(--brand-light);font-weight:600">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            <span>تواصل مع خدمة العملاء 24/7</span>
           </a>
+          <p class="footer-desc">
+            منصة شحن فوري للألعاب والبطاقات الرقمية والاشتراكات لليمن والسعودية والعراق ودول الخليج.
+          </p>
         </div>
-      </div>
 
-      <!-- Categorized Payment Strip -->
-      <div class="footer-payment-strip">
-        <div class="d-flex align-items-center gap-2 flex-shrink-0">
-          <span class="text-secondary fw-semibold" style="font-size:0.81rem">وسائل الدفع المعتمدة:</span>
+        <!-- Store -->
+        <div>
+          <h4 class="footer-title">المتجر</h4>
+          <ul class="footer-list">
+            <li><a href="index.html#sec-games">الألعاب</a></li>
+            <li><a href="index.html#sec-cards">البطاقات الرقمية</a></li>
+            <li><a href="index.html#sec-services">الاشتراكات والخدمات</a></li>
+            <li><a href="pages/track-order.html">تتبع الطلب</a></li>
+          </ul>
         </div>
-        <div class="footer-payment-pills">
-          <span class="footer-payment-pill" title="محفظة جيب - اليمن"><img src="public/images/payments/Jaib%20Wallet.png" alt="جيب" class="footer-payment-logo" /><span class="fp-code">YE</span> جيب Jaib</span>
-          <span class="footer-payment-pill" title="محفظة ون كاش - اليمن"><img src="public/images/payments/OneCash%20Wallet.png" alt="ون كاش" class="footer-payment-logo" /><span class="fp-code">YE</span> ون كاش</span>
-          <span class="footer-payment-pill" title="محفظة فلوسك - اليمن"><img src="public/images/payments/Floosak%20Wallet.png" alt="فلوسك" class="footer-payment-logo" /><span class="fp-code">YE</span> فلوسك</span>
-          <span class="footer-payment-pill" title="محفظة جوالي - اليمن"><img src="public/images/payments/Jawali%20Wallet.png" alt="جوالي" class="footer-payment-logo" /><span class="fp-code">YE</span> جوالي</span>
-          <span class="footer-payment-pill" title="مصرف الكريمي - اليمن"><img src="public/images/payments/Kuraimi%20Bank.png" alt="الكريمي" class="footer-payment-logo" /><span class="fp-code">YE</span> الكريمي</span>
-          <span class="footer-payment-pill" title="مصرف القطيبي - اليمن"><img src="public/images/payments/Qutaibi%20Bank.png" alt="القطيبي" class="footer-payment-logo" /><span class="fp-code">YE</span> القطيبي</span>
-          <span class="footer-payment-pill" title="مصرف الراجحي - السعودية والخليج"><img src="public/images/payments/Alrajhi%20Bank.png" alt="الراجحي" class="footer-payment-logo" /><span class="fp-code">SA</span> الراجحي</span>
-          <span class="footer-payment-pill" title="بنك الإنماء - السعودية والخليج"><img src="public/images/payments/Alinma%20Bank.png" alt="الإنماء" class="footer-payment-logo" /><span class="fp-code">SA</span> الإنماء</span>
-          <span class="footer-payment-pill" title="كروت سوا STC - السعودية والخليج"><img src="public/images/payments/STC%20SAWA.png" alt="سوا" class="footer-payment-logo" /><span class="fp-code">SA</span> سوا</span>
-          <span class="footer-payment-pill" title="كروت موبايلي - السعودية والخليج"><img src="public/images/payments/Mobily%20Cards.png" alt="موبايلي" class="footer-payment-logo" /><span class="fp-code">SA</span> موبايلي</span>
-          <span class="footer-payment-pill" title="كروت آسيا سيل - العراق"><img src="public/images/payments/Asiacell.png" alt="آسيا سيل" class="footer-payment-logo" /><span class="fp-code">IQ</span> آسيا سيل</span>
-          <span class="footer-payment-pill" title="بايننس Binance Pay (USDT) - الدفع الدولي"><img src="public/images/payments/Binance.png" alt="Binance" class="footer-payment-logo" /><span class="fp-code">INTL</span> Binance Pay</span>
+
+        <!-- Support -->
+        <div>
+          <h4 class="footer-title">المساعدة</h4>
+          <ul class="footer-list">
+            <li><a href="pages/about.html">عن المتجر</a></li>
+            <li><a href="pages/faq.html">الأسئلة الشائعة</a></li>
+            <li><a href="pages/terms.html">الشروط والضمان</a></li>
+            <li><a href="pages/privacy.html">سياسة الخصوصية</a></li>
+            <li><a href="pages/contact.html">تواصل معنا</a></li>
+          </ul>
         </div>
+
+        <!-- Payments -->
+        <div>
+          <h4 class="footer-title">وسائل الدفع</h4>
+          <div class="footer-payments">
+            <img src="public/images/payments/Jaib%20Wallet.png" alt="جيب" title="محفظة جيب" loading="lazy" />
+            <img src="public/images/payments/OneCash%20Wallet.png" alt="ون كاش" title="ون كاش" loading="lazy" />
+            <img src="public/images/payments/Floosak%20Wallet.png" alt="فلوسك" title="فلوسك" loading="lazy" />
+            <img src="public/images/payments/Jawali%20Wallet.png" alt="جوالي" title="جوالي" loading="lazy" />
+            <img src="public/images/payments/Kuraimi%20Bank.png" alt="الكريمي" title="مصرف الكريمي" loading="lazy" />
+            <img src="public/images/payments/Qutaibi%20Bank.png" alt="القطيبي" title="مصرف القطيبي" loading="lazy" />
+            <img src="public/images/payments/Alrajhi%20Bank.png" alt="الراجحي" title="مصرف الراجحي" loading="lazy" />
+            <img src="public/images/payments/Alinma%20Bank.png" alt="الإنماء" title="بنك الإنماء" loading="lazy" />
+            <img src="public/images/payments/STC%20SAWA.png" alt="سوا" title="سوا STC" loading="lazy" />
+            <img src="public/images/payments/Mobily%20Cards.png" alt="موبايلي" title="موبايلي" loading="lazy" />
+            <img src="public/images/payments/Asiacell.png" alt="آسيا سيل" title="آسيا سيل" loading="lazy" />
+            <img src="public/images/payments/Binance.png" alt="Binance" title="Binance Pay" loading="lazy" />
+          </div>
+        </div>
+
       </div>
 
       <!-- Bottom Bar -->
-      <div class="footer-bottom-bar">
-        <span>© 2026 منصة رصيد (RASEED). جميع الحقوق محفوظة.</span>
-        <div class="d-flex align-items-center gap-3 flex-wrap">
-          <div class="footer-meta-links">
-            <a href="pages/terms.html" class="footer-meta-link">اتفاقية الاستخدام</a>
-            <a href="pages/privacy.html" class="footer-meta-link">سياسة الخصوصية</a>
-            <a href="pages/faq.html" class="footer-meta-link">الأسئلة الشائعة</a>
-            <a href="pages/track-order.html" class="footer-meta-link">تتبع الطلبات</a>
-          </div>
-          <button type="button" id="btnBackToTop" class="btn-back-top" aria-label="العودة للأعلى">
-            <span>الأعلى</span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m18 15-6-6-6 6"/></svg>
-          </button>
-        </div>
+      <div class="footer-bottom">
+        <span>© 2026 رصيد (RASEED). جميع الحقوق محفوظة.</span>
+        <button type="button" id="btnBackToTop" class="btn-back-top" aria-label="العودة للأعلى">
+          <span>الأعلى</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="m18 15-6-6-6 6" />
+          </svg>
+        </button>
       </div>
     </div>
   </footer>
@@ -600,7 +508,6 @@
 
         <!-- CHECKOUT STEP 2: Payment Method & Direct Verification -->
         <div id="checkoutStep2" class="wizard-panel d-none">
-          <!-- Order Summary Strip -->
           <div class="wizard-context-bar">
             <div class="wizard-context-meta">
               <span class="wizard-context-title" id="checkoutSummaryPkg">—</span>
@@ -611,7 +518,6 @@
             </button>
           </div>
 
-          <!-- Payment Mode Switcher: Wallet vs Regional Direct -->
           <div>
             <label class="step-label"><span class="num">3</span> اختر طريقة الدفع:</label>
             <div class="checkout-mode-grid" id="checkoutModeGrid">
@@ -651,7 +557,6 @@
 
           <!-- Mode B: Direct Regional Payment Interface -->
           <div id="topupDirectPayBox" class="d-none">
-            <!-- Country Tabs inside Checkout -->
             <div class="mb-3">
               <label class="form-label-app">حدد الدولة:</label>
               <div class="deposit-country-tabs" id="checkoutCountryTabs">
@@ -674,13 +579,11 @@
               </div>
             </div>
 
-            <!-- Methods Grid inside Checkout -->
             <div class="mb-3">
               <label class="form-label-app">اختر وسيلة الدفع:</label>
               <div class="deposit-methods-grid" id="checkoutMethodsGrid"></div>
             </div>
 
-            <!-- Transfer Account Card & Linked Verification Fields -->
             <div class="deposit-rectangles-box">
               <div class="deposit-account-card mb-3">
                 <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
@@ -796,7 +699,6 @@
       </div>
 
       <div class="modal-body-app">
-        <!-- Balance Status Strip -->
         <div class="deposit-balance-card">
           <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div>
@@ -810,7 +712,6 @@
           </div>
         </div>
 
-        <!-- Flow Container (3 Separate Step Views) -->
         <div id="depositFlowContainer">
 
           <!-- STEP 1: Country & Payment Method Selection -->
@@ -839,9 +740,7 @@
 
             <div>
               <label class="step-label"><span class="num">2</span> اختر وسيلة الإيداع المناسبة:</label>
-              <div id="depositMethodsGrid" class="deposit-methods-grid">
-                <!-- Dynamically rendered based on selected country -->
-              </div>
+              <div id="depositMethodsGrid" class="deposit-methods-grid"></div>
             </div>
           </div>
 
@@ -876,7 +775,6 @@
                   </button>
                 </div>
 
-                <!-- Secondary Account / TRC-20 Row -->
                 <div id="depAccountSecondaryWrap" class="mt-2 d-none">
                   <div class="dep-account-row">
                     <div id="depAccountSecondary" class="dep-account-value" style="font-size:0.86rem;color:var(--text);"></div>
@@ -887,7 +785,6 @@
                 <div id="depAccountHolder" class="dep-account-sub">اسم المستلم: <strong class="text-primary-ink">منصة رصيد المعتمدة</strong></div>
               </div>
 
-              <!-- Method Specifications Grid -->
               <div class="dep-info-grid">
                 <div class="dep-info-cell">
                   <span>الحد الأدنى</span>
@@ -926,7 +823,6 @@
               </div>
 
               <div class="deposit-two-rects-grid">
-                <!-- Box 1: Amount -->
                 <div class="deposit-rect-item">
                   <label for="depositAmountInput" class="form-label-app d-flex justify-content-between align-items-center gap-1">
                     <span><span class="rect-badge">01</span> المبلغ المودع</span>
@@ -939,7 +835,6 @@
                   <div id="depositQuickAmounts" class="quick-amounts-bar mt-2"></div>
                 </div>
 
-                <!-- Box 2: Operation ID / Transaction ID -->
                 <div class="deposit-rect-item">
                   <label for="depositTxnIdInput" class="form-label-app">
                     <span class="rect-badge">02</span> معرّف العملية
@@ -952,13 +847,12 @@
               </div>
             </div>
 
-            <!-- Matching Status Message Box -->
             <div id="depositMatchStatus" class="d-none"></div>
           </div>
 
         </div>
 
-        <!-- Success Screen View (Shown when deposit matches) -->
+        <!-- Success Screen View -->
         <div id="depositSuccessView" class="deposit-success-card d-none text-center py-3">
           <div class="success-icon-bubble mx-auto mb-3">✓</div>
           <h4 class="fw-bold mb-1" style="color:var(--text);font-size:1.18rem;">تمت مطابقة العملية وإيداع المبلغ بنجاح</h4>

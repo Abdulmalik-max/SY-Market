@@ -3,8 +3,9 @@
    Refined Editorial Fintech & Digital Storefront Engine
    Includes complete catalog with 72 tailored services/games,
    customized packages for every item, 3-step Wallet Deposit
-   wizard, 2-step Guided Checkout wizard, live FX ticker,
-   strict deposit verification, and localStorage persistence.
+   wizard, 2-step Guided Checkout wizard, Saved Player IDs
+   picker, Wallet Ledger logging, Favorites / Quick Reorder
+   strip, strict deposit verification, and localStorage sync.
    ========================================================= */
 (function () {
     "use strict";
@@ -192,6 +193,15 @@
             used.push(normalizedTxnKey);
             try { localStorage.setItem('mdarahim-used-txns', JSON.stringify(used)); } catch (_) {}
         }
+    }
+
+    /* ---------- Structured Wallet Ledger ---------- */
+    function recordWalletLedger(entry) {
+        try {
+            const list = JSON.parse(localStorage.getItem('mdarahim-wallet-ledger') || '[]');
+            list.unshift(entry);
+            localStorage.setItem('mdarahim-wallet-ledger', JSON.stringify(list));
+        } catch (_) {}
     }
 
     /* =========================================================
@@ -619,7 +629,6 @@
         }
         if (btnSubmit) btnSubmit.classList.toggle('d-none', step !== 3);
 
-        // Scroll modal body to top on step change
         const body = $('#walletModal .modal-body-app');
         if (body) body.scrollTop = 0;
     }
@@ -700,7 +709,6 @@
             ? method.getSecondaryInfo()
             : method.secondaryInfo;
 
-        // Populate Step 2 Details
         if ($('#depStep2MethodSummary'))  $('#depStep2MethodSummary').textContent  = method.name;
         if ($('#depStep2CountrySummary')) $('#depStep2CountrySummary').textContent = `${COUNTRY_NAMES[method.country] || ''} • ${method.currencyName}`;
         if ($('#depStep2CurrencyPill'))   $('#depStep2CurrencyPill').textContent   = method.currency;
@@ -736,7 +744,6 @@
         }
         if ($('#depInstructions')) $('#depInstructions').textContent = method.instructions;
 
-        // Populate Step 3 Context & Inputs
         if ($('#depStep3MethodSummary'))  $('#depStep3MethodSummary').textContent  = method.name;
         if ($('#depStep3AccountSummary')) $('#depStep3AccountSummary').textContent = method.isCard ? method.currencyName : accNum;
         if ($('#depositCurrencyTag'))     $('#depositCurrencyTag').textContent     = method.currencyName;
@@ -783,7 +790,6 @@
         if (target <= currentDepositStep) setDepositStep(target);
     });
 
-    // Country & Method click wiring
     $('#depositCountryTabs')?.addEventListener('click', e => {
         const tab = e.target.closest('[data-country]');
         if (!tab) return;
@@ -803,7 +809,6 @@
     });
     $('#depositTxnIdInput')?.addEventListener('input', clearDepositStatus);
 
-    // Copy Primary & Secondary Account Buttons
     $('#btnCopyDepAccount')?.addEventListener('click', async () => {
         const method = PAYMENT_CONFIG.methods[activeDepositMethodId];
         if (!method || method.isCard) return;
@@ -890,6 +895,7 @@
         markTxnUsed(result.duplicateKey);
 
         const depOrderNum = '#DEP' + Math.floor(100000 + Math.random() * 900000);
+        const depDate = new Date().toLocaleString('ar-SA');
         orders.unshift({
             orderNum: depOrderNum,
             appName: 'إيداع وشحن محفظة',
@@ -897,9 +903,20 @@
             playerId: 'معرف: ' + txnCheck.normalized,
             payMethod: method.name,
             amountDisplay: '+' + sarEquiv.toFixed(2) + ' ر.س (' + amtVal.toLocaleString('en-US') + ' ' + method.currency + ')',
-            date: new Date().toLocaleString('ar-SA')
+            date: depDate
         });
         saveOrders();
+        recordWalletLedger({
+            type: 'in',
+            orderNum: depOrderNum,
+            method: method.name,
+            details: `شحن محفظة — ${method.name}`,
+            target: txnCheck.normalized,
+            localAmount: `${amtVal.toLocaleString('en-US')} ${method.currency}`,
+            sarAmount: sarEquiv,
+            balanceAfter: wallet,
+            date: depDate
+        });
         renderOrders();
 
         if ($('#sucDepositAmount'))     $('#sucDepositAmount').textContent     = `+${sarEquiv.toFixed(2)} ر.س (${amtVal.toLocaleString('en-US')} ${method.currency})`;
@@ -1530,7 +1547,7 @@
     let currentPkgList = [];
     let currentPkg = null;
     let currentCheckoutStep = 1;
-    let checkoutPayMode = 'wallet'; // 'wallet' | 'direct'
+    let checkoutPayMode = 'wallet';
     let checkoutDirectCountry = 'ye';
     let currentPay = 'wallet';
     let total = 0;
@@ -1696,7 +1713,6 @@
         }
     }
 
-    // Checkout Mode Switcher & Country/Method Wiring
     $('#checkoutModeGrid')?.addEventListener('click', e => {
         const card = e.target.closest('[data-checkout-mode]');
         if (!card) return;
@@ -1745,6 +1761,81 @@
         }
     });
 
+    /* ---------- Saved Player IDs Picker (from Dashboard) ---------- */
+    function getSavedPlayerIds() {
+        try {
+            const raw = localStorage.getItem('mdarahim-saved-ids');
+            return raw ? JSON.parse(raw) : [];
+        } catch (_) {
+            return [];
+        }
+    }
+
+    function renderSavedIdsPicker(app) {
+        const pInput = $('#playerIdInput');
+        if (!pInput) return;
+
+        let wrap = $('#savedIdsPickerWrap');
+        if (!wrap) {
+            wrap = document.createElement('div');
+            wrap.id = 'savedIdsPickerWrap';
+            wrap.className = 'mb-2 d-none';
+            wrap.innerHTML = `
+                <div class="d-flex align-items-center justify-content-between mb-1">
+                    <span style="font-size:0.75rem;color:var(--text-secondary);font-weight:600;">معرّفاتك المحفوظة:</span>
+                    <a href="pages/accounts/dashboard.html" style="font-size:0.73rem;font-weight:600;">إدارة المعرّفات</a>
+                </div>
+                <select id="savedPlayerIdSelect" class="form-select form-select-sm" style="height:38px;font-size:0.82rem;" aria-label="اختر معرّف لاعب محفوظ"></select>
+            `;
+            pInput.parentNode.insertBefore(wrap, pInput);
+
+            $('#savedPlayerIdSelect')?.addEventListener('change', (e) => {
+                const val = e.target.value;
+                if (!val) return;
+                const targetInput = $('#playerIdInput');
+                if (targetInput) {
+                    targetInput.value = val;
+                    targetInput.focus();
+                }
+                const verifyBox = $('#playerVerifyStatus');
+                if (verifyBox) verifyBox.innerHTML = '';
+            });
+        }
+
+        const list = getSavedPlayerIds();
+        const select = $('#savedPlayerIdSelect');
+        if (!select || !list.length || app.hasCode) {
+            wrap.classList.add('d-none');
+            return;
+        }
+
+        const appNameLower = (app.name || '').toLowerCase();
+        const matching = list.filter(i => (i.game || '').toLowerCase() === appNameLower);
+        const others   = list.filter(i => (i.game || '').toLowerCase() !== appNameLower);
+        const ordered  = [...matching, ...others];
+
+        select.innerHTML = '';
+
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = matching.length
+            ? `اختر من معرّفاتك المحفوظة (${matching.length} مطابق لـ ${app.name})...`
+            : 'اختر من معرّفاتك المحفوظة...';
+        select.appendChild(placeholder);
+
+        ordered.forEach(item => {
+            const opt = document.createElement('option');
+            opt.value = item.playerId || '';
+            const isMatch = (item.game || '').toLowerCase() === appNameLower;
+            const labelPart = item.label ? ` (${item.label})` : '';
+            opt.textContent = `${isMatch ? '★ ' : ''}${item.game}${labelPart} — ${item.playerId}`;
+            select.appendChild(opt);
+        });
+
+        select.value = '';
+        wrap.classList.remove('d-none');
+    }
+
     function openTopup(app) {
         currentApp = app;
         currentPkgList = getPackagesForApp(app);
@@ -1774,6 +1865,15 @@
         if ($('#customerContactInput')) $('#customerContactInput').value = '';
         if ($('#playerVerifyStatus'))   $('#playerVerifyStatus').innerHTML = '';
         if ($('#topupDirectTxnId'))     $('#topupDirectTxnId').value = '';
+
+        try {
+            const prof = JSON.parse(localStorage.getItem('mdarahim-profile') || '{}');
+            if (prof.phone && $('#customerContactInput')) {
+                $('#customerContactInput').value = prof.phone;
+            }
+        } catch (_) {}
+
+        renderSavedIdsPicker(app);
 
         checkoutPayMode = 'wallet';
         currentPay = 'wallet';
@@ -1877,7 +1977,23 @@
             date: orderDate
         });
         saveOrders();
+
+        if (checkoutPayMode === 'wallet') {
+            recordWalletLedger({
+                type: 'out',
+                orderNum,
+                method: PAY_LABELS.wallet,
+                details: `${currentApp.name} — ${currentPkg.name}`,
+                target: playerId,
+                localAmount: amountDisplay,
+                sarAmount: total,
+                balanceAfter: wallet,
+                date: orderDate
+            });
+        }
+
         renderOrders();
+        renderQuickReorderStrip();
 
         $('#receiptOrderNum').textContent  = 'رقم العملية: ' + orderNum;
         $('#receiptAppName').textContent   = currentApp.name;
@@ -2105,6 +2221,116 @@
         }
     ];
 
+    /* ==========================================================
+       FAVORITES & QUICK REORDER STRIP
+       ========================================================== */
+    const FAV_KEY = 'mdarahim-favorites';
+
+    function getFavorites() {
+        try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch (_) { return []; }
+    }
+
+    function toggleFavorite(appName) {
+        let favs = getFavorites();
+        const exists = favs.includes(appName);
+        favs = exists ? favs.filter(n => n !== appName) : [appName, ...favs].slice(0, 8);
+        try { localStorage.setItem(FAV_KEY, JSON.stringify(favs)); } catch (_) {}
+        syncFavoriteButtons();
+        renderQuickReorderStrip();
+        toast(exists ? `تمت إزالة ${appName} من المفضلة` : `تمت إضافة ${appName} إلى المفضلة`);
+    }
+
+    function findCatalogApp(name) {
+        for (const sec of DEMO) {
+            const match = sec.items.find(i => i.name === name);
+            if (match) return { ...match, categoryLabel: sec.label };
+        }
+        return null;
+    }
+
+    function syncFavoriteButtons() {
+        const favs = new Set(getFavorites());
+        $$('.app-card-col').forEach(col => {
+            const card = $('.app-card', col);
+            if (!card) return;
+            const name = card.dataset.name;
+            let btn = $('.card-fav-btn', col);
+            if (!btn) {
+                btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'card-fav-btn';
+                btn.title = 'إضافة للمفضلة';
+                btn.setAttribute('aria-label', 'المفضلة');
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleFavorite(name);
+                });
+                col.appendChild(btn);
+            }
+            const isFav = favs.has(name);
+            btn.classList.toggle('is-fav', isFav);
+            btn.textContent = isFav ? '★' : '☆';
+        });
+    }
+
+    function renderQuickReorderStrip() {
+        const strip = $('#quickReorderStrip');
+        if (!strip) return;
+
+        const favs = getFavorites();
+        const recentNames = orders
+            .filter(o => !String(o.orderNum || '').startsWith('#DEP'))
+            .map(o => o.appName);
+
+        const combined = [];
+        const seen = new Set();
+
+        favs.forEach(name => {
+            if (!seen.has(name)) {
+                const app = findCatalogApp(name);
+                if (app) { seen.add(name); combined.push({ app, tag: 'مفضلة ★' }); }
+            }
+        });
+
+        recentNames.forEach(name => {
+            if (!seen.has(name) && combined.length < 6) {
+                const app = findCatalogApp(name);
+                if (app) { seen.add(name); combined.push({ app, tag: 'آخر طلب' }); }
+            }
+        });
+
+        if (!combined.length) {
+            strip.classList.add('d-none');
+            return;
+        }
+
+        strip.classList.remove('d-none');
+        strip.innerHTML = `
+            <div class="qrs-head">
+                <h2 class="qrs-title">الوصول السريع — المفضلة وآخر الطلبات</h2>
+                <a href="pages/wallet.html" style="font-size:0.76rem;font-weight:600;">كشف المحفظة ←</a>
+            </div>
+            <div class="qrs-row">
+                ${combined.map(({ app, tag }) => `
+                    <button type="button" class="qrs-chip" data-qrs-app="${app.name}">
+                        ${app.image ? `<img src="${app.image}" alt="${app.name}" loading="lazy">` : ''}
+                        <span>
+                            <span class="qrs-chip-name">${app.name}</span>
+                            <span class="qrs-chip-meta">${tag} • ${fmt(app.price)}</span>
+                        </span>
+                    </button>
+                `).join('')}
+            </div>
+        `;
+
+        strip.onclick = (e) => {
+            const chip = e.target.closest('[data-qrs-app]');
+            if (!chip) return;
+            const app = findCatalogApp(chip.dataset.qrsApp);
+            if (app) openTopup(app);
+        };
+    }
+
     function renderDemo(force = false) {
         const wrap = $('#sectionsWrapper');
         if (!wrap) return;
@@ -2164,7 +2390,15 @@
                 });
             });
         }
+
+        syncFavoriteButtons();
+        renderQuickReorderStrip();
     }
 
     renderDemo();
+
+    // Auto-open 3-step deposit modal when arriving from pages/wallet.html?open=wallet
+    if (new URLSearchParams(window.location.search).get('open') === 'wallet') {
+        openModal('walletModal');
+    }
 })();

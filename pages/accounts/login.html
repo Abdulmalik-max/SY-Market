@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0d1117">
-  <title>تسجيل الدخول | منصة رصيد — شحن الألعاب والبطاقات</title>
-  
+  <meta name="theme-color" content="#0b0f15">
+  <title>تسجيل الدخول | رصيد — RASEED</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../../src/vendor/bootstrap.min.css">
   <link rel="stylesheet" href="../../src/css/base.css">
@@ -20,9 +20,13 @@
   <main class="auth-card">
     <button id="btnThemeToggle" type="button" class="theme-toggle" aria-label="تبديل المظهر"></button>
 
-    <div class="auth-logo">رصيد</div>
+    <a href="../../index.html" class="auth-brand-wrap" title="رصيد | RASEED">
+      <img src="../../public/images/logo-dark.png" alt="رصيد RASEED" class="auth-brand-img logo-for-dark">
+      <img src="../../public/images/logo-light.png" alt="رصيد RASEED" class="auth-brand-img logo-for-light">
+    </a>
+
     <h1 class="auth-title">تسجيل الدخول</h1>
-    <p class="auth-sub">سجّل الدخول للوصول إلى محفظتك وسجل شحناتك</p>
+    <p class="auth-sub">سجّل الدخول للوصول إلى محفظتك وسجل طلباتك</p>
 
     <form id="loginForm" action="#" method="post" class="form" novalidate>
       <div class="mb-3">
@@ -83,19 +87,11 @@
       </p>
 
       <p class="auth-foot mt-3 mb-0">
-        <a href="../../index.html" class="auth-link" style="font-size:.82rem">← العودة إلى المتجر الرئيسي</a>
+        <a href="../../index.html" class="auth-link" style="font-size:.82rem">← العودة إلى المتجر</a>
       </p>
-
-      <div class="auth-security-badge">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-        </svg>
-        <span>اتصال مشفر ومحمي ببروتوكول الأمان SSL 256-bit</span>
-      </div>
     </form>
   </main>
 
-  <!-- Toast Notification -->
   <div id="toastBox" class="toast-app" role="status" aria-live="polite">
     <span id="toastMsg"></span>
   </div>
@@ -105,4 +101,3 @@
 </body>
 
 </html>
-

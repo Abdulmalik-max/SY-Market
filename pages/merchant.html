@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0f15" />
+    <title>بوابة التجار والموزعين | رصيد — RASEED</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../src/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="../src/css/base.css">
+    <link rel="stylesheet" href="../src/css/store.css">
+    <style>
+        .merch-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .merch-kpi {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.1rem 1.2rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .merch-kpi-label {
+            font-size: 0.77rem;
+            font-weight: 600;
+            color: var(--muted);
+            font-family: var(--font-display);
+        }
+
+        .merch-kpi-val {
+            font-family: var(--font-mono);
+            font-variant-numeric: tabular-nums;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .merch-kpi-val.brand {
+            color: var(--brand-light);
+        }
+
+        .merch-kpi-val.accent {
+            color: var(--accent-light);
+        }
+
+        .merch-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.3rem;
+        }
+
+        .merch-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.83rem;
+        }
+
+        .merch-table th {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--muted);
+            padding: 0.72rem 0.75rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface-2);
+            white-space: nowrap;
+        }
+
+        .merch-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            vertical-align: middle;
+        }
+
+        .merch-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .merch-table tbody tr:hover td {
+            background: var(--surface-2);
+        }
+
+        .queue-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            padding: 0.7rem 0.85rem;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+        }
+
+        .profit-tag {
+            display: inline-flex;
+            padding: 0.14rem 0.45rem;
+            border-radius: var(--radius-xs);
+            background: var(--brand-soft);
+            color: var(--brand-light);
+            border: 1px solid var(--brand-border);
+            font-family: var(--font-mono);
+            font-size: 0.74rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="siteHeader"></div>
+
+    <main class="container-xxl py-4 flex-grow-1">
+
+        <!-- Top Header -->
+        <div class="merch-bar">
+            <div>
+                <div class="d-flex align-items-center gap-2 mb-1">
+                    <h1 class="mb-0" style="font-size:1.45rem;">بوابة التجار والموزعين</h1>
+                    <span id="merchDiscountPill" class="profit-tag">خصم الجملة 8%</span>
+                </div>
+                <p class="text-secondary mb-0" style="font-size:0.85rem;">
+                    تنفيذ سريع لطلبات العملاء المتعددة بأسعار الجملة وحساب صافي الربح تلقائياً.
+                </p>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+                <select id="merchCurrencySelect" class="form-select form-select-sm header-currency" aria-label="العملة">
+                    <option value="SAR" selected>ر.س</option>
+                    <option value="YER">ر.ي</option>
+                    <option value="USD">$</option>
+                </select>
+                <a href="accounts/dashboard.html" class="btn btn-ghost btn-sm">حسابي</a>
+                <a href="../index.html" class="btn btn-brand btn-sm">المتجر الرئيسي</a>
+            </div>
+        </div>
+
+        <!-- KPI Row -->
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-lg-3">
+                <div class="merch-kpi">
+                    <span class="merch-kpi-label">رصيد محفظة التاجر</span>
+                    <span id="kpiMerchWallet" class="merch-kpi-val brand">100.00 ر.س</span>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="merch-kpi">
+                    <span class="merch-kpi-label">طلبات التجار المنفذة</span>
+                    <span id="kpiMerchOrders" class="merch-kpi-val">0</span>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="merch-kpi">
+                    <span class="merch-kpi-label">إجمالي مبيعات الجملة</span>
+                    <span id="kpiMerchSpend" class="merch-kpi-val">0.00 ر.س</span>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="merch-kpi">
+                    <span class="merch-kpi-label">صافي الربح التقديري</span>
+                    <span id="kpiMerchProfit" class="merch-kpi-val accent">0.00 ر.س</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Workspace -->
+        <div class="row g-4 mb-4">
+
+            <!-- Left/Right Col 1: Quick Multi-Order Form + Queue -->
+            <div class="col-12 col-lg-5">
+                <div class="merch-panel mb-4">
+                    <h2 class="mb-3" style="font-size:1.05rem;">إضافة طلب سريع لقائمة التنفيذ</h2>
+
+                    <form id="quickMerchForm" class="d-flex flex-column gap-3">
+                        <div>
+                            <label for="merchServiceSelect" class="form-label">اللعبة أو الخدمة</label>
+                            <select id="merchServiceSelect" class="form-select" required></select>
+                        </div>
+
+                        <div>
+                            <label for="merchPkgSelect" class="form-label">الباقة (سعر الجملة)</label>
+                            <select id="merchPkgSelect" class="form-select" required></select>
+                        </div>
+
+                        <div>
+                            <label for="merchPlayerInput" class="form-label">معرّف العميل (Player ID / الحساب)</label>
+                            <input id="merchPlayerInput" type="text" class="form-control font-monospace" dir="ltr"
+                                placeholder="مثال: 5128493021" required />
+                        </div>
+
+                        <!-- Live Margin Preview -->
+                        <div class="p-2 px-3 rounded"
+                            style="background:var(--surface-2);border:1px solid var(--border);font-size:0.8rem;">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="text-secondary">سعر البيع للعميل (التجزئة):</span>
+                                <strong id="prevRetail" class="font-monospace">0.00</strong>
+                            </div>
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="text-secondary">التكلفة عليك (الجملة):</span>
+                                <strong id="prevWholesale" class="font-monospace text-brand-light">0.00</strong>
+                            </div>
+                            <div
+                                class="d-flex justify-content-between pt-1 border-top border-secondary border-opacity-25">
+                                <span class="text-secondary">صافي ربحك في الطلب:</span>
+                                <strong id="prevProfit" class="font-monospace text-accent-light">0.00</strong>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-brand w-100">إضافة لقائمة التنفيذ</button>
+                    </form>
+                </div>
+
+                <!-- Batch Execution Queue -->
+                <div class="merch-panel">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h2 class="mb-0" style="font-size:1.02rem;">قائمة التنفيذ السريع (<span
+                                id="queueCount">0</span>)</h2>
+                        <button type="button" id="btnClearQueue" class="btn btn-ghost btn-sm py-1 px-2"
+                            style="font-size:0.75rem;">إفراغ</button>
+                    </div>
+
+                    <div id="merchQueueList" class="d-flex flex-column gap-2 mb-3"></div>
+
+                    <div class="pt-3 border-top border-secondary border-opacity-25">
+                        <div class="d-flex justify-content-between align-items-center mb-2 small">
+                            <span class="text-secondary">إجمالي التكلفة المطلوبة:</span>
+                            <strong id="queueTotalCost" class="font-monospace text-brand-light fs-6">0.00 ر.س</strong>
+                        </div>
+                        <button type="button" id="btnExecuteBatch" class="btn btn-brand w-100" disabled>
+                            تنفيذ جميع الطلبات دفعة واحدة
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Col 2: Wholesale Pricing Table -->
+            <div class="col-12 col-lg-7">
+                <div class="merch-panel h-100">
+                    <div
+                        class="d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center justify-content-between gap-2 mb-3">
+                        <h2 class="mb-0" style="font-size:1.05rem;">جدول أسعار الجملة والهوامش</h2>
+                        <input id="wholesaleSearch" type="search" class="form-control form-control-sm"
+                            style="height:36px;max-width:250px;" placeholder="ابحث عن لعبة أو باقة..." />
+                    </div>
+
+                    <div class="table-responsive" style="max-height: 540px; overflow-y: auto;">
+                        <table class="merch-table">
+                            <thead>
+                                <tr>
+                                    <th>الخدمة والباقة</th>
+                                    <th>التجزئة</th>
+                                    <th>سعر الجملة</th>
+                                    <th>ربحك</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="wholesaleTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Recent Merchant Orders -->
+        <div class="merch-panel">
+            <h2 class="mb-3" style="font-size:1.05rem;">آخر طلبات بوابة التجار</h2>
+            <div class="table-responsive">
+                <table class="merch-table">
+                    <thead>
+                        <tr>
+                            <th>رقم الطلب</th>
+                            <th>الخدمة</th>
+                            <th>الباقة</th>
+                            <th>معرّف العميل</th>
+                            <th>التكلفة (الجملة)</th>
+                            <th>التاريخ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="merchHistoryBody"></tbody>
+                </table>
+            </div>
+            <div id="merchHistoryEmpty" class="empty-state my-3 py-4 d-none">
+                <p class="text-secondary mb-0 small">لم يتم تنفيذ طلبات من بوابة التجار بعد.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="siteFooter"></div>
+
+    <div id="toastBox" class="toast-app" role="status" aria-live="polite">
+        <span id="toastMsg"></span>
+    </div>
+
+    <script src="../src/vendor/bootstrap.min.js"></script>
+    <script src="../src/js/layout.js"></script>
+    <script>
+        (function () {
+            "use strict";
+
+            const KEYS = {
+                wallet: "mdarahim-wallet",
+                orders: "mdarahim-orders",
+                rates: "mdarahim-rates",
+                discount: "mdarahim-merchant-discount",
+                stats: "mdarahim-merchant-stats"
+            };
+
+            const SYMBOLS = { SAR: "ر.س", YER: "ر.ي", USD: "$" };
+            const DEFAULT_RATES = { SAR: 1, YER: 140, USD: 1 / 3.75 };
+
+            const WHOLESALE_CATALOG = [
+                {
+                    name: "PUBG Mobile",
+                    packages: [
+                        { name: "60 UC شدة", price: 19.99 },
+                        { name: "325 UC + 25 مجاناً", price: 49.99 },
+                        { name: "660 UC (رويال باس)", price: 89.99 },
+                        { name: "1800 UC شدة", price: 189.99 },
+                        { name: "3850 UC شدة", price: 379.99 }
+                    ]
+                },
+                {
+                    name: "Free Fire",
+                    packages: [
+                        { name: "100 جوهرة + 10 بونص", price: 9.99 },
+                        { name: "310 جوهرة + 31 بونص", price: 24.99 },
+                        { name: "520 جوهرة + 52 بونص", price: 39.99 },
+                        { name: "1060 جوهرة", price: 79.99 }
+                    ]
+                },
+                {
+                    name: "Call of Duty Mobile",
+                    packages: [
+                        { name: "80 CP نقطة كود", price: 14.99 },
+                        { name: "420 CP نقطة كود", price: 49.99 },
+                        { name: "880 CP بتل باس", price: 89.99 }
+                    ]
+                },
+                {
+                    name: "Yalla Ludo",
+                    packages: [
+                        { name: "120 ماسة + 10K ذهب", price: 12.99 },
+                        { name: "650 ماسة + 50K ذهب", price: 49.99 },
+                        { name: "1,350 ماسة لودو", price: 99.99 }
+                    ]
+                },
+                {
+                    name: "Jawaker",
+                    packages: [
+                        { name: "10,000 توكنز", price: 19.99 },
+                        { name: "35,000 توكنز", price: 49.99 },
+                        { name: "100,000 توكنز + VIP", price: 119.99 }
+                    ]
+                },
+                {
+                    name: "Google Play",
+                    packages: [
+                        { name: "بطاقة 5$ دولار", price: 19.99 },
+                        { name: "بطاقة 10$ دولار", price: 37.50 },
+                        { name: "بطاقة 25$ دولار", price: 93.75 },
+                        { name: "بطاقة 50$ دولار", price: 187.50 }
+                    ]
+                },
+                {
+                    name: "PlayStation Store",
+                    packages: [
+                        { name: "بطاقة 10$ بلايستيشن", price: 39.99 },
+                        { name: "بطاقة 20$ بلايستيشن", price: 74.99 },
+                        { name: "بطاقة 50$ بلايستيشن", price: 189.99 }
+                    ]
+                },
+                {
+                    name: "TikTok Coins",
+                    packages: [
+                        { name: "350 عملة تيك توك", price: 19.99 },
+                        { name: "1,400 عملة تيك توك", price: 74.99 },
+                        { name: "3,500 عملة تيك توك", price: 179.99 }
+                    ]
+                },
+                {
+                    name: "ChatGPT Plus",
+                    packages: [
+                        { name: "اشتراك شهر واحد", price: 79.99 },
+                        { name: "اشتراك 3 أشهر", price: 229.99 }
+                    ]
+                },
+                {
+                    name: "Telegram Stars",
+                    packages: [
+                        { name: "100 نجمة تيليجرام", price: 12.50 },
+                        { name: "250 نجمة تيليجرام", price: 29.99 },
+                        { name: "500 نجمة تيليجرام", price: 54.99 }
+                    ]
+                }
+            ];
+
+            let rates = { ...DEFAULT_RATES };
+            let wallet = 100;
+            let discountPct = 8;
+            let currentCurrency = "SAR";
+            let queue = [];
+            let merchStats = { spendSar: 0, profitSar: 0, count: 0 };
+            let toastTimer;
+
+            function toast(msg) {
+                const box = document.getElementById("toastBox");
+                const el = document.getElementById("toastMsg");
+                if (!box || !el) return;
+                el.textContent = msg;
+                box.classList.add("show");
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => box.classList.remove("show"), 2600);
+            }
+
+            function escapeHtml(str) {
+                return String(str || "")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;");
+            }
+
+            function loadState() {
+                try {
+                    const r = localStorage.getItem(KEYS.rates);
+                    if (r) rates = { ...DEFAULT_RATES, ...JSON.parse(r) };
+                    const w = localStorage.getItem(KEYS.wallet);
+                    if (w !== null && !Number.isNaN(Number(w))) wallet = Number(w);
+                    const d = localStorage.getItem(KEYS.discount);
+                    if (d !== null && !Number.isNaN(Number(d))) discountPct = Number(d);
+                    const s = localStorage.getItem(KEYS.stats);
+                    if (s) merchStats = { ...merchStats, ...JSON.parse(s) };
+                } catch (_) { }
+            }
+
+            function wholesaleOf(retailSar) {
+                return Number((retailSar * (1 - discountPct / 100)).toFixed(2));
+            }
+
+            function fmt(sarAmount) {
+                const rate = rates[currentCurrency] || 1;
+                const v = Number(sarAmount) * rate;
+                const num = currentCurrency === "YER"
+                    ? Math.round(v).toLocaleString("en-US")
+                    : v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                return num + " " + SYMBOLS[currentCurrency];
+            }
+
+            function renderKPIs() {
+                document.getElementById("merchDiscountPill").textContent = `خصم الجملة ${discountPct}%`;
+                document.getElementById("kpiMerchWallet").textContent = fmt(wallet);
+                document.getElementById("kpiMerchOrders").textContent = String(merchStats.count);
+                document.getElementById("kpiMerchSpend").textContent = fmt(merchStats.spendSar);
+                document.getElementById("kpiMerchProfit").textContent = fmt(merchStats.profitSar);
+            }
+
+            function populateServiceSelect() {
+                const sel = document.getElementById("merchServiceSelect");
+                sel.innerHTML = WHOLESALE_CATALOG.map((item, idx) =>
+                    `<option value="${idx}">${escapeHtml(item.name)}</option>`
+                ).join("");
+                populatePkgSelect();
+            }
+
+            function populatePkgSelect() {
+                const svcIdx = Number(document.getElementById("merchServiceSelect").value) || 0;
+                const item = WHOLESALE_CATALOG[svcIdx];
+                const pkgSel = document.getElementById("merchPkgSelect");
+                pkgSel.innerHTML = item.packages.map((p, idx) => {
+                    const ws = wholesaleOf(p.price);
+                    return `<option value="${idx}">${escapeHtml(p.name)} — ${fmt(ws)}</option>`;
+                }).join("");
+                updateMarginPreview();
+            }
+
+            function updateMarginPreview() {
+                const svcIdx = Number(document.getElementById("merchServiceSelect").value) || 0;
+                const pkgIdx = Number(document.getElementById("merchPkgSelect").value) || 0;
+                const pkg = WHOLESALE_CATALOG[svcIdx]?.packages[pkgIdx];
+                if (!pkg) return;
+
+                const ws = wholesaleOf(pkg.price);
+                const profit = pkg.price - ws;
+                document.getElementById("prevRetail").textContent = fmt(pkg.price);
+                document.getElementById("prevWholesale").textContent = fmt(ws);
+                document.getElementById("prevProfit").textContent = "+" + fmt(profit);
+            }
+
+            function renderWholesaleTable() {
+                const q = (document.getElementById("wholesaleSearch")?.value || "").trim().toLowerCase();
+                const rows = [];
+
+                WHOLESALE_CATALOG.forEach((svc, sIdx) => {
+                    svc.packages.forEach((pkg, pIdx) => {
+                        if (q && !`${svc.name} ${pkg.name}`.toLowerCase().includes(q)) return;
+                        const ws = wholesaleOf(pkg.price);
+                        const profit = pkg.price - ws;
+                        rows.push(`
+              <tr>
+                <td>
+                  <div class="fw-semibold">${escapeHtml(svc.name)}</div>
+                  <div class="text-muted small">${escapeHtml(pkg.name)}</div>
+                </td>
+                <td class="font-monospace text-secondary">${fmt(pkg.price)}</td>
+                <td class="font-monospace fw-bold" style="color:var(--brand-light);">${fmt(ws)}</td>
+                <td><span class="profit-tag">+${fmt(profit)}</span></td>
+                <td>
+                  <button type="button" class="btn btn-ghost btn-sm py-1 px-2" style="font-size:0.74rem;"
+                          data-pick-svc="${sIdx}" data-pick-pkg="${pIdx}">اختيار</button>
+                </td>
+              </tr>
+            `);
+                    });
+                });
+
+                document.getElementById("wholesaleTableBody").innerHTML = rows.length
+                    ? rows.join("")
+                    : '<tr><td colspan="5" class="text-center text-muted py-4">لا توجد نتائج مطابقة.</td></tr>';
+            }
+
+            function renderQueue() {
+                const list = document.getElementById("merchQueueList");
+                const btnExec = document.getElementById("btnExecuteBatch");
+                document.getElementById("queueCount").textContent = String(queue.length);
+
+                const totalSar = queue.reduce((sum, q) => sum + q.wholesaleSar, 0);
+                document.getElementById("queueTotalCost").textContent = fmt(totalSar);
+                btnExec.disabled = queue.length === 0;
+
+                if (!queue.length) {
+                    list.innerHTML = '<div class="text-muted small text-center py-2">القائمة فارغة — أضف طلبات العملاء أعلاه.</div>';
+                    return;
+                }
+
+                list.innerHTML = queue.map((q, idx) => `
+          <div class="queue-item">
+            <div class="min-w-0">
+              <div class="fw-semibold text-truncate">${escapeHtml(q.appName)} — ${escapeHtml(q.pkgName)}</div>
+              <div class="text-muted font-monospace small" dir="ltr">${escapeHtml(q.playerId)}</div>
+            </div>
+            <div class="d-flex align-items-center gap-2 flex-shrink-0">
+              <strong class="font-monospace text-brand-light">${fmt(q.wholesaleSar)}</strong>
+              <button type="button" class="btn btn-ghost btn-sm py-0 px-2" data-rem-q="${idx}" aria-label="إزالة">✕</button>
+            </div>
+          </div>
+        `).join("");
+            }
+
+            function renderMerchHistory() {
+                let orders = [];
+                try { orders = JSON.parse(localStorage.getItem(KEYS.orders) || "[]"); } catch (_) { }
+                const merchOrders = orders.filter((o) => String(o.payMethod || "").includes("بوابة التجار"));
+                const tbody = document.getElementById("merchHistoryBody");
+                const empty = document.getElementById("merchHistoryEmpty");
+
+                if (!merchOrders.length) {
+                    tbody.innerHTML = "";
+                    empty.classList.remove("d-none");
+                    return;
+                }
+
+                empty.classList.add("d-none");
+                tbody.innerHTML = merchOrders.slice(0, 15).map((o) => `
+          <tr>
+            <td class="font-monospace fw-bold" style="color:var(--accent-light);">${escapeHtml(o.orderNum)}</td>
+            <td class="fw-semibold">${escapeHtml(o.appName)}</td>
+            <td>${escapeHtml(o.pkgName)}</td>
+            <td class="font-monospace" dir="ltr">${escapeHtml(o.playerId)}</td>
+            <td class="font-monospace fw-bold" style="color:var(--brand-light);">${escapeHtml(o.amountDisplay)}</td>
+            <td class="text-muted small">${escapeHtml(o.date || "—")}</td>
+          </tr>
+        `).join("");
+            }
+
+            /* Events */
+            document.getElementById("merchCurrencySelect")?.addEventListener("change", (e) => {
+                currentCurrency = e.target.value;
+                renderKPIs();
+                populatePkgSelect();
+                renderWholesaleTable();
+                renderQueue();
+            });
+
+            document.getElementById("merchServiceSelect")?.addEventListener("change", populatePkgSelect);
+            document.getElementById("merchPkgSelect")?.addEventListener("change", updateMarginPreview);
+            document.getElementById("wholesaleSearch")?.addEventListener("input", renderWholesaleTable);
+
+            document.getElementById("wholesaleTableBody")?.addEventListener("click", (e) => {
+                const btn = e.target.closest("[data-pick-svc]");
+                if (!btn) return;
+                document.getElementById("merchServiceSelect").value = btn.dataset.pickSvc;
+                populatePkgSelect();
+                document.getElementById("merchPkgSelect").value = btn.dataset.pickPkg;
+                updateMarginPreview();
+                document.getElementById("merchPlayerInput").focus();
+            });
+
+            document.getElementById("quickMerchForm")?.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const svcIdx = Number(document.getElementById("merchServiceSelect").value) || 0;
+                const pkgIdx = Number(document.getElementById("merchPkgSelect").value) || 0;
+                const playerId = document.getElementById("merchPlayerInput").value.trim();
+                if (!playerId) return;
+
+                const svc = WHOLESALE_CATALOG[svcIdx];
+                const pkg = svc.packages[pkgIdx];
+                const ws = wholesaleOf(pkg.price);
+
+                queue.push({
+                    appName: svc.name,
+                    pkgName: pkg.name,
+                    playerId,
+                    retailSar: pkg.price,
+                    wholesaleSar: ws,
+                    profitSar: pkg.price - ws
+                });
+
+                document.getElementById("merchPlayerInput").value = "";
+                renderQueue();
+                toast("تمت إضافة الطلب لقائمة التنفيذ");
+            });
+
+            document.getElementById("merchQueueList")?.addEventListener("click", (e) => {
+                const btn = e.target.closest("[data-rem-q]");
+                if (!btn) return;
+                queue.splice(Number(btn.dataset.remQ), 1);
+                renderQueue();
+            });
+
+            document.getElementById("btnClearQueue")?.addEventListener("click", () => {
+                queue = [];
+                renderQueue();
+            });
+
+            document.getElementById("btnExecuteBatch")?.addEventListener("click", () => {
+                if (!queue.length) return;
+                const totalSar = queue.reduce((sum, q) => sum + q.wholesaleSar, 0);
+                const totalProfit = queue.reduce((sum, q) => sum + q.profitSar, 0);
+
+                if (wallet < totalSar) {
+                    toast("رصيد المحفظة غير كافٍ لتنفيذ القائمة. يرجى شحن المحفظة أولاً.");
+                    return;
+                }
+
+                wallet = Number((wallet - totalSar).toFixed(2));
+                let orders = [];
+                try { orders = JSON.parse(localStorage.getItem(KEYS.orders) || "[]"); } catch (_) { }
+
+                const now = new Date().toLocaleString("ar-SA");
+                queue.forEach((item) => {
+                    orders.unshift({
+                        orderNum: "#M" + Math.floor(100000 + Math.random() * 900000),
+                        appName: item.appName,
+                        pkgName: item.pkgName,
+                        playerId: item.playerId,
+                        payMethod: `بوابة التجار (خصم ${discountPct}%)`,
+                        amountDisplay: fmt(item.wholesaleSar),
+                        date: now
+                    });
+                });
+
+                merchStats.count += queue.length;
+                merchStats.spendSar = Number((merchStats.spendSar + totalSar).toFixed(2));
+                merchStats.profitSar = Number((merchStats.profitSar + totalProfit).toFixed(2));
+
+                try {
+                    localStorage.setItem(KEYS.wallet, String(wallet));
+                    localStorage.setItem(KEYS.orders, JSON.stringify(orders));
+                    localStorage.setItem(KEYS.stats, JSON.stringify(merchStats));
+                } catch (_) { }
+
+                const executedCount = queue.length;
+                queue = [];
+                renderQueue();
+                renderKPIs();
+                renderMerchHistory();
+                toast(`تم تنفيذ ${executedCount} طلب بنجاح من رصيد التاجر`);
+            });
+
+            /* Init */
+            loadState();
+            populateServiceSelect();
+            renderKPIs();
+            renderWholesaleTable();
+            renderQueue();
+            renderMerchHistory();
+        })();
+    </script>
+</body>
+
+</html>

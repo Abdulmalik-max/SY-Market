@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0f15" />
+    <title>لوحة التحكم وحسابي | رصيد — RASEED</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../../src/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="../../src/css/base.css">
+    <link rel="stylesheet" href="../../src/css/store.css">
+    <style>
+        .dash-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dash-kpi-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.15rem 1.25rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .dash-kpi-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--muted);
+            font-family: var(--font-display);
+        }
+
+        .dash-kpi-value {
+            font-family: var(--font-mono);
+            font-variant-numeric: tabular-nums;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .dash-kpi-value.brand {
+            color: var(--brand-light);
+        }
+
+        .dash-kpi-sub {
+            font-size: 0.76rem;
+            color: var(--text-secondary);
+        }
+
+        .dash-tabs {
+            border-bottom: 1px solid var(--border);
+            gap: 0.35rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .dash-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .dash-tabs .nav-link {
+            border: 1px solid transparent;
+            border-bottom: 2px solid transparent;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            color: var(--text-secondary);
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.65rem 1.05rem;
+            white-space: nowrap;
+            background: transparent;
+        }
+
+        .dash-tabs .nav-link:hover {
+            color: var(--text);
+            background: var(--surface-2);
+        }
+
+        .dash-tabs .nav-link.active {
+            color: var(--brand-light);
+            background: var(--surface);
+            border-color: var(--border) var(--border) transparent;
+            border-bottom: 2px solid var(--brand);
+        }
+
+        .dash-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.35rem;
+        }
+
+        .dash-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.84rem;
+        }
+
+        .dash-table th {
+            font-family: var(--font-display);
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: var(--muted);
+            padding: 0.75rem 0.85rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface-2);
+            white-space: nowrap;
+        }
+
+        .dash-table td {
+            padding: 0.85rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            vertical-align: middle;
+        }
+
+        .dash-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .dash-table tbody tr:hover td {
+            background: var(--surface-2);
+        }
+
+        .status-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.18rem 0.55rem;
+            border-radius: var(--radius-xs);
+            font-family: var(--font-display);
+            font-size: 0.72rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .status-tag.in {
+            background: var(--brand-soft);
+            color: var(--brand-light);
+            border: 1px solid var(--brand-border);
+        }
+
+        .status-tag.out {
+            background: var(--accent-soft);
+            color: var(--accent-light);
+            border: 1px solid rgba(184, 115, 51, 0.28);
+        }
+
+        .saved-id-card {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+            height: 100%;
+        }
+
+        .saved-id-value {
+            font-family: var(--font-mono);
+            font-size: 0.96rem;
+            font-weight: 700;
+            color: var(--brand-light);
+            background: var(--surface);
+            border: 1px dashed var(--border-strong);
+            border-radius: var(--radius-sm);
+            padding: 0.45rem 0.7rem;
+            direction: ltr;
+            text-align: left;
+            word-break: break-all;
+            user-select: all;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="siteHeader"></div>
+
+    <main class="container-xxl py-4 flex-grow-1">
+
+        <!-- Top Account Bar -->
+        <div class="dash-header">
+            <div>
+                <h1 class="mb-1" style="font-size:1.45rem;">لوحة التحكم وحسابي</h1>
+                <p class="text-secondary mb-0" style="font-size:0.86rem;">
+                    مرحباً <strong id="dashUserName" class="text-primary-ink">عميل رصيد</strong> — إدارة رصيدك، طلباتك،
+                    ومعرّفات الألعاب المحفوظة.
+                </p>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+                <select id="dashCurrencySelect" class="form-select form-select-sm header-currency" aria-label="العملة">
+                    <option value="SAR" selected>ر.س</option>
+                    <option value="YER">ر.ي</option>
+                    <option value="USD">$</option>
+                </select>
+                <a href="../../index.html" class="btn btn-brand btn-sm px-3">شحن لعبة أو بطاقة</a>
+            </div>
+        </div>
+
+        <!-- KPI Summary Row -->
+        <div class="row g-3 mb-4">
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="dash-kpi-card">
+                    <span class="dash-kpi-label">رصيد المحفظة الحالي</span>
+                    <span id="kpiWalletBalance" class="dash-kpi-value brand">100.00 ر.س</span>
+                    <span class="dash-kpi-sub">متاح للشحن الفوري بدون رسوم</span>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="dash-kpi-card">
+                    <span class="dash-kpi-label">طلبات الشحن والبطاقات</span>
+                    <span id="kpiOrdersCount" class="dash-kpi-value">0</span>
+                    <span class="dash-kpi-sub">العمليات المسجلة على هذا الجهاز</span>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="dash-kpi-card">
+                    <span class="dash-kpi-label">عمليات إيداع المحفظة</span>
+                    <span id="kpiDepositsCount" class="dash-kpi-value">0</span>
+                    <span class="dash-kpi-sub">الحوالات والكروت المطابقة</span>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="dash-kpi-card">
+                    <span class="dash-kpi-label">معرّفات الألعاب المحفوظة</span>
+                    <span id="kpiSavedIdsCount" class="dash-kpi-value">0</span>
+                    <span class="dash-kpi-sub">جاهزة للنسخ السريع أثناء الطلب</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Tabs -->
+        <ul class="nav dash-tabs" id="dashboardTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tab-orders-btn" data-bs-toggle="tab" data-bs-target="#tab-orders"
+                    type="button" role="tab">
+                    أرشيف الطلبات
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-wallet-btn" data-bs-toggle="tab" data-bs-target="#tab-wallet"
+                    type="button" role="tab">
+                    سجل المحفظة والإيداعات
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-ids-btn" data-bs-toggle="tab" data-bs-target="#tab-ids" type="button"
+                    role="tab">
+                    معرّفات الألعاب المحفوظة
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-settings-btn" data-bs-toggle="tab" data-bs-target="#tab-settings"
+                    type="button" role="tab">
+                    بيانات الحساب
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+
+            <!-- ===================================================== -->
+            <!-- TAB 1: ORDER ARCHIVE                                  -->
+            <!-- ===================================================== -->
+            <div class="tab-pane fade show active" id="tab-orders" role="tabpanel">
+                <div class="dash-panel">
+                    <div
+                        class="d-flex flex-column flex-md-row align-items-stretch align-items-md-center justify-content-between gap-2 mb-3">
+                        <h2 class="mb-0" style="font-size:1.05rem;">سجل طلبات الشحن والبطاقات</h2>
+                        <div class="d-flex gap-2">
+                            <input id="orderSearchInput" type="search" class="form-control form-control-sm"
+                                style="height:36px;min-width:230px;"
+                                placeholder="ابحث برقم الطلب أو اللعبة أو المعرف..." />
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="dash-table">
+                            <thead>
+                                <tr>
+                                    <th>رقم الطلب</th>
+                                    <th>الخدمة / اللعبة</th>
+                                    <th>الباقة</th>
+                                    <th>المعرّف</th>
+                                    <th>وسيلة الدفع</th>
+                                    <th>المبلغ</th>
+                                    <th>التاريخ</th>
+                                    <th>تتبع</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersArchiveBody"></tbody>
+                        </table>
+                    </div>
+
+                    <div id="ordersArchiveEmpty" class="empty-state my-3 py-4 d-none">
+                        <h3 class="fw-bold mb-1" style="font-size:1rem;">لا توجد طلبات شحن بعد</h3>
+                        <p class="text-secondary mb-3" style="font-size:0.85rem;">عند تنفيذ أول عملية شحن من المتجر،
+                            ستظهر تفاصيلها هنا تلقائياً.</p>
+                        <a href="../../index.html" class="btn btn-brand btn-sm">تصفح المتجر الآن</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================================================== -->
+            <!-- TAB 2: WALLET LEDGER                                  -->
+            <!-- ===================================================== -->
+            <div class="tab-pane fade" id="tab-wallet" role="tabpanel">
+                <div class="dash-panel">
+                    <div
+                        class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-2 mb-3">
+                        <div>
+                            <h2 class="mb-1" style="font-size:1.05rem;">حركة المحفظة الإلكترونية</h2>
+                            <p class="text-secondary mb-0" style="font-size:0.82rem;">يعرض هذا السجل عمليات شحن المحفظة
+                                والمشتريات المدفوعة من الرصيد.</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-ghost btn-sm wallet-filter-btn active"
+                                data-wfilter="all">الكل</button>
+                            <button type="button" class="btn btn-ghost btn-sm wallet-filter-btn"
+                                data-wfilter="in">إيداعات</button>
+                            <button type="button" class="btn btn-ghost btn-sm wallet-filter-btn"
+                                data-wfilter="out">مشتريات بالرصيد</button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="dash-table">
+                            <thead>
+                                <tr>
+                                    <th>المرجع</th>
+                                    <th>النوع</th>
+                                    <th>التفاصيل</th>
+                                    <th>القناة / المعرف</th>
+                                    <th>المبلغ</th>
+                                    <th>التاريخ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="walletLedgerBody"></tbody>
+                        </table>
+                    </div>
+
+                    <div id="walletLedgerEmpty" class="empty-state my-3 py-4 d-none">
+                        <h3 class="fw-bold mb-1" style="font-size:1rem;">لا توجد حركات مسجلة في المحفظة</h3>
+                        <p class="text-secondary mb-3" style="font-size:0.85rem;">يمكنك شحن محفظتك من الصفحة الرئيسية
+                            للمتجر عبر المحافظ اليمنية أو البنوك أو كروت الشحن.</p>
+                        <a href="../../index.html" class="btn btn-brand btn-sm">الذهاب للمتجر لشحن المحفظة</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================================================== -->
+            <!-- TAB 3: SAVED PLAYER IDs                               -->
+            <!-- ===================================================== -->
+            <div class="tab-pane fade" id="tab-ids" role="tabpanel">
+                <div class="row g-4">
+                    <!-- Add New ID Form -->
+                    <div class="col-12 col-lg-4">
+                        <div class="dash-panel">
+                            <h2 class="mb-3" style="font-size:1.02rem;">إضافة معرّف لاعب جديد</h2>
+                            <form id="addSavedIdForm">
+                                <div class="mb-3">
+                                    <label for="savedGameSelect" class="form-label">اللعبة أو التطبيق</label>
+                                    <select id="savedGameSelect" class="form-select" required>
+                                        <option value="PUBG Mobile">PUBG Mobile</option>
+                                        <option value="Free Fire">Free Fire</option>
+                                        <option value="Call of Duty Mobile">Call of Duty Mobile</option>
+                                        <option value="Yalla Ludo">Yalla Ludo</option>
+                                        <option value="Jawaker">Jawaker</option>
+                                        <option value="Mobile Legends">Mobile Legends</option>
+                                        <option value="Roblox Robux">Roblox</option>
+                                        <option value="eFootball PES">eFootball PES</option>
+                                        <option value="TikTok Coins">TikTok</option>
+                                        <option value="Bigo Live Diamonds">Bigo Live</option>
+                                        <option value="Telegram">Telegram</option>
+                                        <option value="أخرى">خدمة أخرى</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="savedPlayerIdInput" class="form-label">معرّف اللاعب (ID) أو اسم
+                                        المستخدم</label>
+                                    <input id="savedPlayerIdInput" type="text" class="form-control font-monospace"
+                                        dir="ltr" placeholder="مثال: 5128493021" required />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="savedLabelInput" class="form-label">تسمية مميزة (اختياري)</label>
+                                    <input id="savedLabelInput" type="text" class="form-control"
+                                        placeholder="مثال: حسابي الرئيسي أو حساب أخي" />
+                                </div>
+
+                                <button type="submit" class="btn btn-brand w-100">حفظ المعرّف</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Saved IDs List -->
+                    <div class="col-12 col-lg-8">
+                        <div class="dash-panel h-100">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h2 class="mb-0" style="font-size:1.02rem;">المعرّفات المحفوظة</h2>
+                                <span class="text-muted small">اضغط نسخ لاستخدامه فوراً عند الشحن</span>
+                            </div>
+
+                            <div id="savedIdsGrid" class="row g-3"></div>
+
+                            <div id="savedIdsEmpty" class="empty-state my-3 py-4 d-none">
+                                <h3 class="fw-bold mb-1" style="font-size:1rem;">لم تقم بحفظ أي معرّف بعد</h3>
+                                <p class="text-secondary mb-0" style="font-size:0.85rem;">احفظ معرّفات ألعابك المفضلة من
+                                    النموذج المجاور لتجنب إعادة كتابتها في كل مرة.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================================================== -->
+            <!-- TAB 4: PROFILE SETTINGS                               -->
+            <!-- ===================================================== -->
+            <div class="tab-pane fade" id="tab-settings" role="tabpanel">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-7">
+                        <div class="dash-panel">
+                            <h2 class="mb-3" style="font-size:1.05rem;">إعدادات الحساب والتفضيلات</h2>
+                            <form id="profileSettingsForm">
+                                <div class="row g-3">
+                                    <div class="col-12 col-sm-6">
+                                        <label for="profName" class="form-label">الاسم المعروض</label>
+                                        <input id="profName" type="text" class="form-control"
+                                            placeholder="الاسم الكامل" />
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <label for="profPhone" class="form-label">رقم الواتساب للإشعارات</label>
+                                        <input id="profPhone" type="tel" class="form-control" dir="ltr"
+                                            placeholder="7XXXXXXXX أو 05XXXXXXXX" />
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <label for="profEmail" class="form-label">البريد الإلكتروني</label>
+                                        <input id="profEmail" type="email" class="form-control" dir="ltr"
+                                            placeholder="name@example.com" />
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <label for="profCurrency" class="form-label">العملة الافتراضية</label>
+                                        <select id="profCurrency" class="form-select">
+                                            <option value="SAR">ريال سعودي (ر.س)</option>
+                                            <option value="YER">ريال يمني (ر.ي)</option>
+                                            <option value="USD">دولار أمريكي ($)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 pt-2 d-flex gap-2 flex-wrap">
+                                        <button type="submit" class="btn btn-brand px-4">حفظ الإعدادات</button>
+                                        <a href="login.html" class="btn btn-ghost">تبديل الحساب</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="siteFooter"></div>
+
+    <div id="toastBox" class="toast-app" role="status" aria-live="polite">
+        <span id="toastMsg"></span>
+    </div>
+
+    <script src="../../src/vendor/bootstrap.min.js"></script>
+    <script src="../../src/js/layout.js"></script>
+    <script>
+        (function () {
+            "use strict";
+
+            const KEYS = {
+                wallet: "mdarahim-wallet",
+                orders: "mdarahim-orders",
+                rates: "mdarahim-rates",
+                savedIds: "mdarahim-saved-ids",
+                profile: "mdarahim-profile"
+            };
+
+            const SYMBOLS = { SAR: "ر.س", YER: "ر.ي", USD: "$" };
+            const DEFAULT_RATES = { SAR: 1, YER: 140, USD: 1 / 3.75 };
+
+            let rates = { ...DEFAULT_RATES };
+            let wallet = 100;
+            let allOrders = [];
+            let savedIds = [];
+            let profile = { name: "عميل رصيد", phone: "", email: "", currency: "SAR" };
+            let currentCurrency = "SAR";
+            let walletFilter = "all";
+
+            function loadState() {
+                try {
+                    const r = localStorage.getItem(KEYS.rates);
+                    if (r) rates = { ...DEFAULT_RATES, ...JSON.parse(r) };
+
+                    const w = localStorage.getItem(KEYS.wallet);
+                    if (w !== null && !Number.isNaN(Number(w))) wallet = Number(w);
+
+                    const o = localStorage.getItem(KEYS.orders);
+                    if (o) allOrders = JSON.parse(o);
+
+                    const ids = localStorage.getItem(KEYS.savedIds);
+                    if (ids) savedIds = JSON.parse(ids);
+
+                    const p = localStorage.getItem(KEYS.profile);
+                    if (p) profile = { ...profile, ...JSON.parse(p) };
+                } catch (_) { }
+
+                currentCurrency = profile.currency || "SAR";
+                const curSel = document.getElementById("dashCurrencySelect");
+                if (curSel) curSel.value = currentCurrency;
+            }
+
+            function fmt(sarAmount) {
+                const rate = rates[currentCurrency] || 1;
+                const v = Number(sarAmount) * rate;
+                let num;
+                if (currentCurrency === "YER") {
+                    num = Math.round(v).toLocaleString("en-US");
+                } else {
+                    num = v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                }
+                return num + " " + SYMBOLS[currentCurrency];
+            }
+
+            function escapeHtml(str) {
+                return String(str || "")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;");
+            }
+
+            let toastTimer;
+            function toast(msg) {
+                const box = document.getElementById("toastBox");
+                const el = document.getElementById("toastMsg");
+                if (!box || !el) return;
+                el.textContent = msg;
+                box.classList.add("show");
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => box.classList.remove("show"), 2600);
+            }
+
+            function isDepositOrder(o) {
+                return String(o.orderNum || "").startsWith("#DEP") || String(o.appName || "").includes("شحن محفظة");
+            }
+
+            function renderKPIs() {
+                const deposits = allOrders.filter(isDepositOrder);
+                const purchases = allOrders.filter((o) => !isDepositOrder(o));
+
+                document.getElementById("dashUserName").textContent = profile.name || "عميل رصيد";
+                document.getElementById("kpiWalletBalance").textContent = fmt(wallet);
+                document.getElementById("kpiOrdersCount").textContent = String(purchases.length);
+                document.getElementById("kpiDepositsCount").textContent = String(deposits.length);
+                document.getElementById("kpiSavedIdsCount").textContent = String(savedIds.length);
+            }
+
+            function renderOrdersArchive() {
+                const q = (document.getElementById("orderSearchInput")?.value || "").trim().toLowerCase();
+                const purchases = allOrders.filter((o) => !isDepositOrder(o)).filter((o) => {
+                    if (!q) return true;
+                    const hay = `${o.orderNum} ${o.appName} ${o.pkgName} ${o.playerId} ${o.payMethod}`.toLowerCase();
+                    return hay.includes(q);
+                });
+
+                const tbody = document.getElementById("ordersArchiveBody");
+                const empty = document.getElementById("ordersArchiveEmpty");
+                if (!tbody || !empty) return;
+
+                if (purchases.length === 0) {
+                    tbody.innerHTML = "";
+                    empty.classList.remove("d-none");
+                    return;
+                }
+
+                empty.classList.add("d-none");
+                tbody.innerHTML = purchases.map((o) => `
+          <tr>
+            <td class="font-monospace fw-bold" style="color:var(--accent-light);">${escapeHtml(o.orderNum)}</td>
+            <td class="fw-semibold">${escapeHtml(o.appName)}</td>
+            <td>${escapeHtml(o.pkgName)}</td>
+            <td class="font-monospace" dir="ltr">${escapeHtml(o.playerId)}</td>
+            <td class="text-secondary">${escapeHtml(o.payMethod)}</td>
+            <td class="font-monospace fw-bold" style="color:var(--brand-light);">${escapeHtml(o.amountDisplay)}</td>
+            <td class="text-muted small">${escapeHtml(o.date || "—")}</td>
+            <td>
+              <a href="../track-order.html?order=${encodeURIComponent(o.orderNum)}" class="btn btn-ghost btn-sm py-1 px-2" style="font-size:0.75rem;">
+                تتبع
+              </a>
+            </td>
+          </tr>
+        `).join("");
+            }
+
+            function renderWalletLedger() {
+                const ledger = allOrders.filter((o) => {
+                    const dep = isDepositOrder(o);
+                    const isWalletPay = String(o.payMethod || "").includes("المحفظة");
+                    if (walletFilter === "in") return dep;
+                    if (walletFilter === "out") return !dep && isWalletPay;
+                    return dep || isWalletPay;
+                });
+
+                const tbody = document.getElementById("walletLedgerBody");
+                const empty = document.getElementById("walletLedgerEmpty");
+                if (!tbody || !empty) return;
+
+                if (ledger.length === 0) {
+                    tbody.innerHTML = "";
+                    empty.classList.remove("d-none");
+                    return;
+                }
+
+                empty.classList.add("d-none");
+                tbody.innerHTML = ledger.map((o) => {
+                    const dep = isDepositOrder(o);
+                    return `
+            <tr>
+              <td class="font-monospace fw-bold" style="color:var(--accent-light);">${escapeHtml(o.orderNum)}</td>
+              <td>
+                <span class="status-tag ${dep ? "in" : "out"}">${dep ? "إيداع رصيد" : "خصم شراء"}</span>
+              </td>
+              <td class="fw-semibold">${escapeHtml(dep ? o.pkgName : `${o.appName} — ${o.pkgName}`)}</td>
+              <td class="text-secondary small">${escapeHtml(o.playerId)}</td>
+              <td class="font-monospace fw-bold" style="color:${dep ? "var(--brand-light)" : "var(--accent-light)"};">
+                ${escapeHtml(dep ? o.amountDisplay : "-" + o.amountDisplay)}
+              </td>
+              <td class="text-muted small">${escapeHtml(o.date || "—")}</td>
+            </tr>
+          `;
+                }).join("");
+            }
+
+            function renderSavedIds() {
+                const grid = document.getElementById("savedIdsGrid");
+                const empty = document.getElementById("savedIdsEmpty");
+                if (!grid || !empty) return;
+
+                if (savedIds.length === 0) {
+                    grid.innerHTML = "";
+                    empty.classList.remove("d-none");
+                    return;
+                }
+
+                empty.classList.add("d-none");
+                grid.innerHTML = savedIds.map((item) => `
+          <div class="col-12 col-md-6">
+            <div class="saved-id-card">
+              <div class="d-flex align-items-center justify-content-between gap-2">
+                <strong style="font-size:0.9rem;">${escapeHtml(item.game)}</strong>
+                ${item.label ? `<span class="badge-new" style="position:static;background:var(--surface-3);color:var(--text-secondary);">${escapeHtml(item.label)}</span>` : ""}
+              </div>
+              <div class="saved-id-value">${escapeHtml(item.playerId)}</div>
+              <div class="d-flex gap-2 mt-auto pt-1">
+                <button type="button" class="btn btn-brand btn-sm flex-fill py-1" data-copy-id="${escapeHtml(item.playerId)}">نسخ المعرّف</button>
+                <button type="button" class="btn btn-ghost btn-sm py-1 px-3" data-delete-id="${escapeHtml(item.id)}" aria-label="حذف">حذف</button>
+              </div>
+            </div>
+          </div>
+        `).join("");
+            }
+
+            function populateProfileForm() {
+                document.getElementById("profName").value = profile.name || "";
+                document.getElementById("profPhone").value = profile.phone || "";
+                document.getElementById("profEmail").value = profile.email || "";
+                document.getElementById("profCurrency").value = profile.currency || "SAR";
+            }
+
+            /* Events */
+            document.getElementById("dashCurrencySelect")?.addEventListener("change", (e) => {
+                currentCurrency = e.target.value;
+                renderKPIs();
+            });
+
+            document.getElementById("orderSearchInput")?.addEventListener("input", renderOrdersArchive);
+
+            document.querySelectorAll(".wallet-filter-btn").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    document.querySelectorAll(".wallet-filter-btn").forEach((b) => {
+                        b.classList.remove("btn-brand", "active");
+                        b.classList.add("btn-ghost");
+                    });
+                    btn.classList.remove("btn-ghost");
+                    btn.classList.add("btn-brand", "active");
+                    walletFilter = btn.dataset.wfilter;
+                    renderWalletLedger();
+                });
+            });
+
+            document.getElementById("addSavedIdForm")?.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const game = document.getElementById("savedGameSelect").value;
+                const playerId = document.getElementById("savedPlayerIdInput").value.trim();
+                const label = document.getElementById("savedLabelInput").value.trim();
+                if (!playerId) return;
+
+                savedIds.unshift({
+                    id: "id_" + Date.now(),
+                    game,
+                    playerId,
+                    label
+                });
+
+                try { localStorage.setItem(KEYS.savedIds, JSON.stringify(savedIds)); } catch (_) { }
+                e.target.reset();
+                renderSavedIds();
+                renderKPIs();
+                toast("تم حفظ معرّف اللاعب بنجاح");
+            });
+
+            document.getElementById("savedIdsGrid")?.addEventListener("click", async (e) => {
+                const copyBtn = e.target.closest("[data-copy-id]");
+                if (copyBtn) {
+                    const val = copyBtn.dataset.copyId;
+                    try {
+                        await navigator.clipboard.writeText(val);
+                        toast("تم نسخ المعرّف: " + val);
+                    } catch (_) {
+                        toast("المعرّف: " + val);
+                    }
+                    return;
+                }
+
+                const delBtn = e.target.closest("[data-delete-id]");
+                if (delBtn) {
+                    const targetId = delBtn.dataset.deleteId;
+                    savedIds = savedIds.filter((i) => i.id !== targetId);
+                    try { localStorage.setItem(KEYS.savedIds, JSON.stringify(savedIds)); } catch (_) { }
+                    renderSavedIds();
+                    renderKPIs();
+                    toast("تم حذف المعرّف");
+                }
+            });
+
+            document.getElementById("profileSettingsForm")?.addEventListener("submit", (e) => {
+                e.preventDefault();
+                profile = {
+                    name: document.getElementById("profName").value.trim() || "عميل رصيد",
+                    phone: document.getElementById("profPhone").value.trim(),
+                    email: document.getElementById("profEmail").value.trim(),
+                    currency: document.getElementById("profCurrency").value || "SAR"
+                };
+                currentCurrency = profile.currency;
+                document.getElementById("dashCurrencySelect").value = currentCurrency;
+                try { localStorage.setItem(KEYS.profile, JSON.stringify(profile)); } catch (_) { }
+                renderKPIs();
+                toast("تم حفظ إعدادات الحساب بنجاح");
+            });
+
+            /* Init */
+            loadState();
+            populateProfileForm();
+            renderKPIs();
+            renderOrdersArchive();
+            renderWalletLedger();
+            renderSavedIds();
+        })();
+    </script>
+</body>
+
+</html>

@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0d1117" />
-  <title>الأسئلة الشائعة | منصة رصيد — شحن الألعاب والبطاقات</title>
+  <meta name="theme-color" content="#0b0f15" />
+  <title>الأسئلة الشائعة | رصيد — RASEED</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../src/vendor/bootstrap.min.css">
   <link rel="stylesheet" href="../src/css/base.css">
@@ -20,10 +20,10 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       overflow: hidden;
-      transition: all 0.15s ease;
+      transition: border-color 0.15s ease;
     }
     .faq-question {
-      padding: 1.15rem 1.4rem;
+      padding: 1.1rem 1.35rem;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -32,16 +32,16 @@
       user-select: none;
     }
     .faq-question h3 {
-      font-size: 0.98rem;
+      font-size: 0.96rem;
       font-weight: 700;
       color: var(--text);
       margin: 0;
       font-family: var(--font-display);
-      line-height: 1.4;
+      line-height: 1.45;
     }
     .faq-arrow {
       color: var(--brand-light);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       transition: transform 0.2s ease;
       flex-shrink: 0;
     }
@@ -49,21 +49,20 @@
       transform: rotate(180deg);
     }
     .faq-answer {
-      padding: 0 1.4rem 1.25rem;
+      padding: 0.95rem 1.35rem 1.2rem;
       color: var(--text-secondary);
       font-size: 0.88rem;
       line-height: 1.8;
       display: none;
       border-top: 1px dashed var(--border);
-      padding-top: 1rem;
     }
     .faq-item.open .faq-answer {
       display: block;
     }
     .faq-category-btn {
-      padding: 0.45rem 0.95rem;
+      padding: 0.42rem 0.9rem;
       border-radius: var(--radius-sm);
-      font-size: 0.82rem;
+      font-size: 0.81rem;
       font-weight: 600;
       background: var(--surface);
       border: 1px solid var(--border);
@@ -83,130 +82,8 @@
 
 <body>
 
-  <!-- Mobile Navigation Drawer -->
-  <div id="mobileNavBackdrop" class="mobile-nav-backdrop"></div>
-  <aside id="mobileNavDrawer" class="mobile-nav-drawer" aria-label="القائمة الجانبية">
-    <div class="mobile-drawer-header">
-      <div class="brand-monogram">رصيد</div>
-      <div class="brand-text-col">
-        <span class="brand-main-title">منصة رصيد</span>
-        <span class="brand-sub-tag">المنصة المعتمدة</span>
-      </div>
-      <button id="btnCloseMobileNav" type="button" class="drawer-close-btn ms-auto" aria-label="إغلاق القائمة">✕</button>
-    </div>
+  <div id="siteHeader"></div>
 
-    <div class="mobile-nav-links-list">
-      <div class="drawer-group-label">التنقل السريع</div>
-      <a href="../index.html" class="mobile-nav-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-        <span>المتجر الرئيسي</span>
-      </a>
-      <a href="track-order.html" class="mobile-nav-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <span>استعلام وتتبع الطلب</span>
-      </a>
-
-      <div class="drawer-group-label">المعلومات والسياسات</div>
-      <a href="about.html" class="mobile-nav-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-        <span>عن المنصة</span>
-      </a>
-      <a href="faq.html" class="mobile-nav-link active">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-        <span>الأسئلة الشائعة</span>
-      </a>
-      <a href="terms.html" class="mobile-nav-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-        <span>الشروط والضمان 100%</span>
-      </a>
-      <a href="privacy.html" class="mobile-nav-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-        <span>سياسة الخصوصية</span>
-      </a>
-      <a href="contact.html" class="mobile-nav-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-        <span>الدعم الفني المباشر</span>
-      </a>
-    </div>
-
-    <div class="mt-auto pt-3 border-top border-secondary border-opacity-25 d-flex flex-column gap-2">
-      <a href="accounts/login.html" class="btn btn-ghost w-100">تسجيل الدخول</a>
-      <a href="accounts/signup.html" class="btn btn-brand w-100">إنشاء حساب جديد</a>
-    </div>
-  </aside>
-
-  <!-- ================= HEADER ================= -->
-  <header class="app-header sticky-top">
-    <!-- Utility Micro-Bar -->
-    <div class="header-utility-bar">
-      <div class="container-xxl d-flex align-items-center justify-content-between flex-wrap gap-2">
-        <div class="d-flex align-items-center gap-3">
-          <span class="utility-status-pill">
-            <span class="pulse-dot"></span>
-            <span>منصة رصيد: شحن آلي متصل وفوري 24/7</span>
-          </span>
-          <span class="d-none d-md-inline text-secondary">•</span>
-          <span class="d-none d-md-inline">تغطية معتمدة: اليمن، السعودية، العراق، ودول الخليج العربي</span>
-        </div>
-        <div class="d-flex align-items-center gap-3 ms-auto">
-          <a href="faq.html" class="text-secondary text-decoration-none">الأسئلة الشائعة</a>
-          <span>•</span>
-          <a href="contact.html" class="text-secondary text-decoration-none">الدعم الفني المباشر</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Main Navigation Bar -->
-    <div class="container-xxl">
-      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 header-top-row">
-        <!-- Brand Link -->
-        <a href="../index.html" class="brand-badge-link" title="منصة رصيد الرئيسية">
-          <div class="brand-monogram">رصيد</div>
-          <div class="brand-text-col">
-            <span class="brand-main-title">منصة رصيد | RASEED</span>
-            <span class="brand-sub-tag">شحن فوري لليمن والسعودية والعراق والخليج</span>
-          </div>
-        </a>
-
-        <!-- Desktop Navigation Links -->
-        <nav class="main-nav-links" aria-label="التنقل الرئيسي">
-          <a href="../index.html" class="main-nav-link">المتجر</a>
-          <a href="track-order.html" class="main-nav-link">تتبع الطلب</a>
-          <a href="about.html" class="main-nav-link">عن المنصة</a>
-          <a href="faq.html" class="main-nav-link active">الأسئلة الشائعة</a>
-          <a href="terms.html" class="main-nav-link">الضمان 100%</a>
-          <a href="contact.html" class="main-nav-link">اتصل بنا</a>
-        </nav>
-
-        <!-- Action Items -->
-        <div class="d-flex align-items-center gap-2 flex-wrap justify-content-end">
-          <a href="../index.html" class="btn btn-ghost d-none d-md-inline-flex" style="height:36px;padding:0 0.85rem;">
-            <span>← العودة للمتجر</span>
-          </a>
-
-          <button id="btnThemeToggle" type="button" class="theme-toggle" aria-label="تبديل المظهر"></button>
-
-          <a href="accounts/login.html" class="icon-btn auth-login-btn d-none d-sm-inline-flex" title="تسجيل الدخول">
-            <span>دخول</span>
-          </a>
-          <a href="accounts/signup.html" class="btn btn-brand auth-signup-btn d-none d-sm-inline-flex" title="إنشاء حساب جديد">
-            <span>حساب جديد</span>
-          </a>
-
-          <!-- Mobile Hamburger Toggle -->
-          <button id="btnOpenMobileMenu" type="button" class="btn-mobile-menu" aria-label="فتح القائمة">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <line x1="3" y1="12" x2="21" y2="12"></line>
-              <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- ================= MAIN ================= -->
   <main class="container-xxl py-5 flex-grow-1">
     <div class="row justify-content-center">
       <div class="col-12 col-lg-9">
@@ -215,9 +92,9 @@
           <div class="hero-tag-strip mx-auto mb-2">
             <span class="hero-tag-text">مركز الإجابات المعتمد</span>
           </div>
-          <h1 class="hero-heading" style="font-size: 1.85rem;">الأسئلة الأكثر شيوعاً حول الشحن في منصة "رصيد"</h1>
+          <h1 class="hero-heading" style="font-size: 1.8rem;">الأسئلة الأكثر شيوعاً حول الشحن في منصة "رصيد"</h1>
           <p class="text-secondary mx-auto" style="font-size: 0.9rem; max-width: 650px;">
-            تعرّف على كافة تفاصيل الشحن السريع، وسائل الدفع في اليمن والسعودية والعراق ودول الخليج، وسياسة الضمان الذهبي.
+            تعرّف على كافة تفاصيل الشحن السريع، وسائل الدفع في اليمن والسعودية والعراق ودول الخليج، وسياسة الضمان.
           </p>
         </div>
 
@@ -234,7 +111,6 @@
         <!-- FAQ List Container -->
         <div class="d-flex flex-column gap-3 mb-5" id="faqAccordion">
 
-          <!-- Item 1 -->
           <div class="faq-item open" data-cat="speed">
             <div class="faq-question">
               <h3>كم يستغرق وصول الشحن إلى حسابي في اللعبة عبر منصة رصيد؟</h3>
@@ -245,7 +121,6 @@
             </div>
           </div>
 
-          <!-- Item 2 -->
           <div class="faq-item" data-cat="payment">
             <div class="faq-question">
               <h3>ما هي وسائل الدفع والإيداع المدعومة في منصة رصيد؟</h3>
@@ -260,7 +135,6 @@
             </div>
           </div>
 
-          <!-- Item 3 -->
           <div class="faq-item" data-cat="payment">
             <div class="faq-question">
               <h3>كيف يتم احتساب أسعار الصرف في منصة رصيد؟</h3>
@@ -271,7 +145,6 @@
             </div>
           </div>
 
-          <!-- Item 4 -->
           <div class="faq-item" data-cat="games">
             <div class="faq-question">
               <h3>هل تطلب منصة رصيد كلمة مرور حسابي أو تسجيل الدخول إلى اللعبة؟</h3>
@@ -282,7 +155,6 @@
             </div>
           </div>
 
-          <!-- Item 5 -->
           <div class="faq-item" data-cat="games">
             <div class="faq-question">
               <h3>كيف أضمن عدم إدخال معرف لاعب (Player ID) خاطئ؟</h3>
@@ -293,7 +165,6 @@
             </div>
           </div>
 
-          <!-- Item 6 -->
           <div class="faq-item" data-cat="cards">
             <div class="faq-question">
               <h3>أين أجد كود البطاقة الرقمية بعد الشراء؟</h3>
@@ -304,7 +175,6 @@
             </div>
           </div>
 
-          <!-- Item 7 -->
           <div class="faq-item" data-cat="guarantee">
             <div class="faq-question">
               <h3>ما هو الضمان المالي في حال تعثر وصول الشحن؟</h3>
@@ -315,18 +185,16 @@
             </div>
           </div>
 
-          <!-- Item 8 -->
           <div class="faq-item" data-cat="speed">
             <div class="faq-question">
               <h3>كيف أتتبع حالة طلبي بعد إتمام العملية؟</h3>
               <span class="faq-arrow">▼</span>
             </div>
             <div class="faq-answer">
-              يمكنك الانتقال إلى صفحة <a href="track-order.html" class="auth-link">استعلام وتتبع الطلب</a> وكتابة الرقم المرجعي للطلب (مثل: <code>#849201</code>) أو معرف اللاعب لمتابعة خطوات المعالجة والتسليم في الوقت الفعلي.
+              يمكنك الانتقال إلى صفحة <a href="track-order.html" style="color:var(--brand-light);font-weight:600">استعلام وتتبع الطلب</a> وكتابة الرقم المرجعي للطلب (مثل: <code>#849201</code>) أو معرف اللاعب لمتابعة خطوات المعالجة والتسليم في الوقت الفعلي.
             </div>
           </div>
 
-          <!-- Item 9 -->
           <div class="faq-item" data-cat="payment">
             <div class="faq-question">
               <h3>كيف تعمل طريقة شحن المحفظة والإيداع الفوري عبر منصة رصيد؟</h3>
@@ -335,10 +203,8 @@
             <div class="faq-answer">
               1. تفتح نافذة «شحن المحفظة» وتحدد دولتك (اليمن، السعودية والخليج، العراق، باقي الدول عبر بايننس).<br>
               2. تختار وسيلة الإيداع المناسبة، فيعرض لك النظام رقم الحساب أو الآيدي المعتمد مع زر نسخ سريع.<br>
-              3. بعد قيامك بالإيداع، تقوم بملء المستطيلين المربوطين بالحساب:<br>
-              &nbsp;&nbsp;• <strong>المستطيل الأول:</strong> المبلغ المودع أو فئة الكرت.<br>
-              &nbsp;&nbsp;• <strong>المستطيل الثاني:</strong> معرّف العملية (رقم الحوالة، رقم الإشعار، أو كود الكرت).<br>
-              4. فور الضغط على تأكيد، تتم مطابقة العملية مع النظام البنكي ويُودع المبلغ مباشرة في رصيد محفظتك!
+              3. بعد قيامك بالإيداع، تدخل المبلغ المودع ومعرّف العملية (رقم الحوالة، الإشعار، أو كود الكرت).<br>
+              4. فور الضغط على تأكيد، تتم مطابقة العملية ويُودع المبلغ مباشرة في رصيد محفظتك.
             </div>
           </div>
 
@@ -349,12 +215,8 @@
           <h3 class="fw-bold mb-2" style="font-size: 1.15rem;">لم تجد إجابة لاستفسارك؟</h3>
           <p class="text-secondary mb-3" style="font-size: 0.88rem;">فريق الدعم الفني لمنصة رصيد جاهز لمساعدتك عبر الواتساب على مدار الساعة.</p>
           <div class="d-flex gap-2 justify-content-center flex-wrap">
-            <a href="https://wa.me/967774060647" target="_blank" class="btn btn-brand px-4 py-2">
-              تواصل معنا عبر واتساب
-            </a>
-            <a href="contact.html" class="btn btn-ghost px-4 py-2">
-              إرسال تذكرة دعم
-            </a>
+            <a href="https://wa.me/967774060647" target="_blank" class="btn btn-brand px-4 py-2">تواصل معنا عبر واتساب</a>
+            <a href="contact.html" class="btn btn-ghost px-4 py-2">إرسال تذكرة دعم</a>
           </div>
         </div>
 
@@ -362,164 +224,24 @@
     </div>
   </main>
 
-  <!-- ================= FOOTER ================= -->
-  <footer class="app-footer">
-    <div class="container-xxl">
-      <!-- 4 Columns Grid -->
-      <div class="footer-top-grid">
-        <!-- Col 1: Brand Info -->
-        <div class="footer-col">
-          <div class="d-flex align-items-center gap-2 mb-3">
-            <span class="brand-monogram" style="width:32px;height:32px;font-size:0.75rem">رصيد</span>
-            <span class="fw-bold" style="font-size:1.05rem;color:var(--text);font-family:var(--font-display)">منصة رصيد (RASEED)</span>
-          </div>
-          <p class="footer-brand-bio">
-            المنصة الأولى المعتمدة لخدمات شحن الألعاب والبطاقات الرقمية في اليمن والمملكة العربية السعودية وجمهورية العراق ودول الخليج العربي، بنظام تنفيذ آلي فوري، ودعم وسائل الدفع المحلية مع التحديث اللحظي لأسعار الصرف اليومية.
-          </p>
-          <div class="footer-security-pill">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span>حماية مشددة وتشفير بيانات بنكي 256-Bit</span>
-          </div>
-        </div>
-
-        <!-- Col 2: Direct Services -->
-        <div class="footer-col">
-          <h4 class="footer-col-title">أقسام المتجر</h4>
-          <ul class="footer-links-list">
-            <li><a href="../index.html#sec-games" class="footer-link">شحن الألعاب المباشرة</a></li>
-            <li><a href="../index.html#sec-cards" class="footer-link">بطاقات المتاجر والتطبيقات</a></li>
-            <li><a href="../index.html#sec-chat" class="footer-link">تطبيقات التواصل والترفيه</a></li>
-            <li><a href="../index.html#sec-services" class="footer-link">الاشتراكات والبرامج الرقمية</a></li>
-            <li><a href="track-order.html" class="footer-link">استعلام وتتبع الطلب</a></li>
-          </ul>
-        </div>
-
-        <!-- Col 3: Support & Information -->
-        <div class="footer-col">
-          <h4 class="footer-col-title">المساعدة والمعلومات</h4>
-          <ul class="footer-links-list">
-            <li><a href="about.html" class="footer-link">عن المنصة ورؤيتنا</a></li>
-            <li><a href="faq.html" class="footer-link">الأسئلة الشائعة والإجابات</a></li>
-            <li><a href="terms.html" class="footer-link">الشروط وسياسة الضمان</a></li>
-            <li><a href="privacy.html" class="footer-link">سياسة الخصوصية والأمان</a></li>
-            <li><a href="contact.html" class="footer-link">الدعم الفني وخدمة العملاء</a></li>
-          </ul>
-        </div>
-
-        <!-- Col 4: Regional Support & Contact -->
-        <div class="footer-col">
-          <h4 class="footer-col-title">التغطية الإقليمية والدعم 24/7</h4>
-          <p class="footer-brand-bio" style="margin-bottom:0.8rem">
-            فريق متخصص جاهز للإجابة على استفساراتكم ومتابعة عمليات الشحن لليمن والسعودية والعراق ودول الخليج على مدار الساعة.
-          </p>
-          <div class="d-flex flex-column gap-2">
-            <a href="contact.html" class="footer-link" style="color:var(--brand-light);font-weight:600">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <span>مركز المساعدة والمراسلة</span>
-            </a>
-            <div class="d-flex align-items-center gap-2 pt-2" style="font-size:0.8rem;color:var(--muted)">
-              <span>اليمن: YER</span>
-              <span>•</span>
-              <span>السعودية والخليج: SAR</span>
-              <span>•</span>
-              <span>العراق: IQD</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Payment Strip with Logos -->
-      <div class="footer-payment-strip">
-        <div class="d-flex align-items-center gap-2">
-          <span class="text-secondary fw-semibold" style="font-size:0.82rem">وسائل الدفع المعتمدة:</span>
-        </div>
-        <div class="footer-payment-pills">
-          <span class="footer-payment-pill" title="محفظة جيب - اليمن"><img src="../public/images/payments/Jaib%20Wallet.png" alt="جيب" class="footer-payment-logo" /><span class="fp-code">YE</span> جيب Jaib</span>
-          <span class="footer-payment-pill" title="محفظة ون كاش - اليمن"><img src="../public/images/payments/OneCash%20Wallet.png" alt="ون كاش" class="footer-payment-logo" /><span class="fp-code">YE</span> ون كاش</span>
-          <span class="footer-payment-pill" title="محفظة فلوسك - اليمن"><img src="../public/images/payments/Floosak%20Wallet.png" alt="فلوسك" class="footer-payment-logo" /><span class="fp-code">YE</span> فلوسك</span>
-          <span class="footer-payment-pill" title="محفظة جوالي - اليمن"><img src="../public/images/payments/Jawali%20Wallet.png" alt="جوالي" class="footer-payment-logo" /><span class="fp-code">YE</span> جوالي</span>
-          <span class="footer-payment-pill" title="مصرف الكريمي - اليمن"><img src="../public/images/payments/Kuraimi%20Bank.png" alt="الكريمي" class="footer-payment-logo" /><span class="fp-code">YE</span> الكريمي</span>
-          <span class="footer-payment-pill" title="مصرف القطيبي - اليمن"><img src="../public/images/payments/Qutaibi%20Bank.png" alt="القطيبي" class="footer-payment-logo" /><span class="fp-code">YE</span> القطيبي</span>
-          <span class="footer-payment-pill" title="مصرف الراجحي - السعودية والخليج"><img src="../public/images/payments/Alrajhi%20Bank.png" alt="الراجحي" class="footer-payment-logo" /><span class="fp-code">SA</span> الراجحي</span>
-          <span class="footer-payment-pill" title="بنك الإنماء - السعودية والخليج"><img src="../public/images/payments/Alinma%20Bank.png" alt="الإنماء" class="footer-payment-logo" /><span class="fp-code">SA</span> الإنماء</span>
-          <span class="footer-payment-pill" title="كروت سوا STC - السعودية والخليج"><img src="../public/images/payments/STC%20SAWA.png" alt="سوا" class="footer-payment-logo" /><span class="fp-code">SA</span> سوا</span>
-          <span class="footer-payment-pill" title="كروت موبايلي - السعودية والخليج"><img src="../public/images/payments/Mobily%20Cards.png" alt="موبايلي" class="footer-payment-logo" /><span class="fp-code">SA</span> موبايلي</span>
-          <span class="footer-payment-pill" title="كروت آسيا سيل - العراق"><img src="../public/images/payments/Asiacell.png" alt="آسيا سيل" class="footer-payment-logo" /><span class="fp-code">IQ</span> آسيا سيل</span>
-          <span class="footer-payment-pill" title="بايننس Binance Pay (USDT)"><img src="../public/images/payments/Binance.png" alt="Binance" class="footer-payment-logo" /><span class="fp-code">INTL</span> Binance Pay</span>
-        </div>
-      </div>
-
-      <!-- Bottom Bar -->
-      <div class="footer-bottom-bar">
-        <span>© 2026 منصة رصيد (RASEED). جميع الحقوق محفوظة.</span>
-        <div class="footer-meta-links">
-          <a href="terms.html" class="footer-meta-link">اتفاقية الاستخدام</a>
-          <a href="privacy.html" class="footer-meta-link">سياسة الخصوصية</a>
-          <a href="faq.html" class="footer-meta-link">الأسئلة الشائعة</a>
-          <a href="track-order.html" class="footer-meta-link">تتبع الطلبات</a>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <div id="siteFooter"></div>
 
   <script src="../src/vendor/bootstrap.min.js"></script>
+  <script src="../src/js/layout.js"></script>
   <script>
-    const THEME_KEY = 'mdarahim-theme';
-    const SUN_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
-    const MOON_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
-
-    function applyTheme(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      document.documentElement.setAttribute('data-bs-theme', theme);
-      const btn = document.getElementById('btnThemeToggle');
-      if (btn) btn.innerHTML = theme === 'dark' ? SUN_ICON : MOON_ICON;
-    }
-    let curTheme = 'dark';
-    try { curTheme = localStorage.getItem(THEME_KEY) || 'dark'; } catch(_) {}
-    applyTheme(curTheme);
-    document.getElementById('btnThemeToggle')?.addEventListener('click', () => {
-      curTheme = curTheme === 'dark' ? 'light' : 'dark';
-      try { localStorage.setItem(THEME_KEY, curTheme); } catch(_) {}
-      applyTheme(curTheme);
-    });
-
-    // Mobile Drawer
-    const btnOpen = document.getElementById('btnOpenMobileMenu');
-    const btnClose = document.getElementById('btnCloseMobileNav');
-    const backdrop = document.getElementById('mobileNavBackdrop');
-    const drawer = document.getElementById('mobileNavDrawer');
-    function openDrawer() {
-      if (drawer) drawer.classList.add('open');
-      if (backdrop) backdrop.classList.add('show');
-    }
-    function closeDrawer() {
-      if (drawer) drawer.classList.remove('open');
-      if (backdrop) backdrop.classList.remove('show');
-    }
-    btnOpen?.addEventListener('click', openDrawer);
-    btnClose?.addEventListener('click', closeDrawer);
-    backdrop?.addEventListener('click', closeDrawer);
-
-    // Accordion Toggle
     document.querySelectorAll('.faq-question').forEach(q => {
       q.addEventListener('click', () => {
-        const item = q.closest('.faq-item');
-        item.classList.toggle('open');
+        q.closest('.faq-item').classList.toggle('open');
       });
     });
 
-    // Category Tabs Filter
     document.querySelectorAll('.faq-category-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.faq-category-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const cat = btn.dataset.cat;
         document.querySelectorAll('.faq-item').forEach(item => {
-          if (cat === 'all' || item.dataset.cat === cat) {
-            item.style.display = '';
-          } else {
-            item.style.display = 'none';
-          }
+          item.style.display = (cat === 'all' || item.dataset.cat === cat) ? '' : 'none';
         });
       });
     });

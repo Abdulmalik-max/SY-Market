@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0f15" />
+    <title>كشف حساب المحفظة | رصيد — RASEED</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../src/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="../src/css/base.css">
+    <link rel="stylesheet" href="../src/css/store.css">
+    <style>
+        .wallet-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .wallet-kpi {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.15rem 1.25rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .wallet-kpi-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--muted);
+            font-family: var(--font-display);
+        }
+
+        .wallet-kpi-val {
+            font-family: var(--font-mono);
+            font-variant-numeric: tabular-nums;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .wallet-kpi-val.in {
+            color: var(--brand-light);
+        }
+
+        .wallet-kpi-val.out {
+            color: var(--accent-light);
+        }
+
+        .wallet-tabs {
+            border-bottom: 1px solid var(--border);
+            gap: 0.35rem;
+            margin-bottom: 1.35rem;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .wallet-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .wallet-tabs .nav-link {
+            border: 1px solid transparent;
+            border-bottom: 2px solid transparent;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            color: var(--text-secondary);
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.65rem 1.05rem;
+            white-space: nowrap;
+            background: transparent;
+        }
+
+        .wallet-tabs .nav-link:hover {
+            color: var(--text);
+            background: var(--surface-2);
+        }
+
+        .wallet-tabs .nav-link.active {
+            color: var(--brand-light);
+            background: var(--surface);
+            border-color: var(--border) var(--border) transparent;
+            border-bottom: 2px solid var(--brand);
+        }
+
+        .wallet-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.3rem;
+        }
+
+        .ledger-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.84rem;
+        }
+
+        .ledger-table th {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--muted);
+            padding: 0.75rem 0.85rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface-2);
+            white-space: nowrap;
+        }
+
+        .ledger-table td {
+            padding: 0.85rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            vertical-align: middle;
+        }
+
+        .ledger-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .ledger-table tbody tr:hover td {
+            background: var(--surface-2);
+        }
+
+        .tx-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.16rem 0.52rem;
+            border-radius: var(--radius-xs);
+            font-family: var(--font-display);
+            font-size: 0.72rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .tx-tag.in {
+            background: var(--brand-soft);
+            color: var(--brand-light);
+            border: 1px solid var(--brand-border);
+        }
+
+        .tx-tag.out {
+            background: var(--accent-soft);
+            color: var(--accent-light);
+            border: 1px solid rgba(184, 115, 51, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="siteHeader"></div>
+
+    <main class="container-xxl py-4 flex-grow-1">
+
+        <!-- Top Bar -->
+        <div class="wallet-bar">
+            <div>
+                <h1 class="mb-1" style="font-size:1.45rem;">كشف حساب المحفظة</h1>
+                <p class="text-secondary mb-0" style="font-size:0.86rem;">
+                    متابعة تفصيلية للإيداعات الواردة والمشتريات الصادرة من رصيدك.
+                </p>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+                <select id="walletCurrencySelect" class="form-select form-select-sm header-currency"
+                    aria-label="العملة">
+                    <option value="SAR" selected>ر.س</option>
+                    <option value="YER">ر.ي</option>
+                    <option value="USD">$</option>
+                </select>
+                <a href="accounts/dashboard.html" class="btn btn-ghost btn-sm">حسابي</a>
+                <a href="../index.html?open=wallet" class="btn btn-brand btn-sm px-3">+ شحن المحفظة الآن</a>
+            </div>
+        </div>
+
+        <!-- KPI Row -->
+        <div class="row g-3 mb-4">
+            <div class="col-12 col-md-4">
+                <div class="wallet-kpi">
+                    <span class="wallet-kpi-label">الرصيد المتاح حالياً</span>
+                    <span id="wKpiBalance" class="wallet-kpi-val in">100.00 ر.س</span>
+                    <span class="text-secondary small">جاهز للشحن الفوري بدون رسوم</span>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-4">
+                <div class="wallet-kpi">
+                    <span class="wallet-kpi-label">إجمالي الإيداعات الواردة</span>
+                    <span id="wKpiTotalIn" class="wallet-kpi-val in">+0.00 ر.س</span>
+                    <span id="wKpiCountIn" class="text-secondary small">0 عملية إيداع</span>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-4">
+                <div class="wallet-kpi">
+                    <span class="wallet-kpi-label">إجمالي المشتريات بالرصيد</span>
+                    <span id="wKpiTotalOut" class="wallet-kpi-val out">-0.00 ر.س</span>
+                    <span id="wKpiCountOut" class="text-secondary small">0 عملية شراء</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <ul class="nav wallet-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-deposits" type="button"
+                    role="tab">
+                    الإيداعات الواردة (<span id="tabCountIn">0</span>)
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-purchases" type="button" role="tab">
+                    المشتريات الصادرة (<span id="tabCountOut">0</span>)
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-all" type="button" role="tab">
+                    كشف الحساب الكامل
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+
+            <!-- TAB 1: INCOMING DEPOSITS -->
+            <div class="tab-pane fade show active" id="tab-deposits" role="tabpanel">
+                <div class="wallet-panel">
+                    <div
+                        class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-2 mb-3">
+                        <h2 class="mb-0" style="font-size:1.02rem;">سجل الإيداعات الواردة</h2>
+                        <a href="../index.html?open=wallet" class="btn btn-brand btn-sm">+ إيداع جديد (3 خطوات)</a>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="ledger-table">
+                            <thead>
+                                <tr>
+                                    <th>المرجع</th>
+                                    <th>وسيلة الإيداع</th>
+                                    <th>معرّف العملية</th>
+                                    <th>المبلغ المحلي</th>
+                                    <th>المعادل (ر.س)</th>
+                                    <th>الرصيد بعد العملية</th>
+                                    <th>التاريخ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="depositsBody"></tbody>
+                        </table>
+                    </div>
+
+                    <div id="depositsEmpty" class="empty-state my-3 py-4 d-none">
+                        <h3 class="fw-bold mb-1" style="font-size:1rem;">لا توجد عمليات إيداع بعد</h3>
+                        <p class="text-secondary mb-3 small">اشحن محفظتك عبر المحافظ اليمنية أو البنوك أو كروت الشحن أو
+                            بايننس بدون رسوم.</p>
+                        <a href="../index.html?open=wallet" class="btn btn-brand btn-sm">بدء شحن المحفظة</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: OUTGOING PURCHASES -->
+            <div class="tab-pane fade" id="tab-purchases" role="tabpanel">
+                <div class="wallet-panel">
+                    <div
+                        class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-2 mb-3">
+                        <h2 class="mb-0" style="font-size:1.02rem;">سجل المشتريات المدفوعة من المحفظة</h2>
+                        <input id="purchaseSearch" type="search" class="form-control form-control-sm"
+                            style="height:36px;max-width:260px;" placeholder="ابحث برقم الطلب أو اللعبة..." />
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="ledger-table">
+                            <thead>
+                                <tr>
+                                    <th>رقم الطلب</th>
+                                    <th>الخدمة والباقة</th>
+                                    <th>المعرّف</th>
+                                    <th>المبلغ المخصوم</th>
+                                    <th>الرصيد بعد العملية</th>
+                                    <th>التاريخ</th>
+                                    <th>تتبع</th>
+                                </tr>
+                            </thead>
+                            <tbody id="purchasesBody"></tbody>
+                        </table>
+                    </div>
+
+                    <div id="purchasesEmpty" class="empty-state my-3 py-4 d-none">
+                        <h3 class="fw-bold mb-1" style="font-size:1rem;">لا توجد مشتريات من رصيد المحفظة</h3>
+                        <p class="text-secondary mb-3 small">ستظهر هنا كل عملية شراء يتم خصمها مباشرة من رصيد محفظتك.
+                        </p>
+                        <a href="../index.html" class="btn btn-brand btn-sm">تصفح المتجر</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: FULL STATEMENT -->
+            <div class="tab-pane fade" id="tab-all" role="tabpanel">
+                <div class="wallet-panel">
+                    <h2 class="mb-3" style="font-size:1.02rem;">جميع حركات المحفظة</h2>
+                    <div class="table-responsive">
+                        <table class="ledger-table">
+                            <thead>
+                                <tr>
+                                    <th>المرجع</th>
+                                    <th>النوع</th>
+                                    <th>التفاصيل</th>
+                                    <th>المبلغ</th>
+                                    <th>الرصيد بعد العملية</th>
+                                    <th>التاريخ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allLedgerBody"></tbody>
+                        </table>
+                    </div>
+                    <div id="allLedgerEmpty" class="empty-state my-3 py-4 d-none">
+                        <p class="text-secondary mb-0 small">لا توجد حركات مسجلة في المحفظة حتى الآن.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="siteFooter"></div>
+
+    <script src="../src/vendor/bootstrap.min.js"></script>
+    <script src="../src/js/layout.js"></script>
+    <script>
+        (function () {
+            "use strict";
+
+            const KEYS = {
+                wallet: "mdarahim-wallet",
+                ledger: "mdarahim-wallet-ledger",
+                orders: "mdarahim-orders",
+                rates: "mdarahim-rates"
+            };
+
+            const SYMBOLS = { SAR: "ر.س", YER: "ر.ي", USD: "$" };
+            const DEFAULT_RATES = { SAR: 1, YER: 140, USD: 1 / 3.75 };
+
+            let rates = { ...DEFAULT_RATES };
+            let wallet = 100;
+            let currentCurrency = "SAR";
+            let entries = [];
+
+            function escapeHtml(str) {
+                return String(str || "")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;");
+            }
+
+            function fmt(sarAmount) {
+                const rate = rates[currentCurrency] || 1;
+                const v = Number(sarAmount || 0) * rate;
+                const num = currentCurrency === "YER"
+                    ? Math.round(v).toLocaleString("en-US")
+                    : v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                return num + " " + SYMBOLS[currentCurrency];
+            }
+
+            function parseNumericSar(displayStr) {
+                const m = String(displayStr || "").replace(/,/g, "").match(/[\d.]+/);
+                return m ? Number(m[0]) : 0;
+            }
+
+            function loadState() {
+                try {
+                    const r = localStorage.getItem(KEYS.rates);
+                    if (r) rates = { ...DEFAULT_RATES, ...JSON.parse(r) };
+                    const w = localStorage.getItem(KEYS.wallet);
+                    if (w !== null && !Number.isNaN(Number(w))) wallet = Number(w);
+                } catch (_) { }
+
+                let structured = [];
+                try { structured = JSON.parse(localStorage.getItem(KEYS.ledger) || "[]"); } catch (_) { }
+
+                // Merge legacy orders not yet in structured ledger
+                let legacyOrders = [];
+                try { legacyOrders = JSON.parse(localStorage.getItem(KEYS.orders) || "[]"); } catch (_) { }
+
+                const seen = new Set(structured.map((e) => e.orderNum));
+                const fallback = [];
+
+                legacyOrders.forEach((o) => {
+                    if (seen.has(o.orderNum)) return;
+                    const isDep = String(o.orderNum || "").startsWith("#DEP") || String(o.appName || "").includes("شحن محفظة");
+                    const isWalletPay = String(o.payMethod || "").includes("المحفظة") || String(o.payMethod || "").includes("بوابة التجار");
+                    if (!isDep && !isWalletPay) return;
+
+                    const localMatch = String(o.amountDisplay || "").match(/\(([^)]+)\)/);
+                    fallback.push({
+                        type: isDep ? "in" : "out",
+                        orderNum: o.orderNum,
+                        method: isDep ? o.pkgName : o.payMethod,
+                        details: isDep ? o.pkgName : `${o.appName} — ${o.pkgName}`,
+                        target: o.playerId || "—",
+                        localAmount: localMatch ? localMatch[1] : (o.amountDisplay || "—"),
+                        sarAmount: parseNumericSar(o.amountDisplay),
+                        balanceAfter: null,
+                        date: o.date || "—"
+                    });
+                });
+
+                entries = [...structured, ...fallback];
+            }
+
+            function renderKPIs() {
+                const ins = entries.filter((e) => e.type === "in");
+                const outs = entries.filter((e) => e.type === "out");
+                const totalIn = ins.reduce((s, e) => s + (Number(e.sarAmount) || 0), 0);
+                const totalOut = outs.reduce((s, e) => s + (Number(e.sarAmount) || 0), 0);
+
+                document.getElementById("wKpiBalance").textContent = fmt(wallet);
+                document.getElementById("wKpiTotalIn").textContent = "+" + fmt(totalIn);
+                document.getElementById("wKpiCountIn").textContent = `${ins.length} عملية إيداع`;
+                document.getElementById("wKpiTotalOut").textContent = "-" + fmt(totalOut);
+                document.getElementById("wKpiCountOut").textContent = `${outs.length} عملية شراء`;
+                document.getElementById("tabCountIn").textContent = String(ins.length);
+                document.getElementById("tabCountOut").textContent = String(outs.length);
+            }
+
+            function renderDeposits() {
+                const ins = entries.filter((e) => e.type === "in");
+                const tbody = document.getElementById("depositsBody");
+                const empty = document.getElementById("depositsEmpty");
+
+                if (!ins.length) {
+                    tbody.innerHTML = "";
+                    empty.classList.remove("d-none");
+                    return;
+                }
+
+                empty.classList.add("d-none");
+                tbody.innerHTML = ins.map((e) => `
+          <tr>
+            <td class="font-monospace fw-bold" style="color:var(--accent-light);">${escapeHtml(e.orderNum)}</td>
+            <td class="fw-semibold">${escapeHtml(e.method)}</td>
+            <td class="font-monospace small" dir="ltr">${escapeHtml(e.target)}</td>
+            <td class="font-monospace">${escapeHtml(e.localAmount || "—")}</td>
+            <td class="font-monospace fw-bold" style="color:var(--brand-light);">+${Number(e.sarAmount || 0).toFixed(2)} ر.س</td>
+            <td class="font-monospace text-secondary">${e.balanceAfter !== null && e.balanceAfter !== undefined ? fmt(e.balanceAfter) : "—"}</td>
+            <td class="text-muted small">${escapeHtml(e.date)}</td>
+          </tr>
+        `).join("");
+            }
+
+            function renderPurchases() {
+                const q = (document.getElementById("purchaseSearch")?.value || "").trim().toLowerCase();
+                const outs = entries.filter((e) => e.type === "out").filter((e) => {
+                    if (!q) return true;
+                    return `${e.orderNum} ${e.details} ${e.target}`.toLowerCase().includes(q);
+                });
+
+                const tbody = document.getElementById("purchasesBody");
+                const empty = document.getElementById("purchasesEmpty");
+
+                if (!outs.length) {
+                    tbody.innerHTML = "";
+                    empty.classList.remove("d-none");
+                    return;
+                }
+
+                empty.classList.add("d-none");
+                tbody.innerHTML = outs.map((e) => `
+          <tr>
+            <td class="font-monospace fw-bold" style="color:var(--accent-light);">${escapeHtml(e.orderNum)}</td>
+            <td class="fw-semibold">${escapeHtml(e.details)}</td>
+            <td class="font-monospace small" dir="ltr">${escapeHtml(e.target)}</td>
+            <td class="font-monospace fw-bold" style="color:var(--accent-light);">-${fmt(e.sarAmount)}</td>
+            <td class="font-monospace text-secondary">${e.balanceAfter !== null && e.balanceAfter !== undefined ? fmt(e.balanceAfter) : "—"}</td>
+            <td class="text-muted small">${escapeHtml(e.date)}</td>
+            <td>
+              <a href="track-order.html?order=${encodeURIComponent(e.orderNum)}" class="btn btn-ghost btn-sm py-1 px-2" style="font-size:0.74rem;">تتبع</a>
+            </td>
+          </tr>
+        `).join("");
+            }
+
+            function renderAllLedger() {
+                const tbody = document.getElementById("allLedgerBody");
+                const empty = document.getElementById("allLedgerEmpty");
+
+                if (!entries.length) {
+                    tbody.innerHTML = "";
+                    empty.classList.remove("d-none");
+                    return;
+                }
+
+                empty.classList.add("d-none");
+                tbody.innerHTML = entries.map((e) => `
+          <tr>
+            <td class="font-monospace fw-bold" style="color:var(--accent-light);">${escapeHtml(e.orderNum)}</td>
+            <td><span class="tx-tag ${e.type}">${e.type === "in" ? "إيداع وارد" : "شراء صادر"}</span></td>
+            <td class="fw-semibold">${escapeHtml(e.details)}</td>
+            <td class="font-monospace fw-bold" style="color:${e.type === "in" ? "var(--brand-light)" : "var(--accent-light)"};">
+              ${e.type === "in" ? "+" : "-"}${fmt(e.sarAmount)}
+            </td>
+            <td class="font-monospace text-secondary">${e.balanceAfter !== null && e.balanceAfter !== undefined ? fmt(e.balanceAfter) : "—"}</td>
+            <td class="text-muted small">${escapeHtml(e.date)}</td>
+          </tr>
+        `).join("");
+            }
+
+            function renderAll() {
+                renderKPIs();
+                renderDeposits();
+                renderPurchases();
+                renderAllLedger();
+            }
+
+            document.getElementById("walletCurrencySelect")?.addEventListener("change", (e) => {
+                currentCurrency = e.target.value;
+                renderAll();
+            });
+
+            document.getElementById("purchaseSearch")?.addEventListener("input", renderPurchases);
+
+            loadState();
+            renderAll();
+        })();
+    </script>
+</body>
+
+</html>

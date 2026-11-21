@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0f15" />
+    <title>لوحة الإدارة | رصيد — RASEED</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../src/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="../src/css/base.css">
+    <link rel="stylesheet" href="../src/css/store.css">
+    <style>
+        .admin-gate {
+            max-width: 400px;
+            margin: 4rem auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-card);
+        }
+
+        .admin-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .admin-kpi {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.1rem 1.2rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .admin-kpi-label {
+            font-size: 0.77rem;
+            font-weight: 600;
+            color: var(--muted);
+            font-family: var(--font-display);
+        }
+
+        .admin-kpi-val {
+            font-family: var(--font-mono);
+            font-variant-numeric: tabular-nums;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .admin-kpi-val.brand {
+            color: var(--brand-light);
+        }
+
+        .admin-tabs {
+            border-bottom: 1px solid var(--border);
+            gap: 0.35rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .admin-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .admin-tabs .nav-link {
+            border: 1px solid transparent;
+            border-bottom: 2px solid transparent;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            color: var(--text-secondary);
+            font-family: var(--font-display);
+            font-size: 0.84rem;
+            font-weight: 600;
+            padding: 0.65rem 1.05rem;
+            white-space: nowrap;
+            background: transparent;
+        }
+
+        .admin-tabs .nav-link:hover {
+            color: var(--text);
+            background: var(--surface-2);
+        }
+
+        .admin-tabs .nav-link.active {
+            color: var(--brand-light);
+            background: var(--surface);
+            border-color: var(--border) var(--border) transparent;
+            border-bottom: 2px solid var(--brand);
+        }
+
+        .admin-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.35rem;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.83rem;
+        }
+
+        .admin-table th {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--muted);
+            padding: 0.75rem 0.8rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface-2);
+            white-space: nowrap;
+        }
+
+        .admin-table td {
+            padding: 0.8rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            vertical-align: middle;
+        }
+
+        .admin-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .admin-table tbody tr:hover td {
+            background: var(--surface-2);
+        }
+
+        .st-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.16rem 0.52rem;
+            border-radius: var(--radius-xs);
+            font-family: var(--font-display);
+            font-size: 0.71rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .st-pill.completed {
+            background: var(--brand-soft);
+            color: var(--brand-light);
+            border: 1px solid var(--brand-border);
+        }
+
+        .st-pill.pending {
+            background: var(--accent-soft);
+            color: var(--accent-light);
+            border: 1px solid rgba(184, 115, 51, 0.3);
+        }
+
+        .st-pill.rejected {
+            background: rgba(229, 91, 91, 0.14);
+            color: var(--danger);
+            border: 1px solid rgba(229, 91, 91, 0.3);
+        }
+
+        .txn-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 0.32rem 0.65rem;
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+            color: var(--text-secondary);
+        }
+
+        .txn-chip button {
+            border: none;
+            background: transparent;
+            color: var(--danger);
+            cursor: pointer;
+            padding: 0;
+            font-weight: 700;
+            line-height: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="siteHeader"></div>
+
+    <main class="container-xxl py-4 flex-grow-1">
+
+        <!-- ================= PIN LOCK GATE ================= -->
+        <section id="adminLockScreen" class="admin-gate">
+            <h1 class="mb-1 text-center" style="font-size:1.3rem;">لوحة إدارة المتجر</h1>
+            <p class="text-secondary text-center mb-4" style="font-size:0.84rem;">
+                أدخل رمز الدخول (PIN) للوصول إلى إعدادات الصرف والطلبات وحسابات الدفع.
+            </p>
+
+            <form id="adminPinForm">
+                <div class="mb-3">
+                    <label for="adminPinInput" class="form-label">رمز الدخول (PIN)</label>
+                    <input id="adminPinInput" type="password" inputmode="numeric"
+                        class="form-control font-monospace text-center" dir="ltr" placeholder="••••" autocomplete="off"
+                        required />
+                    <div id="adminPinError" class="field-error d-none">رمز الدخول غير صحيح.</div>
+                </div>
+                <button type="submit" class="btn btn-brand w-100">دخول لوحة الإدارة</button>
+            </form>
+
+            <p class="text-muted text-center mt-3 mb-0" style="font-size:0.76rem;">
+                الرمز الافتراضي لأول تشغيل: <code dir="ltr">1234</code> (يمكن تغييره من الإعدادات)
+            </p>
+        </section>
+
+        <!-- ================= ADMIN WORKSPACE ================= -->
+        <section id="adminWorkspace" class="d-none">
+
+            <div class="admin-bar">
+                <div>
+                    <h1 class="mb-1" style="font-size:1.45rem;">لوحة إدارة منصة رصيد</h1>
+                    <p class="text-secondary mb-0" style="font-size:0.85rem;">
+                        إدارة الطلبات، أسعار الصرف اليومية، حسابات الدفع، ونسبة خصم التجار.
+                    </p>
+                </div>
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <a href="merchant.html" class="btn btn-ghost btn-sm">بوابة التجار</a>
+                    <a href="../index.html" class="btn btn-ghost btn-sm">معاينة المتجر</a>
+                    <button id="btnAdminLock" type="button" class="btn btn-brand btn-sm">قفل الجلسة</button>
+                </div>
+            </div>
+
+            <!-- KPI Row -->
+            <div class="row g-3 mb-4">
+                <div class="col-6 col-lg-3">
+                    <div class="admin-kpi">
+                        <span class="admin-kpi-label">إجمالي الطلبات</span>
+                        <span id="kpiAdminOrders" class="admin-kpi-val">0</span>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="admin-kpi">
+                        <span class="admin-kpi-label">عمليات الإيداع</span>
+                        <span id="kpiAdminDeposits" class="admin-kpi-val brand">0</span>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="admin-kpi">
+                        <span class="admin-kpi-label">سعر الصرف الحالي</span>
+                        <span id="kpiAdminFx" class="admin-kpi-val" dir="ltr" style="font-size:1.1rem;">1$ = 3.75
+                            SAR</span>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="admin-kpi">
+                        <span class="admin-kpi-label">خصم التجار (الجملة)</span>
+                        <span id="kpiAdminDiscount" class="admin-kpi-val brand">8%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <ul class="nav admin-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#adm-orders" type="button"
+                        role="tab">
+                        الطلبات والإيداعات
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#adm-fx" type="button" role="tab">
+                        أسعار الصرف والإعدادات
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#adm-accounts" type="button"
+                        role="tab">
+                        حسابات الدفع والإيداع
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#adm-tools" type="button" role="tab">
+                        المحفظة وسجل الحوالات
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+
+                <!-- TAB 1: ORDERS & DEPOSITS -->
+                <div class="tab-pane fade show active" id="adm-orders" role="tabpanel">
+                    <div class="admin-panel">
+                        <div
+                            class="d-flex flex-column flex-md-row align-items-stretch align-items-md-center justify-content-between gap-2 mb-3">
+                            <div class="d-flex gap-2 flex-wrap">
+                                <button type="button" class="btn btn-brand btn-sm adm-filter-btn active"
+                                    data-afilter="all">الكل</button>
+                                <button type="button" class="btn btn-ghost btn-sm adm-filter-btn"
+                                    data-afilter="deposits">الإيداعات فقط</button>
+                                <button type="button" class="btn btn-ghost btn-sm adm-filter-btn"
+                                    data-afilter="purchases">طلبات الشحن</button>
+                            </div>
+                            <input id="admOrderSearch" type="search" class="form-control form-control-sm"
+                                style="height:36px;max-width:280px;"
+                                placeholder="بحث برقم الطلب، المعرف، أو الوسيلة..." />
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>المرجع</th>
+                                        <th>النوع</th>
+                                        <th>الخدمة / الباقة</th>
+                                        <th>المعرّف / رقم الحوالة</th>
+                                        <th>وسيلة الدفع</th>
+                                        <th>المبلغ</th>
+                                        <th>الحالة</th>
+                                        <th>إجراء</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admOrdersBody"></tbody>
+                            </table>
+                        </div>
+
+                        <div id="admOrdersEmpty" class="empty-state my-3 py-4 d-none">
+                            <h3 class="fw-bold mb-1" style="font-size:1rem;">لا توجد عمليات مطابقة</h3>
+                            <p class="text-secondary mb-0" style="font-size:0.84rem;">ستظهر هنا كافة عمليات الشحن
+                                والإيداع المسجلة في المتجر وبوابة التجار.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: FX RATES & STORE SETTINGS -->
+                <div class="tab-pane fade" id="adm-fx" role="tabpanel">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-8">
+                            <div class="admin-panel">
+                                <h2 class="mb-3" style="font-size:1.05rem;">الإعدادات العامة وأسعار الصرف</h2>
+                                <form id="admSettingsForm">
+                                    <div class="row g-3">
+                                        <div class="col-12 col-sm-6">
+                                            <label for="admStoreName" class="form-label">اسم المتجر</label>
+                                            <input id="admStoreName" type="text" class="form-control" required />
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <label for="admWhatsapp" class="form-label">رقم واتساب الدعم (بدون
+                                                +)</label>
+                                            <input id="admWhatsapp" type="text" class="form-control font-monospace"
+                                                dir="ltr" required />
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <label for="admRateSar" class="form-label">1 USD مقابل ر.س (SAR)</label>
+                                            <input id="admRateSar" type="number" step="0.01" min="0.1"
+                                                class="form-control font-monospace" dir="ltr" required />
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <label for="admRateYer" class="form-label">1 USD مقابل ر.ي (YER)</label>
+                                            <input id="admRateYer" type="number" step="1" min="1"
+                                                class="form-control font-monospace" dir="ltr" required />
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <label for="admMerchantDiscount" class="form-label">خصم بوابة التجار
+                                                (%)</label>
+                                            <input id="admMerchantDiscount" type="number" step="0.5" min="0" max="40"
+                                                class="form-control font-monospace" dir="ltr" required />
+                                        </div>
+
+                                        <div class="col-12 pt-2 border-top border-secondary border-opacity-25">
+                                            <label for="admNewPin" class="form-label">تغيير رمز الدخول (PIN) — اتركه
+                                                فارغاً للإبقاء على الحالي</label>
+                                            <input id="admNewPin" type="password" inputmode="numeric"
+                                                class="form-control font-monospace" dir="ltr"
+                                                placeholder="أدخل رمزاً جديداً (4 أرقام على الأقل)"
+                                                autocomplete="new-password" />
+                                        </div>
+
+                                        <div class="col-12 pt-1">
+                                            <button type="submit" class="btn btn-brand px-4">حفظ الإعدادات وأسعار
+                                                الصرف</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: PAYMENT ACCOUNTS -->
+                <div class="tab-pane fade" id="adm-accounts" role="tabpanel">
+                    <div class="admin-panel">
+                        <h2 class="mb-3" style="font-size:1.05rem;">إدارة حسابات الدفع والإيداع المعتمدة</h2>
+                        <form id="admAccountsForm">
+                            <div class="row g-3">
+                                <div class="col-12"><strong class="small text-brand-light">الجمهورية اليمنية (المحافظ
+                                        والبنوك)</strong></div>
+                                <div class="col-12 col-md-4">
+                                    <label for="accJaib" class="form-label">محفظة جيب (Jaib)</label>
+                                    <input id="accJaib" type="text" class="form-control font-monospace" dir="ltr" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label for="accOnecash" class="form-label">محفظة ون كاش (OneCash)</label>
+                                    <input id="accOnecash" type="text" class="form-control font-monospace" dir="ltr" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label for="accFloosak" class="form-label">محفظة فلوسك (Floosak)</label>
+                                    <input id="accFloosak" type="text" class="form-control font-monospace" dir="ltr" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label for="accJawali" class="form-label">محفظة جوالي (Jawali)</label>
+                                    <input id="accJawali" type="text" class="form-control font-monospace" dir="ltr" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label for="accKuraimi" class="form-label">مصرف الكريمي (حساب مميز)</label>
+                                    <input id="accKuraimi" type="text" class="form-control font-monospace" dir="ltr" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label for="accQutaibi" class="form-label">مصرف القطيبي</label>
+                                    <input id="accQutaibi" type="text" class="form-control font-monospace" dir="ltr" />
+                                </div>
+
+                                <div class="col-12 pt-2 border-top border-secondary border-opacity-25">
+                                    <strong class="small text-brand-light">السعودية ودول الخليج والدولي</strong>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label for="accRajhi" class="form-label">مصرف الراجحي (IBAN)</label>
+                                    <input id="accRajhi" type="text" class="form-control font-monospace" dir="ltr" />
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label for="accAlinma" class="form-label">بنك الإنماء (IBAN)</label>
+                                    <input id="accAlinma" type="text" class="form-control font-monospace" dir="ltr" />
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label for="accBinance" class="form-label">Binance Pay ID</label>
+                                    <input id="accBinance" type="text" class="form-control font-monospace" dir="ltr" />
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label for="accBinanceUsdt" class="form-label">عنوان USDT (TRC-20)</label>
+                                    <input id="accBinanceUsdt" type="text" class="form-control font-monospace"
+                                        dir="ltr" />
+                                </div>
+
+                                <div class="col-12 pt-2">
+                                    <button type="submit" class="btn btn-brand px-4">حفظ حسابات الدفع</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- TAB 4: WALLET & TXN LEDGER TOOLS -->
+                <div class="tab-pane fade" id="adm-tools" role="tabpanel">
+                    <div class="row g-4">
+                        <div class="col-12 col-lg-5">
+                            <div class="admin-panel h-100">
+                                <h2 class="mb-2" style="font-size:1.02rem;">تعديل رصيد المحفظة يدوياً</h2>
+                                <p class="text-secondary small mb-3">
+                                    الرصيد الحالي في المتصفح: <strong id="admWalletCur"
+                                        class="text-brand-light font-monospace">100.00 ر.س</strong>
+                                </p>
+                                <form id="admWalletForm" class="d-flex flex-column gap-3">
+                                    <div>
+                                        <label for="admWalletAmount" class="form-label">المبلغ بالريال السعودي
+                                            (SAR)</label>
+                                        <input id="admWalletAmount" type="number" step="0.01"
+                                            class="form-control font-monospace" dir="ltr" placeholder="مثال: 50"
+                                            required />
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <button type="button" id="btnWalletCredit" class="btn btn-brand flex-fill">إضافة
+                                            للرصيد (+)</button>
+                                        <button type="button" id="btnWalletDebit" class="btn btn-ghost flex-fill">خصم من
+                                            الرصيد (-)</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-7">
+                            <div class="admin-panel h-100">
+                                <div class="d-flex align-items-center justify-content-between gap-2 mb-3">
+                                    <h2 class="mb-0" style="font-size:1.02rem;">معرّفات الحوالات المستخدمة (منع التكرار)
+                                    </h2>
+                                    <button type="button" id="btnClearUsedTxns" class="btn btn-ghost btn-sm">مسح
+                                        الكل</button>
+                                </div>
+                                <div id="usedTxnsList" class="d-flex flex-wrap gap-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div id="siteFooter"></div>
+
+    <div id="toastBox" class="toast-app" role="status" aria-live="polite">
+        <span id="toastMsg"></span>
+    </div>
+
+    <script src="../src/vendor/bootstrap.min.js"></script>
+    <script src="../src/js/layout.js"></script>
+    <script>
+        (function () {
+            "use strict";
+
+            const KEYS = {
+                pin: "mdarahim-admin-pin",
+                admin: "mdarahim-admin",
+                rates: "mdarahim-rates",
+                accounts: "mdarahim-payment-accounts",
+                orders: "mdarahim-orders",
+                statuses: "mdarahim-order-statuses",
+                wallet: "mdarahim-wallet",
+                usedTxns: "mdarahim-used-txns",
+                discount: "mdarahim-merchant-discount"
+            };
+
+            const DEFAULT_ACCOUNTS = {
+                jaib: "774060647",
+                onecash: "774060647",
+                floosak: "774060647",
+                jawali: "774060647",
+                kuraimi: "3001234567",
+                qutaibi: "202145890",
+                rajhi: "SA4480000452000012345678",
+                alinma: "SA03050000682000098765432",
+                binance: "284910385",
+                binanceUsdt: "TXv8m4Kp9zW2e7Qb1Y3u5Rt6N8mJkLpQxZ"
+            };
+
+            let orderFilter = "all";
+            let toastTimer;
+
+            function toast(msg) {
+                const box = document.getElementById("toastBox");
+                const el = document.getElementById("toastMsg");
+                if (!box || !el) return;
+                el.textContent = msg;
+                box.classList.add("show");
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => box.classList.remove("show"), 2600);
+            }
+
+            function escapeHtml(str) {
+                return String(str || "")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;");
+            }
+
+            function getPin() {
+                try { return localStorage.getItem(KEYS.pin) || "1234"; } catch (_) { return "1234"; }
+            }
+
+            function unlockAdmin() {
+                document.getElementById("adminLockScreen").classList.add("d-none");
+                document.getElementById("adminWorkspace").classList.remove("d-none");
+                try { sessionStorage.setItem("mdarahim-admin-unlocked", "1"); } catch (_) { }
+                loadAllAdminData();
+            }
+
+            function lockAdmin() {
+                try { sessionStorage.removeItem("mdarahim-admin-unlocked"); } catch (_) { }
+                document.getElementById("adminWorkspace").classList.add("d-none");
+                document.getElementById("adminLockScreen").classList.remove("d-none");
+                document.getElementById("adminPinInput").value = "";
+            }
+
+            document.getElementById("adminPinForm")?.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const entered = document.getElementById("adminPinInput").value.trim();
+                const err = document.getElementById("adminPinError");
+                if (entered === getPin()) {
+                    err.classList.add("d-none");
+                    unlockAdmin();
+                } else {
+                    err.classList.remove("d-none");
+                }
+            });
+
+            document.getElementById("btnAdminLock")?.addEventListener("click", lockAdmin);
+
+            function getOrders() {
+                try { return JSON.parse(localStorage.getItem(KEYS.orders) || "[]"); } catch (_) { return []; }
+            }
+
+            function getStatuses() {
+                try { return JSON.parse(localStorage.getItem(KEYS.statuses) || "{}"); } catch (_) { return {}; }
+            }
+
+            function saveStatuses(map) {
+                try { localStorage.setItem(KEYS.statuses, JSON.stringify(map)); } catch (_) { }
+            }
+
+            function isDeposit(o) {
+                return String(o.orderNum || "").startsWith("#DEP") || String(o.appName || "").includes("شحن محفظة");
+            }
+
+            function loadAllAdminData() {
+                let adminCfg = { storeName: "رصيد | RASEED", whatsapp: "967774060647", rateSar: 3.75, rateUsd: 530 };
+                let accounts = { ...DEFAULT_ACCOUNTS };
+                let discount = 8;
+                let wallet = 100;
+
+                try {
+                    const a = localStorage.getItem(KEYS.admin);
+                    if (a) adminCfg = { ...adminCfg, ...JSON.parse(a) };
+                    const acc = localStorage.getItem(KEYS.accounts);
+                    if (acc) accounts = { ...DEFAULT_ACCOUNTS, ...JSON.parse(acc) };
+                    const d = localStorage.getItem(KEYS.discount);
+                    if (d !== null && !Number.isNaN(Number(d))) discount = Number(d);
+                    const w = localStorage.getItem(KEYS.wallet);
+                    if (w !== null && !Number.isNaN(Number(w))) wallet = Number(w);
+                } catch (_) { }
+
+                // Settings fields
+                document.getElementById("admStoreName").value = adminCfg.storeName || "رصيد | RASEED";
+                document.getElementById("admWhatsapp").value = adminCfg.whatsapp || "967774060647";
+                document.getElementById("admRateSar").value = adminCfg.rateSar || 3.75;
+                document.getElementById("admRateYer").value = adminCfg.rateUsd || 530;
+                document.getElementById("admMerchantDiscount").value = discount;
+
+                // Accounts fields
+                document.getElementById("accJaib").value = accounts.jaib;
+                document.getElementById("accOnecash").value = accounts.onecash;
+                document.getElementById("accFloosak").value = accounts.floosak;
+                document.getElementById("accJawali").value = accounts.jawali;
+                document.getElementById("accKuraimi").value = accounts.kuraimi;
+                document.getElementById("accQutaibi").value = accounts.qutaibi;
+                document.getElementById("accRajhi").value = accounts.rajhi;
+                document.getElementById("accAlinma").value = accounts.alinma;
+                document.getElementById("accBinance").value = accounts.binance;
+                document.getElementById("accBinanceUsdt").value = accounts.binanceUsdt;
+
+                // KPIs
+                const orders = getOrders();
+                const deposits = orders.filter(isDeposit);
+                document.getElementById("kpiAdminOrders").textContent = String(orders.length);
+                document.getElementById("kpiAdminDeposits").textContent = String(deposits.length);
+                document.getElementById("kpiAdminFx").textContent = `1$ = ${Number(adminCfg.rateSar).toFixed(2)} SAR • ${adminCfg.rateUsd} YER`;
+                document.getElementById("kpiAdminDiscount").textContent = `${discount}%`;
+                document.getElementById("admWalletCur").textContent = `${wallet.toFixed(2)} ر.س`;
+
+                renderAdminOrders();
+                renderUsedTxns();
+            }
+
+            function renderAdminOrders() {
+                const q = (document.getElementById("admOrderSearch")?.value || "").trim().toLowerCase();
+                const statuses = getStatuses();
+                const list = getOrders().filter((o) => {
+                    const dep = isDeposit(o);
+                    if (orderFilter === "deposits" && !dep) return false;
+                    if (orderFilter === "purchases" && dep) return false;
+                    if (!q) return true;
+                    return `${o.orderNum} ${o.appName} ${o.pkgName} ${o.playerId} ${o.payMethod}`.toLowerCase().includes(q);
+                });
+
+                const tbody = document.getElementById("admOrdersBody");
+                const empty = document.getElementById("admOrdersEmpty");
+                if (!list.length) {
+                    tbody.innerHTML = "";
+                    empty.classList.remove("d-none");
+                    return;
+                }
+
+                empty.classList.add("d-none");
+                const labels = { completed: "مكتمل", pending: "قيد المراجعة", rejected: "مرفوض" };
+
+                tbody.innerHTML = list.map((o) => {
+                    const dep = isDeposit(o);
+                    const st = statuses[o.orderNum] || "completed";
+                    return `
+            <tr>
+              <td class="font-monospace fw-bold" style="color:var(--accent-light);">${escapeHtml(o.orderNum)}</td>
+              <td><span class="st-pill ${dep ? "completed" : "pending"}">${dep ? "إيداع" : "شحن"}</span></td>
+              <td>
+                <div class="fw-semibold">${escapeHtml(o.appName)}</div>
+                <div class="text-muted small">${escapeHtml(o.pkgName)}</div>
+              </td>
+              <td class="font-monospace small" dir="ltr">${escapeHtml(o.playerId)}</td>
+              <td class="text-secondary small">${escapeHtml(o.payMethod)}</td>
+              <td class="font-monospace fw-bold" style="color:var(--brand-light);">${escapeHtml(o.amountDisplay)}</td>
+              <td><span class="st-pill ${st}">${labels[st] || "مكتمل"}</span></td>
+              <td>
+                <select class="form-select form-select-sm adm-status-select" data-order="${escapeHtml(o.orderNum)}" style="height:30px;font-size:0.74rem;min-width:110px;">
+                  <option value="completed" ${st === "completed" ? "selected" : ""}>اعتماد / مكتمل</option>
+                  <option value="pending" ${st === "pending" ? "selected" : ""}>قيد المراجعة</option>
+                  <option value="rejected" ${st === "rejected" ? "selected" : ""}>مرفوض</option>
+                </select>
+              </td>
+            </tr>
+          `;
+                }).join("");
+            }
+
+            function renderUsedTxns() {
+                let used = [];
+                try { used = JSON.parse(localStorage.getItem(KEYS.usedTxns) || "[]"); } catch (_) { }
+                const box = document.getElementById("usedTxnsList");
+                if (!used.length) {
+                    box.innerHTML = '<span class="text-muted small">لا توجد معرّفات حوالات مسجلة حالياً.</span>';
+                    return;
+                }
+                box.innerHTML = used.map((tx) => `
+          <span class="txn-chip" dir="ltr">
+            <span>${escapeHtml(tx)}</span>
+            <button type="button" data-del-txn="${escapeHtml(tx)}" title="حذف">✕</button>
+          </span>
+        `).join("");
+            }
+
+            /* Filters & Status updates */
+            document.querySelectorAll(".adm-filter-btn").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    document.querySelectorAll(".adm-filter-btn").forEach((b) => {
+                        b.classList.remove("btn-brand", "active");
+                        b.classList.add("btn-ghost");
+                    });
+                    btn.classList.remove("btn-ghost");
+                    btn.classList.add("btn-brand", "active");
+                    orderFilter = btn.dataset.afilter;
+                    renderAdminOrders();
+                });
+            });
+
+            document.getElementById("admOrderSearch")?.addEventListener("input", renderAdminOrders);
+
+            document.getElementById("admOrdersBody")?.addEventListener("change", (e) => {
+                const sel = e.target.closest(".adm-status-select");
+                if (!sel) return;
+                const map = getStatuses();
+                map[sel.dataset.order] = sel.value;
+                saveStatuses(map);
+                renderAdminOrders();
+                toast(`تم تحديث حالة العملية ${sel.dataset.order}`);
+            });
+
+            /* Save FX & Store Settings */
+            document.getElementById("admSettingsForm")?.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const storeName = document.getElementById("admStoreName").value.trim() || "رصيد | RASEED";
+                const whatsapp = document.getElementById("admWhatsapp").value.trim() || "967774060647";
+                const rateSar = Number(document.getElementById("admRateSar").value) || 3.75;
+                const rateUsd = Number(document.getElementById("admRateYer").value) || 530;
+                const discount = Math.max(0, Math.min(40, Number(document.getElementById("admMerchantDiscount").value) || 0));
+                const newPin = document.getElementById("admNewPin").value.trim();
+
+                const rates = { SAR: 1, USD: 1 / rateSar, YER: rateUsd / rateSar };
+
+                try {
+                    localStorage.setItem(KEYS.admin, JSON.stringify({ storeName, whatsapp, rateSar, rateUsd }));
+                    localStorage.setItem(KEYS.rates, JSON.stringify(rates));
+                    localStorage.setItem(KEYS.discount, String(discount));
+                    if (newPin.length >= 4) {
+                        localStorage.setItem(KEYS.pin, newPin);
+                        document.getElementById("admNewPin").value = "";
+                    }
+                } catch (_) { }
+
+                loadAllAdminData();
+                toast("تم حفظ الإعدادات وأسعار الصرف بنجاح");
+            });
+
+            /* Save Payment Accounts */
+            document.getElementById("admAccountsForm")?.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const accounts = {
+                    jaib: document.getElementById("accJaib").value.trim() || DEFAULT_ACCOUNTS.jaib,
+                    onecash: document.getElementById("accOnecash").value.trim() || DEFAULT_ACCOUNTS.onecash,
+                    floosak: document.getElementById("accFloosak").value.trim() || DEFAULT_ACCOUNTS.floosak,
+                    jawali: document.getElementById("accJawali").value.trim() || DEFAULT_ACCOUNTS.jawali,
+                    kuraimi: document.getElementById("accKuraimi").value.trim() || DEFAULT_ACCOUNTS.kuraimi,
+                    qutaibi: document.getElementById("accQutaibi").value.trim() || DEFAULT_ACCOUNTS.qutaibi,
+                    rajhi: document.getElementById("accRajhi").value.trim() || DEFAULT_ACCOUNTS.rajhi,
+                    alinma: document.getElementById("accAlinma").value.trim() || DEFAULT_ACCOUNTS.alinma,
+                    binance: document.getElementById("accBinance").value.trim() || DEFAULT_ACCOUNTS.binance,
+                    binanceUsdt: document.getElementById("accBinanceUsdt").value.trim() || DEFAULT_ACCOUNTS.binanceUsdt
+                };
+
+                try { localStorage.setItem(KEYS.accounts, JSON.stringify(accounts)); } catch (_) { }
+                toast("تم تحديث أرقام حسابات الدفع بنجاح");
+            });
+
+            /* Manual Wallet Credit/Debit */
+            function adjustWallet(sign) {
+                const amt = Number(document.getElementById("admWalletAmount").value);
+                if (!amt || amt <= 0) return;
+                let cur = 100;
+                try {
+                    const w = localStorage.getItem(KEYS.wallet);
+                    if (w !== null && !Number.isNaN(Number(w))) cur = Number(w);
+                } catch (_) { }
+                const next = Math.max(0, cur + sign * amt);
+                try { localStorage.setItem(KEYS.wallet, String(next)); } catch (_) { }
+                document.getElementById("admWalletAmount").value = "";
+                loadAllAdminData();
+                toast(`تم تحديث الرصيد إلى ${next.toFixed(2)} ر.س`);
+            }
+
+            document.getElementById("btnWalletCredit")?.addEventListener("click", () => adjustWallet(1));
+            document.getElementById("btnWalletDebit")?.addEventListener("click", () => adjustWallet(-1));
+
+            /* Used Txns management */
+            document.getElementById("usedTxnsList")?.addEventListener("click", (e) => {
+                const btn = e.target.closest("[data-del-txn]");
+                if (!btn) return;
+                const target = btn.dataset.delTxn;
+                let used = [];
+                try { used = JSON.parse(localStorage.getItem(KEYS.usedTxns) || "[]"); } catch (_) { }
+                used = used.filter((t) => t !== target);
+                try { localStorage.setItem(KEYS.usedTxns, JSON.stringify(used)); } catch (_) { }
+                renderUsedTxns();
+                toast("تم إزالة المعرّف من السجل");
+            });
+
+            document.getElementById("btnClearUsedTxns")?.addEventListener("click", () => {
+                try { localStorage.setItem(KEYS.usedTxns, "[]"); } catch (_) { }
+                renderUsedTxns();
+                toast("تم مسح سجل الحوالات المستخدمة");
+            });
+
+            /* Auto-unlock if already authenticated in this session */
+            try {
+                if (sessionStorage.getItem("mdarahim-admin-unlocked") === "1") {
+                    unlockAdmin();
+                }
+            } catch (_) { }
+        })();
+    </script>
+</body>
+
+</html>
