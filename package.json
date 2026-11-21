@@ -1,8 +1,8 @@
 {
-  "name": "mdarahim-topup-store",
+  "name": "raseed-digital-topup",
   "version": "1.0.0",
   "private": true,
-  "description": "موقع بطاقات الشراء الترفيهية وشحن الألعاب والتطبيقات (54 لعبة وتطبيق)",
+  "description": "منصة رصيد (RASEED) — المنصة المعتمدة لشحن الألعاب والبطاقات الرقمية واشتراكات التطبيقات في اليمن والسعودية والعراق ودول الخليج",
   "scripts": {
     "start": "npx serve .",
     "build": "echo 'Static build ready for Vercel'"

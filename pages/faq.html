@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0d1117" />
-  <title>الأسئلة الشائعة | متجر الشحن السعودي اليمني</title>
+  <title>الأسئلة الشائعة | منصة رصيد — شحن الألعاب والبطاقات</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,37 +15,12 @@
   <link rel="stylesheet" href="../src/css/base.css">
   <link rel="stylesheet" href="../src/css/store.css">
   <style>
-    .faq-category-btn {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-full);
-      padding: 0.35rem 0.9rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      font-family: var(--font-display);
-      cursor: pointer;
-      transition: all 0.15s ease;
-      white-space: nowrap;
-    }
-    .faq-category-btn:hover {
-      background: var(--surface-3);
-      color: var(--text);
-    }
-    .faq-category-btn.active {
-      background: var(--brand);
-      color: #ffffff;
-      border-color: var(--brand);
-    }
     .faq-item {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       overflow: hidden;
-      transition: border-color 0.15s ease;
-    }
-    .faq-item:hover {
-      border-color: var(--border-light);
+      transition: all 0.15s ease;
     }
     .faq-question {
       padding: 1.15rem 1.4rem;
@@ -57,32 +32,51 @@
       user-select: none;
     }
     .faq-question h3 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin: 0;
+      font-size: 0.98rem;
+      font-weight: 700;
       color: var(--text);
+      margin: 0;
+      font-family: var(--font-display);
+      line-height: 1.4;
     }
     .faq-arrow {
-      color: var(--muted);
+      color: var(--brand-light);
+      font-size: 0.85rem;
       transition: transform 0.2s ease;
       flex-shrink: 0;
     }
     .faq-item.open .faq-arrow {
       transform: rotate(180deg);
-      color: var(--brand-light);
     }
     .faq-answer {
-      display: none;
       padding: 0 1.4rem 1.25rem;
-      font-size: 0.88rem;
       color: var(--text-secondary);
-      line-height: 1.75;
-      border-top: 1px solid transparent;
+      font-size: 0.88rem;
+      line-height: 1.8;
+      display: none;
+      border-top: 1px dashed var(--border);
+      padding-top: 1rem;
     }
     .faq-item.open .faq-answer {
       display: block;
-      border-top-color: var(--border);
-      padding-top: 0.9rem;
+    }
+    .faq-category-btn {
+      padding: 0.45rem 0.95rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: var(--font-display);
+    }
+    .faq-category-btn:hover,
+    .faq-category-btn.active {
+      background: var(--brand);
+      color: #ffffff;
+      border-color: var(--brand);
     }
   </style>
 </head>
@@ -93,9 +87,9 @@
   <div id="mobileNavBackdrop" class="mobile-nav-backdrop"></div>
   <aside id="mobileNavDrawer" class="mobile-nav-drawer" aria-label="القائمة الجانبية">
     <div class="mobile-drawer-header">
-      <div class="brand-monogram">SY</div>
+      <div class="brand-monogram">رصيد</div>
       <div class="brand-text-col">
-        <span class="brand-main-title">متجر الشحن السعودي اليمني</span>
+        <span class="brand-main-title">منصة رصيد</span>
         <span class="brand-sub-tag">المنصة المعتمدة</span>
       </div>
       <button id="btnCloseMobileNav" type="button" class="drawer-close-btn ms-auto" aria-label="إغلاق القائمة">✕</button>
@@ -115,7 +109,7 @@
       <div class="drawer-group-label">المعلومات والسياسات</div>
       <a href="about.html" class="mobile-nav-link">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-        <span>عن المتجر</span>
+        <span>عن المنصة</span>
       </a>
       <a href="faq.html" class="mobile-nav-link active">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
@@ -149,10 +143,10 @@
         <div class="d-flex align-items-center gap-3">
           <span class="utility-status-pill">
             <span class="pulse-dot"></span>
-            <span>التنفيذ الآلي: متصل وفوري 24/7</span>
+            <span>منصة رصيد: شحن آلي متصل وفوري 24/7</span>
           </span>
           <span class="d-none d-md-inline text-secondary">•</span>
-          <span class="d-none d-md-inline">تغطية معتمدة للسعودية واليمن (مدى، STC Pay، جيب، ون كاش، الكريمي، النجم)</span>
+          <span class="d-none d-md-inline">تغطية معتمدة: اليمن، السعودية، العراق، ودول الخليج العربي</span>
         </div>
         <div class="d-flex align-items-center gap-3 ms-auto">
           <a href="faq.html" class="text-secondary text-decoration-none">الأسئلة الشائعة</a>
@@ -166,11 +160,11 @@
     <div class="container-xxl">
       <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 header-top-row">
         <!-- Brand Link -->
-        <a href="../index.html" class="brand-badge-link" title="الرئيسية">
-          <div class="brand-monogram">SY</div>
+        <a href="../index.html" class="brand-badge-link" title="منصة رصيد الرئيسية">
+          <div class="brand-monogram">رصيد</div>
           <div class="brand-text-col">
-            <span class="brand-main-title">متجر الشحن السعودي اليمني</span>
-            <span class="brand-sub-tag">المنصة المعتمدة للشحن الرقمي المباشر</span>
+            <span class="brand-main-title">منصة رصيد | RASEED</span>
+            <span class="brand-sub-tag">شحن فوري لليمن والسعودية والعراق والخليج</span>
           </div>
         </a>
 
@@ -178,7 +172,7 @@
         <nav class="main-nav-links" aria-label="التنقل الرئيسي">
           <a href="../index.html" class="main-nav-link">المتجر</a>
           <a href="track-order.html" class="main-nav-link">تتبع الطلب</a>
-          <a href="about.html" class="main-nav-link">عن المتجر</a>
+          <a href="about.html" class="main-nav-link">عن المنصة</a>
           <a href="faq.html" class="main-nav-link active">الأسئلة الشائعة</a>
           <a href="terms.html" class="main-nav-link">الضمان 100%</a>
           <a href="contact.html" class="main-nav-link">اتصل بنا</a>
@@ -219,11 +213,11 @@
 
         <div class="text-center mb-4">
           <div class="hero-tag-strip mx-auto mb-2">
-            <span class="hero-tag-text">إجابات وتوضيحات فورية</span>
+            <span class="hero-tag-text">مركز الإجابات المعتمد</span>
           </div>
-          <h1 class="hero-heading" style="font-size: 1.85rem;">الأسئلة الأكثر شيوعاً حول الشحن والخدمات</h1>
-          <p class="text-secondary mx-auto" style="font-size: 0.9rem; max-width: 620px;">
-            تعرّف على كافة تفاصيل الشحن السريع، وسائل الدفع في السعودية واليمن، وسياسة الضمان وحفظ الحقوق.
+          <h1 class="hero-heading" style="font-size: 1.85rem;">الأسئلة الأكثر شيوعاً حول الشحن في منصة "رصيد"</h1>
+          <p class="text-secondary mx-auto" style="font-size: 0.9rem; max-width: 650px;">
+            تعرّف على كافة تفاصيل الشحن السريع، وسائل الدفع في اليمن والسعودية والعراق ودول الخليج، وسياسة الضمان الذهبي.
           </p>
         </div>
 
@@ -243,7 +237,7 @@
           <!-- Item 1 -->
           <div class="faq-item open" data-cat="speed">
             <div class="faq-question">
-              <h3>كم يستغرق وصول الشحن إلى حسابي في اللعبة؟</h3>
+              <h3>كم يستغرق وصول الشحن إلى حسابي في اللعبة عبر منصة رصيد؟</h3>
               <span class="faq-arrow">▼</span>
             </div>
             <div class="faq-answer">
@@ -254,37 +248,37 @@
           <!-- Item 2 -->
           <div class="faq-item" data-cat="payment">
             <div class="faq-question">
-              <h3>ما هي وسائل الدفع والإيداع المدعومة في المتجر؟</h3>
+              <h3>ما هي وسائل الدفع والإيداع المدعومة في منصة رصيد؟</h3>
               <span class="faq-arrow">▼</span>
             </div>
             <div class="faq-answer">
-              • <strong>في الجمهورية اليمنية:</strong> المحافظ الإلكترونية (جيب، ون كاش، فلوسك، جوالي) والحسابات المصرفية (مصرف الكريمي، مصرف القطيبي).<br>
-              • <strong>في المملكة العربية السعودية:</strong> التحويل البنكي (مصرف الراجحي، بنك الإنماء) وكروت الشحن الفورية (كروت سوا، كروت موبايلي).<br>
+              • <strong>في الجمهورية اليمنية:</strong> المحافظ الإلكترونية (جيب Jaib، ون كاش One Cash، فلوسك Floosak، جوالي Jawali) والحسابات المصرفية (مصرف الكريمي، مصرف القطيبي).<br>
+              • <strong>في المملكة العربية السعودية ودول الخليج:</strong> التحويل البنكي الفوري (مصرف الراجحي، بنك الإنماء) وكروت الشحن الفورية (كروت سوا STC، كروت موبايلي Mobily).<br>
               • <strong>في جمهورية العراق:</strong> كروت وقسائم شحن آسيا سيل (Asiacell).<br>
-              • <strong>باقي الدول حول العالم:</strong> الدفع الرقمي العالمي المباشر عبر بايننس (Binance Pay / USDT).<br>
-              • <strong>رصيد المحفظة الإلكترونية:</strong> يمكنك شحن رصيدك الداخلي بأي من الوسائل السابقة والشراء الفوري بنقرة واحدة.
+              • <strong>الدفع الدولي والعملات الرقمية:</strong> التحويل بدون عمولة عبر بايننس (Binance Pay / USDT).<br>
+              • <strong>رصيد المحفظة الإلكترونية:</strong> يمكنك شحن رصيدك الداخلي في منصة رصيد بأي وسيلة مما سبق والتسوق بضغطة زر واحدة.
             </div>
           </div>
 
           <!-- Item 3 -->
           <div class="faq-item" data-cat="payment">
             <div class="faq-question">
-              <h3>كيف يتم احتساب أسعار الصرف بين الريال السعودي واليمني والدولار؟</h3>
+              <h3>كيف يتم احتساب أسعار الصرف في منصة رصيد؟</h3>
               <span class="faq-arrow">▼</span>
             </div>
             <div class="faq-answer">
-              يتم تحديث أسعار الصرف بشكل دوري في لوحة الإدارة بناءً على أسعار السوق المصرفية اليومية في الرياض وصنعاء وعدن، دون فرض أي هوامش ربح خفية، مع وضوح السعر الإجمالي بالعملة المختارة قبل الضغط على زر الشحن.
+              يتم تحديث أسعار الصرف بشكل آلي ولحظي بناءً على أسعار السوق المصرفية اليومية للريال السعودي، الريال اليمني، والدينار العراقي، دون فرض أي هوامش ربح خفية، مع وضوح السعر الإجمالي بالعملة المختارة قبل الضغط على زر الشحن.
             </div>
           </div>
 
           <!-- Item 4 -->
           <div class="faq-item" data-cat="games">
             <div class="faq-question">
-              <h3>هل يطلب المتجر كلمة مرور حسابي أو تسجيل الدخول إلى اللعبة؟</h3>
+              <h3>هل تطلب منصة رصيد كلمة مرور حسابي أو تسجيل الدخول إلى اللعبة؟</h3>
               <span class="faq-arrow">▼</span>
             </div>
             <div class="faq-answer">
-              <strong>قطعاً لا.</strong> نحن لا نطلب إطلاقاً كلمة المرور أو رمز التحقق أو تسجيل الدخول إلى حسابك. كل ما نحتاجه هو معرف اللاعب العام (Player ID) فقط، ويصل الشحن لحسابك مباشرة بينما تبقى لعبتك قيد التشغيل بأمان تام.
+              <strong>قطعاً لا.</strong> منصة رصيد لا تطلب إطلاقاً كلمة المرور أو رمز التحقق أو تسجيل الدخول إلى حسابك. كل ما نحتاجه هو معرف اللاعب العام (Player ID) فقط، ويصل الشحن لحسابك مباشرة بينما تبقى لعبتك قيد التشغيل بأمان تام.
             </div>
           </div>
 
@@ -306,7 +300,7 @@
               <span class="faq-arrow">▼</span>
             </div>
             <div class="faq-answer">
-              يظهر كود البطاقة أو مفتاح الترخيص فوراً في شاشة الإيصال الرقمي مع زر نسخ بنقرة واحدة، كما يتم إدراجه تلقائياً في سجل طلباتك داخل المتجر للرجوع إليه في أي وقت.
+              يظهر كود البطاقة أو مفتاح الترخيص فوراً في شاشة الإيصال الرقمي مع زر نسخ بنقرة واحدة، كما يتم إدراجه تلقائياً في سجل طلباتك داخل المنصة للرجوع إليه في أي وقت.
             </div>
           </div>
 
@@ -335,12 +329,12 @@
           <!-- Item 9 -->
           <div class="faq-item" data-cat="payment">
             <div class="faq-question">
-              <h3>كيف تعمل طريقة شحن المحفظة والإيداع الفوري عبر المتجر؟</h3>
+              <h3>كيف تعمل طريقة شحن المحفظة والإيداع الفوري عبر منصة رصيد؟</h3>
               <span class="faq-arrow">▼</span>
             </div>
             <div class="faq-answer">
-              1. تفتح نافذة «شحن المحفظة» وتحدد دولتك (اليمن، السعودية، العراق، باقي الدول عبر بايننس).<br>
-              2. تختار طريقة الإيداع المناسبة، فيعرض لك النظام رقم الحساب أو الآيدي المعتمد مع زر نسخ سريع.<br>
+              1. تفتح نافذة «شحن المحفظة» وتحدد دولتك (اليمن، السعودية والخليج، العراق، باقي الدول عبر بايننس).<br>
+              2. تختار وسيلة الإيداع المناسبة، فيعرض لك النظام رقم الحساب أو الآيدي المعتمد مع زر نسخ سريع.<br>
               3. بعد قيامك بالإيداع، تقوم بملء المستطيلين المربوطين بالحساب:<br>
               &nbsp;&nbsp;• <strong>المستطيل الأول:</strong> المبلغ المودع أو فئة الكرت.<br>
               &nbsp;&nbsp;• <strong>المستطيل الثاني:</strong> معرّف العملية (رقم الحوالة، رقم الإشعار، أو كود الكرت).<br>
@@ -353,7 +347,7 @@
         <!-- Help Banner -->
         <div class="editorial-hero text-center py-4">
           <h3 class="fw-bold mb-2" style="font-size: 1.15rem;">لم تجد إجابة لاستفسارك؟</h3>
-          <p class="text-secondary mb-3" style="font-size: 0.88rem;">فريق الدعم الفني جاهز لمساعدتك عبر الواتساب على مدار الساعة.</p>
+          <p class="text-secondary mb-3" style="font-size: 0.88rem;">فريق الدعم الفني لمنصة رصيد جاهز لمساعدتك عبر الواتساب على مدار الساعة.</p>
           <div class="d-flex gap-2 justify-content-center flex-wrap">
             <a href="https://wa.me/967774060647" target="_blank" class="btn btn-brand px-4 py-2">
               تواصل معنا عبر واتساب
@@ -376,11 +370,11 @@
         <!-- Col 1: Brand Info -->
         <div class="footer-col">
           <div class="d-flex align-items-center gap-2 mb-3">
-            <span class="brand-badge-square" style="width:32px;height:32px;font-size:0.9rem">م</span>
-            <span class="fw-bold" style="font-size:1.05rem;color:var(--text);font-family:var(--font-display)">متجر الشحن السعودي اليمني</span>
+            <span class="brand-monogram" style="width:32px;height:32px;font-size:0.75rem">رصيد</span>
+            <span class="fw-bold" style="font-size:1.05rem;color:var(--text);font-family:var(--font-display)">منصة رصيد (RASEED)</span>
           </div>
           <p class="footer-brand-bio">
-            المنصة الأولى المعتمدة لخدمات شحن الألعاب والبطاقات الرقمية في المملكة العربية السعودية والجمهورية اليمنية، بنظام تنفيذ آلي فوري، ودعم وسائل الدفع المحلية مع التحديث اللحظي لأسعار الصرف اليومية.
+            المنصة الأولى المعتمدة لخدمات شحن الألعاب والبطاقات الرقمية في اليمن والمملكة العربية السعودية وجمهورية العراق ودول الخليج العربي، بنظام تنفيذ آلي فوري، ودعم وسائل الدفع المحلية مع التحديث اللحظي لأسعار الصرف اليومية.
           </p>
           <div class="footer-security-pill">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -394,8 +388,8 @@
           <ul class="footer-links-list">
             <li><a href="../index.html#sec-games" class="footer-link">شحن الألعاب المباشرة</a></li>
             <li><a href="../index.html#sec-cards" class="footer-link">بطاقات المتاجر والتطبيقات</a></li>
-            <li><a href="../index.html#sec-social" class="footer-link">تطبيقات التواصل والترفيه</a></li>
-            <li><a href="../index.html#sec-programs" class="footer-link">الاشتراكات والبرامج الرقمية</a></li>
+            <li><a href="../index.html#sec-chat" class="footer-link">تطبيقات التواصل والترفيه</a></li>
+            <li><a href="../index.html#sec-services" class="footer-link">الاشتراكات والبرامج الرقمية</a></li>
             <li><a href="track-order.html" class="footer-link">استعلام وتتبع الطلب</a></li>
           </ul>
         </div>
@@ -404,7 +398,7 @@
         <div class="footer-col">
           <h4 class="footer-col-title">المساعدة والمعلومات</h4>
           <ul class="footer-links-list">
-            <li><a href="about.html" class="footer-link">عن المتجر ورؤيتنا</a></li>
+            <li><a href="about.html" class="footer-link">عن المنصة ورؤيتنا</a></li>
             <li><a href="faq.html" class="footer-link">الأسئلة الشائعة والإجابات</a></li>
             <li><a href="terms.html" class="footer-link">الشروط وسياسة الضمان</a></li>
             <li><a href="privacy.html" class="footer-link">سياسة الخصوصية والأمان</a></li>
@@ -414,9 +408,9 @@
 
         <!-- Col 4: Regional Support & Contact -->
         <div class="footer-col">
-          <h4 class="footer-col-title">خدمة العملاء 24/7</h4>
+          <h4 class="footer-col-title">التغطية الإقليمية والدعم 24/7</h4>
           <p class="footer-brand-bio" style="margin-bottom:0.8rem">
-            فريق متخصص جاهز للإجابة على استفساراتكم ومتابعة عمليات الشحن على مدار الساعة.
+            فريق متخصص جاهز للإجابة على استفساراتكم ومتابعة عمليات الشحن لليمن والسعودية والعراق ودول الخليج على مدار الساعة.
           </p>
           <div class="d-flex flex-column gap-2">
             <a href="contact.html" class="footer-link" style="color:var(--brand-light);font-weight:600">
@@ -424,38 +418,40 @@
               <span>مركز المساعدة والمراسلة</span>
             </a>
             <div class="d-flex align-items-center gap-2 pt-2" style="font-size:0.8rem;color:var(--muted)">
-              <span>السعودية: <span dir="ltr">SAR</span></span>
+              <span>اليمن: YER</span>
               <span>•</span>
-              <span>اليمن: <span dir="ltr">YER</span></span>
+              <span>السعودية والخليج: SAR</span>
+              <span>•</span>
+              <span>العراق: IQD</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Payment Strip -->
+      <!-- Payment Strip with Logos -->
       <div class="footer-payment-strip">
         <div class="d-flex align-items-center gap-2">
           <span class="text-secondary fw-semibold" style="font-size:0.82rem">وسائل الدفع المعتمدة:</span>
         </div>
         <div class="footer-payment-pills">
-          <span class="footer-payment-pill">محفظة جيب Jaib</span>
-          <span class="footer-payment-pill">محفظة ون كاش One Cash</span>
-          <span class="footer-payment-pill">محفظة فلوسك Floosak</span>
-          <span class="footer-payment-pill">محفظة جوالي Jawali</span>
-          <span class="footer-payment-pill">مصرف الكريمي</span>
-          <span class="footer-payment-pill">مصرف القطيبي</span>
-          <span class="footer-payment-pill">مصرف الراجحي</span>
-          <span class="footer-payment-pill">بنك الإنماء</span>
-          <span class="footer-payment-pill">كروت سوا</span>
-          <span class="footer-payment-pill">كروت موبايلي</span>
-          <span class="footer-payment-pill">كروت آسيا سيل</span>
-          <span class="footer-payment-pill">Binance Pay (USDT)</span>
+          <span class="footer-payment-pill" title="محفظة جيب - اليمن"><img src="../public/images/payments/Jaib%20Wallet.png" alt="جيب" class="footer-payment-logo" /><span class="fp-code">YE</span> جيب Jaib</span>
+          <span class="footer-payment-pill" title="محفظة ون كاش - اليمن"><img src="../public/images/payments/OneCash%20Wallet.png" alt="ون كاش" class="footer-payment-logo" /><span class="fp-code">YE</span> ون كاش</span>
+          <span class="footer-payment-pill" title="محفظة فلوسك - اليمن"><img src="../public/images/payments/Floosak%20Wallet.png" alt="فلوسك" class="footer-payment-logo" /><span class="fp-code">YE</span> فلوسك</span>
+          <span class="footer-payment-pill" title="محفظة جوالي - اليمن"><img src="../public/images/payments/Jawali%20Wallet.png" alt="جوالي" class="footer-payment-logo" /><span class="fp-code">YE</span> جوالي</span>
+          <span class="footer-payment-pill" title="مصرف الكريمي - اليمن"><img src="../public/images/payments/Kuraimi%20Bank.png" alt="الكريمي" class="footer-payment-logo" /><span class="fp-code">YE</span> الكريمي</span>
+          <span class="footer-payment-pill" title="مصرف القطيبي - اليمن"><img src="../public/images/payments/Qutaibi%20Bank.png" alt="القطيبي" class="footer-payment-logo" /><span class="fp-code">YE</span> القطيبي</span>
+          <span class="footer-payment-pill" title="مصرف الراجحي - السعودية والخليج"><img src="../public/images/payments/Alrajhi%20Bank.png" alt="الراجحي" class="footer-payment-logo" /><span class="fp-code">SA</span> الراجحي</span>
+          <span class="footer-payment-pill" title="بنك الإنماء - السعودية والخليج"><img src="../public/images/payments/Alinma%20Bank.png" alt="الإنماء" class="footer-payment-logo" /><span class="fp-code">SA</span> الإنماء</span>
+          <span class="footer-payment-pill" title="كروت سوا STC - السعودية والخليج"><img src="../public/images/payments/STC%20SAWA.png" alt="سوا" class="footer-payment-logo" /><span class="fp-code">SA</span> سوا</span>
+          <span class="footer-payment-pill" title="كروت موبايلي - السعودية والخليج"><img src="../public/images/payments/Mobily%20Cards.png" alt="موبايلي" class="footer-payment-logo" /><span class="fp-code">SA</span> موبايلي</span>
+          <span class="footer-payment-pill" title="كروت آسيا سيل - العراق"><img src="../public/images/payments/Asiacell.png" alt="آسيا سيل" class="footer-payment-logo" /><span class="fp-code">IQ</span> آسيا سيل</span>
+          <span class="footer-payment-pill" title="بايننس Binance Pay (USDT)"><img src="../public/images/payments/Binance.png" alt="Binance" class="footer-payment-logo" /><span class="fp-code">INTL</span> Binance Pay</span>
         </div>
       </div>
 
       <!-- Bottom Bar -->
       <div class="footer-bottom-bar">
-        <span>© 2026 متجر الشحن السعودي اليمني. جميع الحقوق محفوظة.</span>
+        <span>© 2026 منصة رصيد (RASEED). جميع الحقوق محفوظة.</span>
         <div class="footer-meta-links">
           <a href="terms.html" class="footer-meta-link">اتفاقية الاستخدام</a>
           <a href="privacy.html" class="footer-meta-link">سياسة الخصوصية</a>
@@ -531,4 +527,3 @@
 </body>
 
 </html>
-

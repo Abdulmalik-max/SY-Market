@@ -130,7 +130,7 @@
                 }
                 toast('تم تسجيل الدخول بنجاح، جاري التحويل...');
                 setTimeout(() => {
-                    window.location.href = '../index.html';
+                    window.location.href = '../../index.html';
                 }, 900);
             }
         }
@@ -175,7 +175,7 @@
                 }
                 toast('تم إنشاء الحساب بنجاح.');
                 setTimeout(() => {
-                    window.location.href = '../index.html';
+                    window.location.href = '../../index.html';
                 }, 1000);
             }
         }

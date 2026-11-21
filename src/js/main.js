@@ -70,7 +70,7 @@
     } catch (_) {}
 
     const SYMBOLS = { SAR: 'ر.س', YER: 'ر.ي', USD: '$' };
-    const COUNTRY_NAMES = { ye: 'اليمن', sa: 'السعودية', iq: 'العراق', global: 'باقي الدول' };
+    const COUNTRY_NAMES = { ye: 'اليمن', sa: 'السعودية ودول الخليج', iq: 'العراق', global: 'باقي الدول' };
     let currentCurrency = 'SAR';
 
     function getUsdToSarRate() {
@@ -224,11 +224,12 @@
                 category: 'wallets',
                 categoryTitle: 'المحافظ اليمنية',
                 name: 'محفظة جيب (Jaib)',
+                image: 'public/images/payments/Jaib%20Wallet.png',
                 iconText: 'جيب',
                 isCard: false,
                 accountLabel: 'رقم المحفظة / الحساب المعتمد:',
                 getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.jaib || '774060647',
-                accountName: 'متجر الشحن المعتمد',
+                accountName: 'منصة رصيد المعتمدة',
                 currency: 'YER',
                 currencyName: 'ريال يمني (ر.ي)',
                 minAmount: 500,
@@ -243,11 +244,12 @@
                 category: 'wallets',
                 categoryTitle: 'المحافظ اليمنية',
                 name: 'محفظة ون كاش (One Cash)',
+                image: 'public/images/payments/OneCash%20Wallet.png',
                 iconText: 'ون كاش',
                 isCard: false,
                 accountLabel: 'رقم المحفظة / رمز التاجر (84920):',
                 getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.onecash || '774060647',
-                accountName: 'متجر الشحن المعتمد',
+                accountName: 'منصة رصيد المعتمدة',
                 currency: 'YER',
                 currencyName: 'ريال يمني (ر.ي)',
                 minAmount: 500,
@@ -262,11 +264,12 @@
                 category: 'wallets',
                 categoryTitle: 'المحافظ اليمنية',
                 name: 'محفظة فلوسك (Floosak)',
+                image: 'public/images/payments/Floosak%20Wallet.png',
                 iconText: 'فلوسك',
                 isCard: false,
                 accountLabel: 'رقم محفظة فلوسك:',
                 getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.floosak || '774060647',
-                accountName: 'متجر الشحن المعتمد',
+                accountName: 'منصة رصيد المعتمدة',
                 currency: 'YER',
                 currencyName: 'ريال يمني (ر.ي)',
                 minAmount: 500,
@@ -281,11 +284,12 @@
                 category: 'wallets',
                 categoryTitle: 'المحافظ اليمنية',
                 name: 'محفظة جوالي (Jawali)',
+                image: 'public/images/payments/Jawali%20Wallet.png',
                 iconText: 'جوالي',
                 isCard: false,
                 accountLabel: 'رقم محفظة جوالي:',
                 getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.jawali || '774060647',
-                accountName: 'متجر الشحن المعتمد',
+                accountName: 'منصة رصيد المعتمدة',
                 currency: 'YER',
                 currencyName: 'ريال يمني (ر.ي)',
                 minAmount: 500,
@@ -300,11 +304,12 @@
                 category: 'banks',
                 categoryTitle: 'الحسابات البنكية اليمنية',
                 name: 'مصرف الكريمي (Kuraimi)',
+                image: 'public/images/payments/Kuraimi%20Bank.png',
                 iconText: 'الكريمي',
                 isCard: false,
                 accountLabel: 'رقم الحساب المميز (إيداع مميز):',
                 getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.kuraimi || '3001234567',
-                accountName: 'متجر الشحن للخدمات الرقمية',
+                accountName: 'منصة رصيد للخدمات الرقمية',
                 currency: 'YER',
                 currencyName: 'ريال يمني (ر.ي)',
                 minAmount: 1000,
@@ -319,11 +324,12 @@
                 category: 'banks',
                 categoryTitle: 'الحسابات البنكية اليمنية',
                 name: 'مصرف القطيبي (Al-Qutaibi)',
+                image: 'public/images/payments/Qutaibi%20Bank.png',
                 iconText: 'القطيبي',
                 isCard: false,
                 accountLabel: 'رقم حساب مصرف القطيبي:',
                 getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.qutaibi || '202145890',
-                accountName: 'متجر الشحن والخدمات الإلكترونية',
+                accountName: 'منصة رصيد والخدمات الإلكترونية',
                 currency: 'YER',
                 currencyName: 'ريال يمني (ر.ي)',
                 minAmount: 1000,
@@ -336,14 +342,15 @@
                 id: 'rajhi',
                 country: 'sa',
                 category: 'banks',
-                categoryTitle: 'الحسابات البنكية السعودية',
+                categoryTitle: 'الحسابات البنكية (السعودية ودول الخليج)',
                 name: 'مصرف الراجحي (Al Rajhi)',
+                image: 'public/images/payments/Alrajhi%20Bank.png',
                 iconText: 'الراجحي',
                 isCard: false,
                 accountLabel: 'رقم الآيبان IBAN:',
                 getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.rajhi || 'SA4480000452000012345678',
                 secondaryInfo: '452000012345678',
-                accountName: 'مؤسسة متجر الشحن الرقمي',
+                accountName: 'مؤسسة رصيد للشحن الرقمي',
                 currency: 'SAR',
                 currencyName: 'ريال سعودي (ر.س)',
                 minAmount: 5,
@@ -356,14 +363,15 @@
                 id: 'alinma',
                 country: 'sa',
                 category: 'banks',
-                categoryTitle: 'الحسابات البنكية السعودية',
+                categoryTitle: 'الحسابات البنكية (السعودية ودول الخليج)',
                 name: 'بنك الإنماء (Alinma Bank)',
+                image: 'public/images/payments/Alinma%20Bank.png',
                 iconText: 'الإنماء',
                 isCard: false,
                 accountLabel: 'رقم الآيبان IBAN:',
                 getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.alinma || 'SA03050000682000098765432',
                 secondaryInfo: '682000098765432',
-                accountName: 'مؤسسة متجر الشحن الرقمي',
+                accountName: 'مؤسسة رصيد للشحن الرقمي',
                 currency: 'SAR',
                 currencyName: 'ريال سعودي (ر.س)',
                 minAmount: 5,
@@ -376,13 +384,14 @@
                 id: 'sawa',
                 country: 'sa',
                 category: 'cards',
-                categoryTitle: 'كروت الشحن السعودية',
+                categoryTitle: 'كروت الشحن (السعودية والخليج)',
                 name: 'كروت سوا (STC Sawa)',
+                image: 'public/images/payments/STC%20SAWA.png',
                 iconText: 'سوا',
                 isCard: true,
                 accountLabel: 'طريقة الشحن:',
                 getAccountNumber: () => 'شحن مباشر عبر كود بطاقة سوا (PIN Code)',
-                accountName: 'نظام مطابقة كروت STC سوا',
+                accountName: 'نظام مطابقة كروت STC سوا لمنصة رصيد',
                 currency: 'SAR',
                 currencyName: 'ريال سعودي (ر.س)',
                 minAmount: 10,
@@ -395,13 +404,14 @@
                 id: 'mobily',
                 country: 'sa',
                 category: 'cards',
-                categoryTitle: 'كروت الشحن السعودية',
+                categoryTitle: 'كروت الشحن (السعودية والخليج)',
                 name: 'كروت موبايلي (Mobily)',
+                image: 'public/images/payments/Mobily%20Cards.png',
                 iconText: 'موبايلي',
                 isCard: true,
                 accountLabel: 'طريقة الشحن:',
                 getAccountNumber: () => 'شحن مباشر عبر كود بطاقة موبايلي',
-                accountName: 'نظام مطابقة كروت موبايلي',
+                accountName: 'نظام مطابقة كروت موبايلي لمنصة رصيد',
                 currency: 'SAR',
                 currencyName: 'ريال سعودي (ر.س)',
                 minAmount: 10,
@@ -416,11 +426,12 @@
                 category: 'cards',
                 categoryTitle: 'كروت شحن العراق',
                 name: 'كروت آسيا سيل (Asiacell)',
+                image: 'public/images/payments/Asiacell.png',
                 iconText: 'آسيا سيل',
                 isCard: true,
                 accountLabel: 'طريقة الشحن:',
                 getAccountNumber: () => 'إيداع فوري عبر قسائم وكروت آسيا سيل',
-                accountName: 'نظام الشحن بالدينار العراقي',
+                accountName: 'نظام الشحن بالدينار العراقي لمنصة رصيد',
                 currency: 'IQD',
                 currencyName: 'دينار عراقي (د.ع)',
                 minAmount: 1000,
@@ -433,14 +444,15 @@
                 id: 'binance',
                 country: 'global',
                 category: 'crypto',
-                categoryTitle: 'الدفع الدولي (بايننس)',
+                categoryTitle: 'الدفع الدولي والعملات الرقمية (بايننس)',
                 name: 'بايننس (Binance Pay / USDT)',
+                image: 'public/images/payments/Binance.png',
                 iconText: 'Binance',
                 isCard: false,
                 accountLabel: 'Binance Pay ID:',
                 getAccountNumber: () => CUSTOM_PAY_ACCOUNTS.binance || '284910385',
                 getSecondaryInfo: () => CUSTOM_PAY_ACCOUNTS.binanceUsdt || 'TXv8m4Kp9zW2e7Qb1Y3u5Rt6N8mJkLpQxZ',
-                accountName: 'ShopPay_Official (Binance Pay)',
+                accountName: 'Raseed_Official (Binance Pay)',
                 currency: 'USD',
                 currencyName: 'دولار رقمي (USDT)',
                 minAmount: 1,
@@ -630,17 +642,26 @@
                 lastCat = m.categoryTitle;
                 html += `<div class="deposit-category-heading"><span>${lastCat}</span></div>`;
             }
+            const isSelected = m.id === selectedId;
             html += `
-                <button type="button" class="deposit-method-btn ${m.id === selectedId ? 'active' : ''}" ${dataAttr}="${m.id}">
-                    <div class="dm-head">
-                        <span class="dm-title">${m.name}</span>
-                        <span class="dm-icon">${m.iconText}</span>
+                <button type="button" class="deposit-method-btn ${isSelected ? 'active' : ''}" ${dataAttr}="${m.id}">
+                    <div class="dm-card-main">
+                        <div class="dm-logo-wrap">
+                            <img src="${m.image}" alt="${m.name}" class="dm-logo-img" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" />
+                            <span class="dm-fallback-text" style="display:none;">${m.iconText}</span>
+                        </div>
+                        <div class="dm-info-col">
+                            <div class="dm-title-row">
+                                <span class="dm-title">${m.name}</span>
+                                ${isSelected ? '<span class="dm-check-indicator" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>' : ''}
+                            </div>
+                            <span class="dm-subtext">${m.isCard ? 'شحن فوري بالكرت' : (m.id === 'binance' ? 'Binance Pay / USDT' : (m.accountLabel ? m.accountLabel.replace(':', '') : 'حساب معتمد'))}</span>
+                        </div>
                     </div>
                     <div class="dm-meta-row">
                         <span class="dm-meta-chip">${m.currency}</span>
-                        <span>رسوم 0%</span>
-                        <span>•</span>
-                        <span>إيداع فوري</span>
+                        <span class="dm-meta-feat"><span class="feat-dot"></span> رسوم 0%</span>
+                        <span class="dm-meta-feat"><span class="feat-dot"></span> إيداع فوري</span>
                     </div>
                 </button>
             `;
@@ -683,7 +704,14 @@
         if ($('#depStep2MethodSummary'))  $('#depStep2MethodSummary').textContent  = method.name;
         if ($('#depStep2CountrySummary')) $('#depStep2CountrySummary').textContent = `${COUNTRY_NAMES[method.country] || ''} • ${method.currencyName}`;
         if ($('#depStep2CurrencyPill'))   $('#depStep2CurrencyPill').textContent   = method.currency;
-        if ($('#depMethodIconBadge'))     $('#depMethodIconBadge').textContent     = method.iconText;
+        if ($('#depMethodIconBadge')) {
+            $('#depMethodIconBadge').innerHTML = `
+                <span class="dep-badge-media">
+                    <img src="${method.image || ''}" alt="${method.name}" class="dep-badge-img" onerror="this.style.display='none'" />
+                    <span>${method.iconText}</span>
+                </span>
+            `;
+        }
         if ($('#depMethodTitle'))         $('#depMethodTitle').textContent         = method.name;
         if ($('#depAccountLabel'))        $('#depAccountLabel').textContent        = method.accountLabel;
         if ($('#depAccountNumber'))       $('#depAccountNumber').textContent       = accNum;
@@ -1612,7 +1640,14 @@
         const txnEl    = $('#topupDirectTxnId');
         const copyBtn  = $('#btnCopyTopupAcc');
 
-        if (titleEl)  titleEl.textContent  = `بيانات التحويل عبر ${method.name}`;
+        if (titleEl) {
+            titleEl.innerHTML = `
+                <span class="d-inline-flex align-items-center gap-2">
+                    <img src="${method.image}" alt="${method.name}" class="checkout-method-mini-logo" onerror="this.style.display='none'" />
+                    <span>بيانات التحويل عبر ${method.name}</span>
+                </span>
+            `;
+        }
         if (accValEl) accValEl.textContent = method.getAccountNumber();
         if (holderEl) holderEl.textContent = `اسم المستلم: ${method.accountName} • ${method.instructions}`;
         if (copyBtn)  copyBtn.classList.toggle('d-none', !!method.isCard);
@@ -1885,7 +1920,7 @@
         } catch (_) {}
 
         const msg =
-            'مرحباً متجر الشحن، أود تأكيد إيصال الشحن الخاص بي:\n' +
+            'مرحباً منصة رصيد (RASEED)، أود تأكيد إيصال الشحن الخاص بي:\n' +
             '• رقم الطلب: ' + ($('#receiptOrderNum')?.textContent || '') + '\n' +
             '• الخدمة: ' + ($('#receiptAppName')?.textContent || '') + '\n' +
             '• الباقة: '  + ($('#receiptPkgName')?.textContent || '') + '\n' +
@@ -1923,7 +1958,7 @@
     $('#btnSaveAdminSettings')?.addEventListener('click', () => {
         const rateSar = Number($('#adminRateSar')?.value) || 3.75;
         const rateYer = Number($('#adminRateUsd')?.value) || 530;
-        const storeName = $('#adminStoreName')?.value || 'متجر الشحن السعودي اليمني';
+        const storeName = $('#adminStoreName')?.value || 'رصيد | RASEED';
         const whatsapp = $('#adminWhatsappNum')?.value || '967774060647';
 
         CUSTOM_PAY_ACCOUNTS.jaib        = $('#adminAccJaib')?.value?.trim() || CUSTOM_PAY_ACCOUNTS.jaib;

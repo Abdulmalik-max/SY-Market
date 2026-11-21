@@ -11,36 +11,40 @@ const PAYMENT_CONFIG = {
                         id: "ye_jeeb",
                         name: "جيب (Jeeb)",
                         type: "wallet",
+                        image: "public/images/payments/Jaib%20Wallet.png",
                         targetLabel: "رقم محفظة جيب",
                         targetValue: "770000001",
-                        holder: "باسم: متجر SY Market",
+                        holder: "باسم: منصة رصيد المعتمدة",
                         note: "قم بالتحويل ثم أدخل المبلغ ومعرف العملية الظاهر في إيصال محفظة جيب."
                     },
                     {
                         id: "ye_onecash",
                         name: "ون كاش (OneCash)",
                         type: "wallet",
+                        image: "public/images/payments/OneCash%20Wallet.png",
                         targetLabel: "رقم محفظة ون كاش",
                         targetValue: "770000002",
-                        holder: "باسم: متجر SY Market",
+                        holder: "باسم: منصة رصيد المعتمدة",
                         note: "تأكد من مطابقة المبلغ ورقم المرجع ليتم الإيداع تلقائياً."
                     },
                     {
                         id: "ye_floosak",
                         name: "فلوسك (Floosak)",
                         type: "wallet",
+                        image: "public/images/payments/Floosak%20Wallet.png",
                         targetLabel: "رقم محفظة فلوسك",
                         targetValue: "770000003",
-                        holder: "باسم: متجر SY Market",
+                        holder: "باسم: منصة رصيد المعتمدة",
                         note: "أدخل رقم العملية المكون من الأرقام الظاهرة في رسالة التأكيد."
                     },
                     {
                         id: "ye_jawali",
                         name: "جوالي (Jawali)",
                         type: "wallet",
+                        image: "public/images/payments/Jawali%20Wallet.png",
                         targetLabel: "رقم محفظة جوالي",
                         targetValue: "770000004",
-                        holder: "باسم: متجر SY Market",
+                        holder: "باسم: منصة رصيد المعتمدة",
                         note: "بعد إتمام التحويل عبر جوالي، أدخل المبلغ ورقم العملية أدناه."
                     }
                 ]
@@ -52,18 +56,20 @@ const PAYMENT_CONFIG = {
                         id: "ye_kuraimi",
                         name: "مصرف الكريمي",
                         type: "bank",
+                        image: "public/images/payments/Kuraimi%20Bank.png",
                         targetLabel: "رقم حساب الكريمي (مميز)",
                         targetValue: "3012345678",
-                        holder: "باسم: متجر SY Market",
+                        holder: "باسم: منصة رصيد المعتمدة",
                         note: "يمكنك الإيداع عبر تطبيق الكريمي جوال ثم إدخال المبلغ ورقم السند/العملية."
                     },
                     {
                         id: "ye_qutaibi",
                         name: "مصرف القطيبي",
                         type: "bank",
+                        image: "public/images/payments/Qutaibi%20Bank.png",
                         targetLabel: "رقم حساب مصرف القطيبي",
                         targetValue: "4098765432",
-                        holder: "باسم: متجر SY Market",
+                        holder: "باسم: منصة رصيد المعتمدة",
                         note: "أدخل المبلغ ورقم المرجع البنكي الظاهر بعد التحويل."
                     }
                 ]
@@ -72,29 +78,31 @@ const PAYMENT_CONFIG = {
     },
 
     SA: {
-        label: "السعودية",
+        label: "السعودية ودول الخليج",
         code: "SA",
         currency: "SAR",
         groups: [
             {
-                title: "البنوك السعودية",
+                title: "البنوك السعودية والخليج",
                 methods: [
                     {
                         id: "sa_rajhi",
                         name: "مصرف الراجحي",
                         type: "bank",
+                        image: "public/images/payments/Alrajhi%20Bank.png",
                         targetLabel: "رقم الحساب / الآيبان (الراجحي)",
                         targetValue: "SA00 8000 0000 6080 1012 3456",
-                        holder: "باسم: متجر SY Market",
+                        holder: "باسم: مؤسسة رصيد المعتمدة",
                         note: "حوّل المبلغ المطلوب ثم أدخل قيمة التحويل والرقم المرجعي للعملية."
                     },
                     {
                         id: "sa_alinma",
                         name: "بنك الإنماء",
                         type: "bank",
+                        image: "public/images/payments/Alinma%20Bank.png",
                         targetLabel: "رقم الحساب / الآيبان (الإنماء)",
                         targetValue: "SA00 0500 0068 2012 3456 7890",
-                        holder: "باسم: متجر SY Market",
+                        holder: "باسم: مؤسسة رصيد المعتمدة",
                         note: "أدخل المبلغ والرقم المرجعي للحوالة ليتم التحقق والإيداع مباشرة."
                     }
                 ]
@@ -106,9 +114,10 @@ const PAYMENT_CONFIG = {
                         id: "sa_sawa",
                         name: "كروت سوا (STC)",
                         type: "card",
+                        image: "public/images/payments/STC%20SAWA.png",
                         targetLabel: "طريقة الشحن بكرت سوا",
                         targetValue: "أدخل فئة الكرت ورقم الشحن في الحقلين أدناه",
-                        holder: "شحن مباشر بكروت سوا السعودية",
+                        holder: "شحن مباشر بكروت سوا لمنصة رصيد",
                         txLabel: "معرف العملية / رقم كرت سوا",
                         note: "أدخل قيمة الكرت في حقل المبلغ، ورقم بطاقة سوا في حقل معرف العملية."
                     },
@@ -116,9 +125,10 @@ const PAYMENT_CONFIG = {
                         id: "sa_mobily",
                         name: "كروت موبايلي",
                         type: "card",
+                        image: "public/images/payments/Mobily%20Cards.png",
                         targetLabel: "طريقة الشحن بكرت موبايلي",
                         targetValue: "أدخل فئة الكرت ورقم الشحن في الحقلين أدناه",
-                        holder: "شحن مباشر بكروت موبايلي",
+                        holder: "شحن مباشر بكروت موبايلي لمنصة رصيد",
                         txLabel: "معرف العملية / رقم كرت موبايلي",
                         note: "أدخل قيمة الكرت في حقل المبلغ، ورقم بطاقة موبايلي في حقل معرف العملية."
                     }
@@ -139,9 +149,10 @@ const PAYMENT_CONFIG = {
                         id: "iq_asiacell",
                         name: "كروت آسيا سيل",
                         type: "card",
+                        image: "public/images/payments/Asiacell.png",
                         targetLabel: "طريقة الشحن بكرت آسيا سيل",
                         targetValue: "أدخل فئة الكرت ورقم الكرت في الحقلين أدناه",
-                        holder: "شحن فوري عبر كروت Asiacell",
+                        holder: "شحن فوري عبر كروت Asiacell لمنصة رصيد",
                         txLabel: "معرف العملية / رقم كرت آسيا سيل",
                         note: "تأكد من إدخال فئة الكرت الصحيحة (5,000 / 10,000 / 25,000) ورقم الكرت بدقة."
                     }
@@ -162,9 +173,10 @@ const PAYMENT_CONFIG = {
                         id: "intl_binance",
                         name: "بايننس (Binance Pay)",
                         type: "crypto",
+                        image: "public/images/payments/Binance.png",
                         targetLabel: "Binance Pay ID",
                         targetValue: "548291034",
-                        holder: "SY-Market Official (USDT)",
+                        holder: "Raseed_Official (USDT)",
                         txLabel: "معرف العملية (Binance Order ID)",
                         note: "حوّل عبر Binance Pay (بدون رسوم) ثم أدخل المبلغ بالـ USDT و Order ID للإيداع الفوري."
                     }
