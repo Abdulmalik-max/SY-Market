@@ -4,14 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0d1117" />
+  <meta name="theme-color" content="#0b0f15" />
   <meta name="description"
-    content="متجر الشحن السعودي اليمني — منصة متخصصة لشحن الألعاب والبطاقات الرقمية واشتراكات التطبيقات في السعودية واليمن." />
+    content="متجر الشحن السعودي اليمني — منصة متخصصة لشحن الألعاب والبطاقات الرقمية واشتراكات التطبيقات في السعودية واليمن والعراق وباقي الدول." />
   <title>متجر الشحن السعودي اليمني | شحن فوري للألعاب والبطاقات الرقمية</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="src/vendor/bootstrap.min.css">
   <link rel="stylesheet" href="src/css/base.css">
@@ -41,7 +41,7 @@
         <strong id="drawerWalletBalanceDisplay" style="font-size:1.05rem;color:var(--brand-light);font-family:var(--font-mono)">100.00 ر.س</strong>
       </div>
       <button type="button" id="btnDrawerTopupQuick" class="btn btn-brand btn-sm py-1 px-3" onclick="document.getElementById('btnCloseMobileMenu')?.click();window.openAppModal('walletModal')">
-        شحن
+        شحن الرصيد
       </button>
     </div>
 
@@ -98,23 +98,27 @@
     </div>
   </aside>
 
-  <!-- ================= HEADER ================= -->
+  <!-- ================= ENHANCED HEADER ================= -->
   <header class="app-header sticky-top">
     <!-- Utility Micro-Bar -->
     <div class="header-utility-bar">
       <div class="container-xxl d-flex align-items-center justify-content-between flex-wrap gap-2">
-        <div class="d-flex align-items-center gap-3">
+        <div class="d-flex align-items-center gap-3 flex-wrap">
           <span class="utility-status-pill">
             <span class="pulse-dot"></span>
-            <span>التنفيذ الآلي: متصل وفوري 24/7</span>
+            <span>التنفيذ الآلي: نشط 24/7</span>
           </span>
-          <span class="d-none d-md-inline text-secondary">•</span>
-          <span class="d-none d-md-inline">تغطية معتمدة للسعودية واليمن (مدى، STC Pay، جيب، ون كاش، الكريمي، النجم)</span>
+          <span class="utility-fx-pill d-none d-sm-inline-flex" id="headerFxTicker">
+            <span>سعر الصرف:</span>
+            <strong dir="ltr">1 USD = 3.75 SAR</strong>
+            <span>•</span>
+            <strong dir="ltr">530 YER</strong>
+          </span>
         </div>
         <div class="d-flex align-items-center gap-3 ms-auto">
-          <a href="pages/faq.html" class="text-secondary text-decoration-none">الأسئلة الشائعة</a>
-          <span>•</span>
-          <a href="pages/contact.html" class="text-secondary text-decoration-none">الدعم الفني المباشر</a>
+          <a href="pages/track-order.html" class="utility-link d-none d-md-inline">تتبع الطلب</a>
+          <a href="pages/faq.html" class="utility-link">الأسئلة الشائعة</a>
+          <a href="pages/contact.html" class="utility-link">الدعم الفني المباشر</a>
         </div>
       </div>
     </div>
@@ -123,12 +127,15 @@
     <div class="container-xxl">
       <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 header-top-row">
         
-        <!-- Brand Link -->
+        <!-- Brand Lockup -->
         <a href="index.html" class="brand-badge-link" id="headerLogoBtn" title="الرئيسية">
           <div class="brand-monogram">SY</div>
           <div class="brand-text-col">
-            <span class="brand-main-title">متجر الشحن السعودي اليمني</span>
-            <span class="brand-sub-tag">المنصة المعتمدة للشحن الرقمي المباشر</span>
+            <span class="brand-main-title">
+              <span>متجر الشحن السعودي اليمني</span>
+              <span class="brand-verified-tag">معتمد</span>
+            </span>
+            <span class="brand-sub-tag">شحن الألعاب والبطاقات الرقمية بتسليم آلي فوري</span>
           </div>
         </a>
 
@@ -142,16 +149,17 @@
           <a href="pages/contact.html" class="main-nav-link">اتصل بنا</a>
         </nav>
 
-        <!-- Action Items -->
-        <div class="d-flex align-items-center gap-2 flex-wrap justify-content-end">
+        <!-- Action Cluster -->
+        <div class="header-actions-cluster">
           <select id="currencySelect" class="form-select form-select-sm currency-select" aria-label="العملة المعروضة">
             <option value="SAR" selected>ر.س (سعودي)</option>
             <option value="YER">ر.ي (يمني)</option>
             <option value="USD">$ (دولار)</option>
           </select>
 
-          <button id="btnOpenWallet" type="button" class="wallet-pill" title="رصيد المحفظة">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
+          <button id="btnOpenWallet" type="button" class="wallet-pill" title="رصيد المحفظة وشحن الرصيد">
+            <span class="wallet-pill-plus" aria-hidden="true">+</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
             <span id="walletBalanceDisplay">100.00 ر.س</span>
           </button>
 
@@ -165,6 +173,8 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
             <span>الإدارة</span>
           </button>
+
+          <span class="header-divider" aria-hidden="true"></span>
 
           <button type="button" class="theme-toggle" aria-label="تبديل المظهر"></button>
 
@@ -186,7 +196,7 @@
         </div>
       </div>
 
-      <!-- Row 2: Search & Filter -->
+      <!-- Row 2: Search & Category Filter -->
       <div class="d-flex flex-column gap-2 header-search-row">
         <div class="search-wrap">
           <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -213,7 +223,7 @@
           </div>
 
           <button id="btnToggleGridWidth" type="button"
-            class="btn btn-ghost d-none d-md-inline-flex align-items-center gap-2 flex-shrink-0" title="تبديل العرض">
+            class="btn btn-ghost btn-sm d-none d-md-inline-flex align-items-center gap-2 flex-shrink-0" title="تبديل العرض">
             <span id="gridModeLabel">العرض الموسع</span>
           </button>
         </div>
@@ -229,14 +239,14 @@
       <div class="editorial-hero-inner">
         <div class="hero-main-col">
           <div class="hero-tag-strip">
-            <span class="hero-tag-text">خدمة شحن سريعة وموثوقة للسعودية واليمن</span>
+            <span class="hero-tag-text">منصة الشحن الرقمي للسعودية واليمن والعراق</span>
           </div>
           <h1 class="hero-heading">
             شحن مباشر للألعاب والبطاقات <br class="d-none d-md-block">
             <span class="highlight-green">بأدق أسعار الصرف اليومية</span> وتسليم آلي فوري
           </h1>
           <p class="hero-desc">
-            تغطية شاملة لأكثر من 70 لعبة وبطاقة رقمية مع دعم وسائل الدفع في اليمن (جيب، ون كاش، فلوسك، جوالي، الكريمي، القطيبي)، السعودية (الراجحي، الإنماء، سوا، موبايلي)، العراق (آسيا سيل)، والدولية (بايننس).
+            تغطية شاملة لأكثر من 70 لعبة وبطاقة رقمية مع واجهات دفع مخصصة وواضحة للمحافظ اليمنية (جيب، ون كاش، فلوسك، جوالي)، البنوك (الكريمي، القطيبي، الراجحي، الإنماء)، كروت سوا وموبايلي وآسيا سيل، وبايننس لباقي الدول.
           </p>
 
           <div class="hero-quick-tags">
@@ -257,7 +267,7 @@
           </div>
           <div class="stat-divider"></div>
           <div class="stat-item">
-            <span class="stat-num">&lt; 60 ثانية</span>
+            <span class="stat-num">&lt; 60 ث</span>
             <span class="stat-label">متوسط التسليم</span>
           </div>
           <div class="stat-divider"></div>
@@ -268,7 +278,6 @@
         </div>
       </div>
     </section>
-    
 
     <!-- Trust Strip -->
     <div class="trust-strip">
@@ -303,27 +312,46 @@
     </div>
   </main>
 
-  <!-- ================= FOOTER ================= -->
+  <!-- ================= ENHANCED ARCHITECTURAL FOOTER ================= -->
   <footer class="app-footer">
+    <!-- Pre-Footer Action Callout Band -->
+    <div class="footer-callout-band">
+      <div class="container-xxl">
+        <div class="footer-callout-inner">
+          <div>
+            <h3 class="footer-callout-title">اشحن محفظتك مرة واحدة وتسوّق بضغطة زر</h3>
+            <p class="footer-callout-sub">إيداع فوري بدون رسوم عبر المحافظ اليمنية، البنوك السعودية، كروت آسيا سيل، وبايننس.</p>
+          </div>
+          <div class="d-flex align-items-center gap-2 flex-wrap">
+            <button type="button" class="btn btn-brand" onclick="window.openAppModal('walletModal')">شحن المحفظة الآن</button>
+            <a href="pages/track-order.html" class="btn btn-ghost">استعلام وتتبع الطلب</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="container-xxl">
       <!-- 4 Columns Grid -->
       <div class="footer-top-grid">
         <!-- Col 1: Brand Info -->
         <div class="footer-col">
           <div class="d-flex align-items-center gap-2 mb-3">
-            <span class="brand-badge-square" style="width:32px;height:32px;font-size:0.9rem">م</span>
-            <span class="fw-bold" style="font-size:1.05rem;color:var(--text);font-family:var(--font-display)">متجر الشحن السعودي اليمني</span>
+            <span class="brand-monogram" style="width:36px;height:36px;font-size:0.85rem">SY</span>
+            <div class="d-flex flex-column">
+              <span class="fw-bold" style="font-size:1rem;color:var(--text);font-family:var(--font-display)">متجر الشحن السعودي اليمني</span>
+              <span style="font-size:0.72rem;color:var(--muted)">منصة الشحن الرقمي المباشر</span>
+            </div>
           </div>
           <p class="footer-brand-bio">
-            المنصة الأولى المعتمدة لخدمات شحن الألعاب والبطاقات الرقمية في المملكة العربية السعودية والجمهورية اليمنية، بنظام تنفيذ آلي فوري، ودعم وسائل الدفع المحلية مع التحديث اللحظي لأسعار الصرف اليومية.
+            منصة معتمدة لخدمات شحن الألعاب والبطاقات الرقمية واشتراكات التطبيقات في السعودية واليمن والعراق وباقي الدول، بنظام تنفيذ آلي فوري وتحديث لحظي لأسعار الصرف اليومية.
           </p>
           <div class="footer-security-pill">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span>حماية مشددة وتشفير بيانات بنكي 256-Bit</span>
+            <span>حماية مشددة وتشفير عمليات 256-Bit</span>
           </div>
         </div>
 
-        <!-- Col 2: Direct Services -->
+        <!-- Col 2: Store Categories -->
         <div class="footer-col">
           <h4 class="footer-col-title">أقسام المتجر</h4>
           <ul class="footer-links-list">
@@ -337,7 +365,7 @@
 
         <!-- Col 3: Support & Information -->
         <div class="footer-col">
-          <h4 class="footer-col-title">المساعدة والمعلومات</h4>
+          <h4 class="footer-col-title">المساعدة والسياسات</h4>
           <ul class="footer-links-list">
             <li><a href="pages/about.html" class="footer-link">عن المتجر ورؤيتنا</a></li>
             <li><a href="pages/faq.html" class="footer-link">الأسئلة الشائعة والإجابات</a></li>
@@ -347,65 +375,67 @@
           </ul>
         </div>
 
-        <!-- Col 4: Regional Support & Contact -->
+        <!-- Col 4: Regional Coverage & Support -->
         <div class="footer-col">
-          <h4 class="footer-col-title">خدمة العملاء 24/7</h4>
-          <p class="footer-brand-bio" style="margin-bottom:0.8rem">
-            فريق متخصص جاهز للإجابة على استفساراتكم ومتابعة عمليات الشحن على مدار الساعة.
-          </p>
-          <div class="d-flex flex-column gap-2">
-            <a href="pages/contact.html" class="footer-link" style="color:var(--brand-light);font-weight:600">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <span>مركز المساعدة والمراسلة</span>
-            </a>
-            <div class="d-flex align-items-center gap-2 pt-2" style="font-size:0.8rem;color:var(--muted)">
-              <span>السعودية: <span dir="ltr">SAR</span></span>
-              <span>•</span>
-              <span>اليمن: <span dir="ltr">YER</span></span>
-            </div>
+          <h4 class="footer-col-title">التغطية الإقليمية والدعم</h4>
+          <div class="footer-region-card mb-3">
+            <div class="footer-region-row"><span>الجمهورية اليمنية</span><strong>YER • 6 وسائل</strong></div>
+            <div class="footer-region-row"><span>المملكة العربية السعودية</span><strong>SAR • 4 وسائل</strong></div>
+            <div class="footer-region-row"><span>جمهورية العراق</span><strong>IQD • آسيا سيل</strong></div>
+            <div class="footer-region-row"><span>باقي دول العالم</span><strong>USDT • Binance</strong></div>
           </div>
+          <a href="pages/contact.html" class="footer-link" style="color:var(--brand-light);font-weight:600">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>تواصل مع خدمة العملاء 24/7</span>
+          </a>
         </div>
       </div>
 
-      <!-- Payment Strip -->
+      <!-- Categorized Payment Strip -->
       <div class="footer-payment-strip">
-        <div class="d-flex align-items-center gap-2">
-          <span class="text-secondary fw-semibold" style="font-size:0.82rem">وسائل الدفع المعتمدة:</span>
+        <div class="d-flex align-items-center gap-2 flex-shrink-0">
+          <span class="text-secondary fw-semibold" style="font-size:0.81rem">وسائل الدفع المعتمدة:</span>
         </div>
         <div class="footer-payment-pills">
-          <span class="footer-payment-pill">محفظة جيب Jaib</span>
-          <span class="footer-payment-pill">محفظة ون كاش One Cash</span>
-          <span class="footer-payment-pill">محفظة فلوسك Floosak</span>
-          <span class="footer-payment-pill">محفظة جوالي Jawali</span>
-          <span class="footer-payment-pill">مصرف الكريمي</span>
-          <span class="footer-payment-pill">مصرف القطيبي</span>
-          <span class="footer-payment-pill">مصرف الراجحي</span>
-          <span class="footer-payment-pill">بنك الإنماء</span>
-          <span class="footer-payment-pill">كروت سوا</span>
-          <span class="footer-payment-pill">كروت موبايلي</span>
-          <span class="footer-payment-pill">كروت آسيا سيل</span>
-          <span class="footer-payment-pill">Binance Pay (USDT)</span>
+          <span class="footer-payment-pill"><span class="fp-code">YE</span> جيب Jaib</span>
+          <span class="footer-payment-pill"><span class="fp-code">YE</span> ون كاش</span>
+          <span class="footer-payment-pill"><span class="fp-code">YE</span> فلوسك</span>
+          <span class="footer-payment-pill"><span class="fp-code">YE</span> جوالي</span>
+          <span class="footer-payment-pill"><span class="fp-code">YE</span> الكريمي</span>
+          <span class="footer-payment-pill"><span class="fp-code">YE</span> القطيبي</span>
+          <span class="footer-payment-pill"><span class="fp-code">SA</span> الراجحي</span>
+          <span class="footer-payment-pill"><span class="fp-code">SA</span> الإنماء</span>
+          <span class="footer-payment-pill"><span class="fp-code">SA</span> سوا</span>
+          <span class="footer-payment-pill"><span class="fp-code">SA</span> موبايلي</span>
+          <span class="footer-payment-pill"><span class="fp-code">IQ</span> آسيا سيل</span>
+          <span class="footer-payment-pill"><span class="fp-code">INTL</span> Binance Pay</span>
         </div>
       </div>
 
       <!-- Bottom Bar -->
       <div class="footer-bottom-bar">
         <span>© 2026 متجر الشحن السعودي اليمني. جميع الحقوق محفوظة.</span>
-        <div class="footer-meta-links">
-          <a href="pages/terms.html" class="footer-meta-link">اتفاقية الاستخدام</a>
-          <a href="pages/privacy.html" class="footer-meta-link">سياسة الخصوصية</a>
-          <a href="pages/faq.html" class="footer-meta-link">الأسئلة الشائعة</a>
-          <a href="pages/track-order.html" class="footer-meta-link">تتبع الطلبات</a>
+        <div class="d-flex align-items-center gap-3 flex-wrap">
+          <div class="footer-meta-links">
+            <a href="pages/terms.html" class="footer-meta-link">اتفاقية الاستخدام</a>
+            <a href="pages/privacy.html" class="footer-meta-link">سياسة الخصوصية</a>
+            <a href="pages/faq.html" class="footer-meta-link">الأسئلة الشائعة</a>
+            <a href="pages/track-order.html" class="footer-meta-link">تتبع الطلبات</a>
+          </div>
+          <button type="button" id="btnBackToTop" class="btn-back-top" aria-label="العودة للأعلى">
+            <span>الأعلى</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m18 15-6-6-6 6"/></svg>
+          </button>
         </div>
       </div>
     </div>
   </footer>
 
   <!-- ========================================================= -->
-  <!-- 1. TOP-UP MODAL (CHECKOUT FLOW)                           -->
+  <!-- 1. TOP-UP MODAL (2-STEP GUIDED CHECKOUT FLOW)             -->
   <!-- ========================================================= -->
   <div id="topupModal" class="app-modal" role="dialog" aria-modal="true" aria-labelledby="modalAppName">
-    <div class="modal-card md">
+    <div class="modal-card lg">
       <div class="modal-head">
         <div class="d-flex align-items-center gap-3 min-w-0">
           <div id="modalAppIcon" class="modal-app-icon"></div>
@@ -417,148 +447,176 @@
             <div class="d-flex align-items-center gap-2 mt-1" style="font-size:.78rem;color:var(--muted)">
               <span id="modalCategoryName"></span>
               <span>•</span>
-              <span style="color:var(--brand-light);font-weight:600">شحن فوري</span>
+              <span style="color:var(--brand-light);font-weight:600">تسليم آلي فوري</span>
             </div>
           </div>
         </div>
         <button id="btnCloseTopupModal" type="button" class="modal-close" aria-label="إغلاق">✕</button>
       </div>
 
+      <!-- 2-Step Checkout Stepper -->
+      <div class="wizard-stepper two-steps" id="checkoutStepper">
+        <div class="wizard-step-pill is-active" data-checkout-step-ind="1">
+          <span class="wizard-step-num">1</span>
+          <span>الباقة وبيانات الحساب</span>
+        </div>
+        <div class="wizard-step-pill" data-checkout-step-ind="2">
+          <span class="wizard-step-num">2</span>
+          <span>الدفع والتأكيد</span>
+        </div>
+      </div>
+
       <div class="modal-body-app">
-        <div>
-          <label class="step-label"><span class="num">1</span> حدد الباقة المطلوبة:</label>
-          <div id="modalPackagesGrid" class="pkg-grid"></div>
-        </div>
+        <!-- CHECKOUT STEP 1: Package & Account Info -->
+        <div id="checkoutStep1" class="wizard-panel">
+          <div>
+            <label class="step-label"><span class="num">1</span> حدد الباقة المطلوبة:</label>
+            <div id="modalPackagesGrid" class="pkg-grid"></div>
+          </div>
 
-        <div id="playerInputSection">
-          <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
-            <label id="playerInputLabel" for="playerIdInput" class="step-label mb-0">
-              <span class="num">2</span> أدخل معرف اللاعب (ID) أو رقم الحساب:
+          <div id="playerInputSection">
+            <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+              <label id="playerInputLabel" for="playerIdInput" class="step-label mb-0">
+                <span class="num">2</span> أدخل معرف اللاعب (ID) أو رقم الحساب:
+              </label>
+              <button id="btnVerifyPlayer" type="button" class="btn btn-ghost btn-sm py-1 px-3"
+                style="font-size:.75rem">تحقق من المعرف</button>
+            </div>
+            <input id="playerIdInput" type="text" class="form-control form-control-app mb-2"
+              placeholder="مثال: 5128493021 أو اسم المستخدم" />
+            <div id="playerVerifyStatus" class="mb-3" style="font-size:.82rem"></div>
+
+            <label for="customerContactInput" class="form-label-app">
+              رقم الواتساب لتلقي إشعار التنفيذ <span style="color:var(--muted);font-weight:normal">(اختياري)</span>
             </label>
-            <button id="btnVerifyPlayer" type="button" class="btn btn-ghost py-1 px-3"
-              style="font-size:.75rem">تحقق من المعرف</button>
+            <input id="customerContactInput" type="tel" class="form-control form-control-app"
+              placeholder="مثال: 05XXXXXXXX أو 7XXXXXXXX" />
           </div>
-          <input id="playerIdInput" type="text" class="form-control form-control-app mb-2"
-            placeholder="مثال: 5128493021 أو اسم المستخدم" />
-          <div id="playerVerifyStatus" class="mb-3" style="font-size:.82rem"></div>
-
-          <label for="customerContactInput" class="form-label-app">
-            رقم الواتساب لتلقي إشعار التنفيذ <span style="color:var(--muted);font-weight:normal">(اختياري)</span>
-          </label>
-          <input id="customerContactInput" type="tel" class="form-control form-control-app"
-            placeholder="مثال: 05XXXXXXXX أو 7XXXXXXXX" />
         </div>
 
-        <div>
-          <label class="step-label"><span class="num">3</span> اختر وسيلة الدفع:</label>
-          <div class="pay-grid mb-2" id="paymentMethodsGrid">
-            <button type="button" data-pay="wallet" class="pay-btn active">
-              <span class="pay-icon">المحفظة</span>
-              <span>رصيد الموقع</span>
-            </button>
-            <!-- اليمن: محافظ -->
-            <button type="button" data-pay="jaib" class="pay-btn">
-              <span class="pay-icon">🇾🇪 جيب</span>
-              <span>محفظة Jaib</span>
-            </button>
-            <button type="button" data-pay="onecash" class="pay-btn">
-              <span class="pay-icon">🇾🇪 ون كاش</span>
-              <span>محفظة One Cash</span>
-            </button>
-            <button type="button" data-pay="floosak" class="pay-btn">
-              <span class="pay-icon">🇾🇪 فلوسك</span>
-              <span>محفظة Floosak</span>
-            </button>
-            <button type="button" data-pay="jawali" class="pay-btn">
-              <span class="pay-icon">🇾🇪 جوالي</span>
-              <span>محفظة Jawali</span>
-            </button>
-            <!-- اليمن: بنوك -->
-            <button type="button" data-pay="kuraimi" class="pay-btn">
-              <span class="pay-icon">🇾🇪 الكريمي</span>
-              <span>مصرف الكريمي</span>
-            </button>
-            <button type="button" data-pay="qutaibi" class="pay-btn">
-              <span class="pay-icon">🇾🇪 القطيبي</span>
-              <span>مصرف القطيبي</span>
-            </button>
-            <!-- السعودية: بنوك -->
-            <button type="button" data-pay="rajhi" class="pay-btn">
-              <span class="pay-icon">🇸🇦 الراجحي</span>
-              <span>مصرف الراجحي</span>
-            </button>
-            <button type="button" data-pay="alinma" class="pay-btn">
-              <span class="pay-icon">🇸🇦 الإنماء</span>
-              <span>بنك الإنماء</span>
-            </button>
-            <!-- السعودية: كروت -->
-            <button type="button" data-pay="sawa" class="pay-btn">
-              <span class="pay-icon">🇸🇦 سوا</span>
-              <span>كروت سوا</span>
-            </button>
-            <button type="button" data-pay="mobily" class="pay-btn">
-              <span class="pay-icon">🇸🇦 موبايلي</span>
-              <span>كروت موبايلي</span>
-            </button>
-            <!-- العراق -->
-            <button type="button" data-pay="asiacell" class="pay-btn">
-              <span class="pay-icon">🇮🇶 آسيا سيل</span>
-              <span>كروت آسيا سيل</span>
-            </button>
-            <!-- باقي الدول -->
-            <button type="button" data-pay="binance" class="pay-btn">
-              <span class="pay-icon">🌐 بايننس</span>
-              <span>Binance Pay</span>
+        <!-- CHECKOUT STEP 2: Payment Method & Direct Verification -->
+        <div id="checkoutStep2" class="wizard-panel d-none">
+          <!-- Order Summary Strip -->
+          <div class="wizard-context-bar">
+            <div class="wizard-context-meta">
+              <span class="wizard-context-title" id="checkoutSummaryPkg">—</span>
+              <span class="wizard-context-sub" id="checkoutSummaryTarget">المعرف: —</span>
+            </div>
+            <button type="button" id="btnCheckoutEditStep1" class="btn btn-ghost btn-sm py-1 px-2" style="font-size:0.75rem;">
+              تعديل البيانات
             </button>
           </div>
 
-          <!-- Wallet Balance Status Box (when wallet is active) -->
-          <div id="topupWalletStatusBox" class="p-2 mb-2 rounded border border-secondary border-opacity-25" style="background:var(--surface-2);font-size:0.8rem;">
-            <div class="d-flex justify-content-between align-items-center">
-              <span>رصيدك المتاح في الموقع: <strong id="topupWalletAvail" class="text-brand-light font-monospace">100.00 ر.س</strong></span>
-              <button type="button" class="btn btn-ghost btn-sm py-0 px-2" style="font-size:0.75rem;" onclick="window.closeAppModal('topupModal');window.openAppModal('walletModal')">⚡ شحن المحفظة</button>
-            </div>
-            <div id="topupWalletWarning" class="text-danger mt-1 d-none" style="font-size:0.75rem;">
-              ⚠️ رصيد محفظتك غير كافٍ لهذا الطلب. يرجى شحن الرصيد أولاً أو اختيار وسيلة دفع أخرى من القائمة أعلاه.
+          <!-- Payment Mode Switcher: Wallet vs Regional Direct -->
+          <div>
+            <label class="step-label"><span class="num">3</span> اختر طريقة الدفع:</label>
+            <div class="checkout-mode-grid" id="checkoutModeGrid">
+              <button type="button" class="checkout-mode-card active" data-checkout-mode="wallet">
+                <span class="checkout-mode-title">
+                  <span>رصيد المحفظة الإلكترونية</span>
+                  <span class="country-code-pill">SY</span>
+                </span>
+                <span class="checkout-mode-sub">خصم فوري بدون إدخال رقم حوالة</span>
+              </button>
+              <button type="button" class="checkout-mode-card" data-checkout-mode="direct">
+                <span class="checkout-mode-title">
+                  <span>الدفع المباشر (حسب الدولة)</span>
+                  <span class="country-code-pill">YE / SA / IQ / INTL</span>
+                </span>
+                <span class="checkout-mode-sub">محافظ اليمن، البنوك، كروت الشحن، بايننس</span>
+              </button>
             </div>
           </div>
 
-          <!-- Direct Payment Info & The Two Rectangles (when non-wallet method is active) -->
-          <div id="topupDirectPayBox" class="deposit-rectangles-box mb-3 d-none">
-            <div class="deposit-account-card mb-2 p-2">
-              <div class="d-flex justify-content-between align-items-center mb-1">
-                <strong id="topupDirectTitle" class="text-light" style="font-size:0.84rem;">بيانات التحويل:</strong>
-                <button type="button" id="btnCopyTopupAcc" class="btn btn-ghost btn-sm py-0 px-2" style="font-size:0.72rem;">نسخ الرقم</button>
+          <!-- Mode A: Wallet Balance Box -->
+          <div id="topupWalletStatusBox" class="checkout-wallet-box">
+            <div class="d-flex justify-content-between align-items-center gap-2 flex-wrap">
+              <div>
+                <div class="small text-muted">رصيدك المتاح في الموقع</div>
+                <strong id="topupWalletAvail" class="text-brand-light font-monospace fs-5">100.00 ر.س</strong>
               </div>
-              <div id="topupDirectAccVal" class="dep-account-value mb-1" style="font-size:0.95rem;"></div>
-              <small id="topupDirectAccHolder" class="text-muted d-block" style="font-size:0.74rem;"></small>
+              <button type="button" class="btn btn-ghost btn-sm" onclick="window.closeAppModal('topupModal');window.openAppModal('walletModal')">
+                شحن رصيد المحفظة
+              </button>
+            </div>
+            <div id="topupWalletAfter" class="small text-secondary mt-2 pt-2 border-top border-secondary border-opacity-10"></div>
+            <div id="topupWalletWarning" class="text-danger mt-2 d-none" style="font-size:0.78rem;font-weight:600;">
+              رصيد محفظتك غير كافٍ لهذا الطلب. يرجى شحن الرصيد أولاً أو التبديل إلى "الدفع المباشر" أعلاه.
+            </div>
+          </div>
+
+          <!-- Mode B: Direct Regional Payment Interface -->
+          <div id="topupDirectPayBox" class="d-none">
+            <!-- Country Tabs inside Checkout -->
+            <div class="mb-3">
+              <label class="form-label-app">حدد الدولة:</label>
+              <div class="deposit-country-tabs" id="checkoutCountryTabs">
+                <button type="button" class="country-tab active" data-co-country="ye">
+                  <span class="country-tab-top"><span>اليمن</span><span class="country-code-pill">YE</span></span>
+                  <span class="country-tab-sub">6 وسائل</span>
+                </button>
+                <button type="button" class="country-tab" data-co-country="sa">
+                  <span class="country-tab-top"><span>السعودية</span><span class="country-code-pill">SA</span></span>
+                  <span class="country-tab-sub">4 وسائل</span>
+                </button>
+                <button type="button" class="country-tab" data-co-country="iq">
+                  <span class="country-tab-top"><span>العراق</span><span class="country-code-pill">IQ</span></span>
+                  <span class="country-tab-sub">آسيا سيل</span>
+                </button>
+                <button type="button" class="country-tab" data-co-country="global">
+                  <span class="country-tab-top"><span>باقي الدول</span><span class="country-code-pill">INTL</span></span>
+                  <span class="country-tab-sub">Binance</span>
+                </button>
+              </div>
             </div>
 
-            <!-- The Two Rectangles -->
-            <div class="deposit-rect-item mb-2">
-              <label class="form-label-app" style="font-size:0.78rem;">
-                <span class="rect-badge">المستطيل الأول</span> المبلغ المطلوب للطلب:
-              </label>
-              <input id="topupDirectAmount" type="text" class="form-control form-control-app form-control-sm font-monospace" readonly />
+            <!-- Methods Grid inside Checkout -->
+            <div class="mb-3">
+              <label class="form-label-app">اختر وسيلة الدفع:</label>
+              <div class="deposit-methods-grid" id="checkoutMethodsGrid"></div>
             </div>
 
-            <div class="deposit-rect-item mb-1">
-              <label class="form-label-app" style="font-size:0.78rem;">
-                <span class="rect-badge">المستطيل الثاني</span> معرّف العملية (رقم الحوالة / الإشعار / كود الكرت):
-              </label>
-              <input id="topupDirectTxnId" type="text" class="form-control form-control-app form-control-sm font-monospace" placeholder="أدخل رقم العملية أو كود الكرت للتحقق..." />
+            <!-- Transfer Account Card & Linked Verification Fields -->
+            <div class="deposit-rectangles-box">
+              <div class="deposit-account-card mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+                  <strong id="topupDirectTitle" class="text-primary-ink" style="font-size:0.86rem;">بيانات التحويل:</strong>
+                  <button type="button" id="btnCopyTopupAcc" class="btn btn-ghost btn-sm py-1 px-2" style="font-size:0.74rem;">نسخ الرقم</button>
+                </div>
+                <div id="topupDirectAccVal" class="dep-account-value mb-1" style="font-size:1rem;"></div>
+                <small id="topupDirectAccHolder" class="text-secondary d-block" style="font-size:0.76rem;line-height:1.55;"></small>
+              </div>
+
+              <div class="deposit-two-rects-grid">
+                <div class="deposit-rect-item">
+                  <label for="topupDirectAmount" class="form-label-app" style="font-size:0.77rem;">
+                    <span class="rect-badge">01</span> المبلغ المطلوب تحويله:
+                  </label>
+                  <input id="topupDirectAmount" type="text" class="form-control form-control-app form-control-sm font-monospace" readonly />
+                </div>
+
+                <div class="deposit-rect-item">
+                  <label for="topupDirectTxnId" class="form-label-app" style="font-size:0.77rem;">
+                    <span class="rect-badge">02</span> معرّف العملية / كود الكرت:
+                  </label>
+                  <input id="topupDirectTxnId" type="text" class="form-control form-control-app form-control-sm font-monospace" placeholder="رقم الحوالة أو الإشعار..." autocomplete="off" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="total-bar">
-          <div class="d-flex flex-column">
-            <span style="font-size:.76rem;color:var(--muted);font-weight:600">المبلغ الإجمالي</span>
-            <span id="modalTotalPrice" class="fw-bold" style="font-size:1.3rem;color:var(--brand-light);font-family:var(--font-mono)">0</span>
-          </div>
-          <button id="btnConfirmTopup" type="button" class="btn btn-brand px-4 py-2">
-            تأكيد الشحن
-          </button>
+      <!-- Sticky Checkout Footer -->
+      <div class="wizard-footer">
+        <div class="d-flex flex-column">
+          <span style="font-size:.73rem;color:var(--muted);font-weight:600">الإجمالي المطلوب</span>
+          <span id="modalTotalPrice" class="fw-bold" style="font-size:1.22rem;color:var(--brand-light);font-family:var(--font-mono)">0</span>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <button id="btnCheckoutPrev" type="button" class="btn btn-ghost d-none">السابق</button>
+          <button id="btnCheckoutNext" type="button" class="btn btn-brand px-4">المتابعة للدفع</button>
+          <button id="btnConfirmTopup" type="button" class="btn btn-brand px-4 d-none">تأكيد وإتمام الشحن</button>
         </div>
       </div>
     </div>
@@ -571,7 +629,7 @@
     <div class="modal-card sm">
       <div class="modal-body-app text-center" style="padding-top:1.8rem">
         <div class="mx-auto d-grid mb-2"
-          style="width:56px;height:56px;place-items:center;border-radius:var(--radius-sm);background:var(--brand-soft);border:1px solid var(--brand);font-size:1.4rem;color:var(--brand-light)">
+          style="width:56px;height:56px;place-items:center;border-radius:var(--radius-md);background:var(--brand-soft);border:1.5px solid var(--brand);font-size:1.4rem;color:var(--brand-light)">
           ✓</div>
         <div>
           <h3 class="fw-bold mb-1" style="font-size:1.15rem;color:var(--text)">تم تأكيد طلب الشحن بنجاح</h3>
@@ -605,136 +663,201 @@
   </div>
 
   <!-- ========================================================= -->
-  <!-- 3. WALLET RECHARGE & DEPOSIT MODAL                        -->
+  <!-- 3. WALLET RECHARGE MODAL (3-STEP SEPARATE INTERFACES)     -->
   <!-- ========================================================= -->
   <div id="walletModal" class="app-modal" role="dialog" aria-modal="true">
-    <div class="modal-card" style="max-width:620px;">
+    <div class="modal-card lg">
       <div class="modal-head">
         <div class="d-flex align-items-center gap-2">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--brand-light)"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--brand-light)"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
           <h3 class="mb-0">شحن الرصيد والمحفظة</h3>
         </div>
         <button id="btnCloseWalletModal" type="button" class="modal-close" aria-label="إغلاق">✕</button>
       </div>
+
+      <!-- 3-Step Visual Stepper -->
+      <div class="wizard-stepper" id="depositStepper">
+        <div class="wizard-step-pill is-active is-clickable" data-dep-step-ind="1">
+          <span class="wizard-step-num">1</span>
+          <span>الدولة والوسيلة</span>
+        </div>
+        <div class="wizard-step-pill" data-dep-step-ind="2">
+          <span class="wizard-step-num">2</span>
+          <span>بيانات التحويل</span>
+        </div>
+        <div class="wizard-step-pill" data-dep-step-ind="3">
+          <span class="wizard-step-num">3</span>
+          <span>تأكيد ومطابقة</span>
+        </div>
+      </div>
+
       <div class="modal-body-app">
-        <!-- Balance Status Bar -->
-        <div class="deposit-balance-card mb-3">
-          <div class="d-flex justify-content-between align-items-center">
+        <!-- Balance Status Strip -->
+        <div class="deposit-balance-card">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div>
-              <span class="deposit-balance-label">رصيد محفظتك المتاح:</span>
+              <span class="deposit-balance-label">رصيد محفظتك المتاح</span>
               <div id="walletModalBalance" class="deposit-balance-num">100.00 ر.س</div>
             </div>
-            <span class="deposit-status-badge">⚡ إيداع ومطابقة فورية</span>
+            <span class="deposit-status-badge">
+              <span class="pulse-dot"></span>
+              <span>إيداع ومطابقة فورية • رسوم 0%</span>
+            </span>
           </div>
         </div>
 
-        <!-- Flow View -->
+        <!-- Flow Container (3 Separate Step Views) -->
         <div id="depositFlowContainer">
-          <!-- Step 1: Select Country -->
-          <div class="deposit-section mb-3">
-            <label class="step-label"><span class="num">1</span> حدد الدولة:</label>
-            <div id="depositCountryTabs" class="deposit-country-tabs">
-              <button type="button" class="country-tab active" data-country="ye">
-                <span class="tab-flag">🇾🇪</span>
-                <span class="tab-title">اليمن</span>
-              </button>
-              <button type="button" class="country-tab" data-country="sa">
-                <span class="tab-flag">🇸🇦</span>
-                <span class="tab-title">السعودية</span>
-              </button>
-              <button type="button" class="country-tab" data-country="iq">
-                <span class="tab-flag">🇮🇶</span>
-                <span class="tab-title">العراق</span>
-              </button>
-              <button type="button" class="country-tab" data-country="global">
-                <span class="tab-flag">🌐</span>
-                <span class="tab-title">باقي الدول (بايننس)</span>
-              </button>
-            </div>
-          </div>
 
-          <!-- Step 2: Select Method -->
-          <div class="deposit-section mb-3">
-            <label class="step-label"><span class="num">2</span> حدد طريقة الدفع / الإيداع:</label>
-            <div id="depositMethodsGrid" class="deposit-methods-grid">
-              <!-- Dynamically rendered based on selected country -->
-            </div>
-          </div>
-
-          <!-- Step 3: Account Info Display Box -->
-          <div id="depositAccountInfoSection" class="deposit-account-card mb-3">
-            <div class="d-flex align-items-center justify-content-between mb-2">
-              <div class="d-flex align-items-center gap-2">
-                <span id="depMethodIconBadge" class="dep-method-badge">جيب</span>
-                <strong id="depMethodTitle" class="dep-method-title">محفظة جيب (Jaib)</strong>
+          <!-- STEP 1: Country & Payment Method Selection -->
+          <div id="depStep1" class="wizard-panel">
+            <div>
+              <label class="step-label"><span class="num">1</span> حدد الدولة أو المنطقة:</label>
+              <div id="depositCountryTabs" class="deposit-country-tabs">
+                <button type="button" class="country-tab active" data-country="ye">
+                  <span class="country-tab-top"><span>اليمن</span><span class="country-code-pill">YE</span></span>
+                  <span class="country-tab-sub">4 محافظ + بنكان</span>
+                </button>
+                <button type="button" class="country-tab" data-country="sa">
+                  <span class="country-tab-top"><span>السعودية</span><span class="country-code-pill">SA</span></span>
+                  <span class="country-tab-sub">بنكان + كروت</span>
+                </button>
+                <button type="button" class="country-tab" data-country="iq">
+                  <span class="country-tab-top"><span>العراق</span><span class="country-code-pill">IQ</span></span>
+                  <span class="country-tab-sub">كروت آسيا سيل</span>
+                </button>
+                <button type="button" class="country-tab" data-country="global">
+                  <span class="country-tab-top"><span>باقي الدول</span><span class="country-code-pill">INTL</span></span>
+                  <span class="country-tab-sub">Binance USDT</span>
+                </button>
               </div>
-              <button type="button" id="btnCopyDepAccount" class="btn btn-ghost btn-sm py-1 px-2 d-inline-flex align-items-center gap-1" style="font-size:0.75rem;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                <span id="depCopyBtnText">نسخ الرقم</span>
+            </div>
+
+            <div>
+              <label class="step-label"><span class="num">2</span> اختر وسيلة الإيداع المناسبة:</label>
+              <div id="depositMethodsGrid" class="deposit-methods-grid">
+                <!-- Dynamically rendered based on selected country -->
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2: Dedicated Transfer Account & Instructions View -->
+          <div id="depStep2" class="wizard-panel d-none">
+            <div class="wizard-context-bar">
+              <div class="wizard-context-meta">
+                <span class="wizard-context-title" id="depStep2MethodSummary">محفظة جيب (Jaib)</span>
+                <span class="wizard-context-sub" id="depStep2CountrySummary">اليمن • ريال يمني (ر.ي)</span>
+              </div>
+              <button type="button" id="btnDepChangeMethod" class="btn btn-ghost btn-sm py-1 px-2" style="font-size:0.75rem;">
+                تغيير الوسيلة
               </button>
             </div>
-            
-            <div class="dep-account-details mb-2">
-              <span id="depAccountLabel" class="dep-field-label">رقم المحفظة / الحساب المعتمد للإيداع:</span>
-              <div id="depAccountNumber" class="dep-account-value">774060647</div>
-              <div id="depAccountSecondary" class="dep-account-sub d-none"></div>
-              <div id="depAccountHolder" class="dep-account-sub">اسم المستلم: <strong class="text-light">متجر الشحن المعتمد</strong></div>
-            </div>
 
-            <div id="depInstructions" class="dep-instructions">
-              افتح تطبيق محفظة جيب وقم بتحويل المبلغ إلى رقم المحفظة الموضح أعلاه، ثم اكتب المبلغ المودع ومعرف العملية في المستطيلين أدناه ليتم إيداع الرصيد فوراً.
+            <div id="depositAccountInfoSection" class="deposit-account-card">
+              <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-2">
+                  <span id="depMethodIconBadge" class="dep-method-badge">جيب</span>
+                  <strong id="depMethodTitle" class="dep-method-title">محفظة جيب (Jaib)</strong>
+                </div>
+                <span class="badge-curr" id="depStep2CurrencyPill">YER</span>
+              </div>
+
+              <div class="dep-account-details">
+                <span id="depAccountLabel" class="dep-field-label">رقم المحفظة / الحساب المعتمد للإيداع:</span>
+                <div class="dep-account-row">
+                  <div id="depAccountNumber" class="dep-account-value">774060647</div>
+                  <button type="button" id="btnCopyDepAccount" class="btn btn-ghost btn-sm py-1 px-2 d-inline-flex align-items-center gap-1 flex-shrink-0" style="font-size:0.75rem;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                    <span id="depCopyBtnText">نسخ</span>
+                  </button>
+                </div>
+
+                <!-- Secondary Account / TRC-20 Row -->
+                <div id="depAccountSecondaryWrap" class="mt-2 d-none">
+                  <div class="dep-account-row">
+                    <div id="depAccountSecondary" class="dep-account-value" style="font-size:0.86rem;color:var(--text);"></div>
+                    <button type="button" id="btnCopyDepSecondary" class="btn btn-ghost btn-sm py-1 px-2 flex-shrink-0" style="font-size:0.73rem;">نسخ</button>
+                  </div>
+                </div>
+
+                <div id="depAccountHolder" class="dep-account-sub">اسم المستلم: <strong class="text-primary-ink">متجر الشحن المعتمد</strong></div>
+              </div>
+
+              <!-- Method Specifications Grid -->
+              <div class="dep-info-grid">
+                <div class="dep-info-cell">
+                  <span>الحد الأدنى</span>
+                  <strong id="depSpecMin">500 YER</strong>
+                </div>
+                <div class="dep-info-cell">
+                  <span>رسوم الإيداع</span>
+                  <strong>0% مجاني</strong>
+                </div>
+                <div class="dep-info-cell">
+                  <span>وقت التوثيق</span>
+                  <strong>فوري</strong>
+                </div>
+              </div>
+
+              <div id="depInstructions" class="dep-instructions"></div>
             </div>
           </div>
 
-          <!-- Step 4: The Two Rectangles (المستطيل الأول والمستطيل الثاني) -->
-          <div class="deposit-rectangles-box mb-3">
-            <div class="deposit-rect-header mb-2">
-              <span class="step-label mb-0"><span class="num">3</span> تأكيد ومطابقة الإيداع:</span>
-              <small class="text-muted">أدخل بيانات التحويل ليتم التحقق الآلي وإيداع المبلغ فوراً</small>
+          <!-- STEP 3: Dedicated Verification & Instant Matching View -->
+          <div id="depStep3" class="wizard-panel d-none">
+            <div class="wizard-context-bar">
+              <div class="wizard-context-meta">
+                <span class="wizard-context-title" id="depStep3MethodSummary">محفظة جيب (Jaib)</span>
+                <span class="wizard-context-sub font-monospace" id="depStep3AccountSummary">774060647</span>
+              </div>
+              <button type="button" id="btnDepViewAccountAgain" class="btn btn-ghost btn-sm py-1 px-2" style="font-size:0.75rem;">
+                عرض بيانات التحويل
+              </button>
             </div>
 
-            <!-- Rectangle 1: Amount -->
-            <div class="deposit-rect-item mb-3">
-              <label for="depositAmountInput" class="form-label-app d-flex justify-content-between align-items-center">
-                <span><span class="rect-badge">المستطيل الأول</span> المبلغ المودع:</span>
-                <span id="depositCurrencyTag" class="badge-curr">ريال يمني (ر.ي)</span>
-              </label>
-              <div class="input-group">
-                <input id="depositAmountInput" type="number" min="1" step="any" class="form-control form-control-app rect-input" placeholder="أدخل المبلغ الذي تم تحويله أو فئة الكرت..." />
+            <div class="deposit-rectangles-box">
+              <div class="deposit-rect-header">
+                <span class="step-label mb-0"><span class="num">3</span> أدخل بيانات الإيداع للمطابقة الفورية:</span>
+                <small class="text-muted">بعد إدخال المبلغ ومعرّف العملية ومطابقتهما، يُضاف الرصيد لمحفظتك مباشرة.</small>
               </div>
-              <div id="depositSarEquivBox" class="deposit-sar-equiv mt-1">
-                <small>المعادل المقدر في محفظتك: <strong id="depositSarEquivDisplay" class="text-brand-light">0.00 ر.س</strong></small>
+
+              <div class="deposit-two-rects-grid">
+                <!-- Box 1: Amount -->
+                <div class="deposit-rect-item">
+                  <label for="depositAmountInput" class="form-label-app d-flex justify-content-between align-items-center gap-1">
+                    <span><span class="rect-badge">01</span> المبلغ المودع</span>
+                    <span id="depositCurrencyTag" class="badge-curr">ريال يمني (ر.ي)</span>
+                  </label>
+                  <input id="depositAmountInput" type="number" min="1" step="any" class="form-control form-control-app rect-input" placeholder="مثال: 10000" />
+                  <div id="depositSarEquivBox" class="deposit-sar-equiv mt-2">
+                    <small>المعادل في محفظتك: <strong id="depositSarEquivDisplay" class="text-brand-light font-monospace">0.00 ر.س</strong></small>
+                  </div>
+                  <div id="depositQuickAmounts" class="quick-amounts-bar mt-2"></div>
+                </div>
+
+                <!-- Box 2: Operation ID / Transaction ID -->
+                <div class="deposit-rect-item">
+                  <label for="depositTxnIdInput" class="form-label-app">
+                    <span class="rect-badge">02</span> معرّف العملية
+                  </label>
+                  <input id="depositTxnIdInput" type="text" class="form-control form-control-app rect-input font-monospace" placeholder="رقم الحوالة / الإشعار / كود الكرت" autocomplete="off" />
+                  <small id="depTxnHint" class="text-muted mt-2 d-block" style="font-size:0.74rem;line-height:1.55;">
+                    انسخ رقم العملية من إشعار التحويل البنكي أو رسالة المحفظة لإتمام المطابقة الآلية.
+                  </small>
+                </div>
               </div>
-              <!-- Quick Amount Pills -->
-              <div id="depositQuickAmounts" class="quick-amounts-bar mt-2"></div>
             </div>
 
-            <!-- Rectangle 2: Operation ID / Transaction ID -->
-            <div class="deposit-rect-item mb-2">
-              <label for="depositTxnIdInput" class="form-label-app d-flex justify-content-between align-items-center">
-                <span><span class="rect-badge">المستطيل الثاني</span> معرّف العملية (رقم الحوالة / الإشعار / كود الكرت):</span>
-              </label>
-              <input id="depositTxnIdInput" type="text" class="form-control form-control-app rect-input font-monospace" placeholder="مثال: رقم الحوالة أو الإشعار البنكي..." />
-              <small id="depTxnHint" class="text-muted mt-1 d-block" style="font-size:0.75rem;">
-                انسخ رقم العملية من إشعار التحويل البنكي أو رسالة المحفظة لإتمام المطابقة الآلية.
-              </small>
-            </div>
+            <!-- Matching Status Message Box -->
+            <div id="depositMatchStatus" class="d-none"></div>
           </div>
 
-          <!-- Matching Status Message Box -->
-          <div id="depositMatchStatus" class="mb-3 d-none"></div>
-
-          <!-- Action Button: Confirm & Instant Deposit -->
-          <button id="btnSubmitDeposit" type="button" class="btn btn-brand w-100 py-2 fw-bold d-flex align-items-center justify-content-center gap-2" style="font-size:0.98rem;">
-            <span id="btnSubmitDepositText">تأكيد ومطابقة الإيداع فوراً</span>
-            <svg id="btnSubmitDepositIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </button>
         </div>
 
         <!-- Success Screen View (Shown when deposit matches) -->
-        <div id="depositSuccessView" class="deposit-success-card d-none text-center py-4">
+        <div id="depositSuccessView" class="deposit-success-card d-none text-center py-3">
           <div class="success-icon-bubble mx-auto mb-3">✓</div>
-          <h4 class="fw-bold mb-1" style="color:var(--text);font-size:1.2rem;">تمت مطابقة العملية وإيداع المبلغ بنجاح!</h4>
+          <h4 class="fw-bold mb-1" style="color:var(--text);font-size:1.18rem;">تمت مطابقة العملية وإيداع المبلغ بنجاح</h4>
           <p class="text-muted mb-3" style="font-size:0.85rem;">تم التحقق من الحوالة وتغذية رصيد محفظتك الإلكترونية بشكل فوري وآلي.</p>
           
           <div class="deposit-receipt-summary mb-3">
@@ -744,7 +867,7 @@
             </div>
             <div class="d-flex justify-content-between py-1 border-bottom border-secondary border-opacity-10">
               <span class="text-muted">طريقة الدفع:</span>
-              <span id="sucDepositMethod" class="text-light"></span>
+              <span id="sucDepositMethod" class="text-primary-ink fw-semibold"></span>
             </div>
             <div class="d-flex justify-content-between py-1 border-bottom border-secondary border-opacity-10">
               <span class="text-muted">معرف العملية:</span>
@@ -752,7 +875,7 @@
             </div>
             <div class="d-flex justify-content-between py-1">
               <span class="text-muted">رصيد محفظتك الجديد:</span>
-              <strong id="sucDepositNewBalance" class="text-brand-light font-monospace" style="font-size:1.1rem;"></strong>
+              <strong id="sucDepositNewBalance" class="text-brand-light font-monospace" style="font-size:1.08rem;"></strong>
             </div>
           </div>
 
@@ -761,15 +884,22 @@
             <button type="button" id="btnDepositDoneClose" class="btn btn-brand flex-fill" onclick="window.closeAppModal('walletModal')">تصفح وشحن الألعاب</button>
           </div>
         </div>
+      </div>
 
-        <!-- Recent Deposits Accordion/Toggle -->
-        <div class="recent-deposits-toggle mt-3 pt-3 border-top border-secondary border-opacity-10">
-          <div class="d-flex justify-content-between align-items-center">
-            <span class="text-muted" style="font-size:0.78rem;">هل تحتاج لمراجعة عمليات الشحن السابقة؟</span>
-            <button type="button" class="btn btn-ghost btn-sm py-0 px-2" style="font-size:0.75rem;" onclick="window.closeAppModal('walletModal');if(window.openOrdersModal)window.openOrdersModal();">عرض سجل العمليات</button>
-          </div>
+      <!-- Sticky Wizard Footer -->
+      <div class="wizard-footer" id="depWizardFooter">
+        <div class="d-flex align-items-center gap-2">
+          <button id="btnDepPrev" type="button" class="btn btn-ghost d-none">السابق</button>
+          <button type="button" id="btnDepHistoryQuick" class="btn btn-ghost btn-sm" onclick="window.closeAppModal('walletModal');if(window.openOrdersModal)window.openOrdersModal();">
+            سجل العمليات
+          </button>
         </div>
-
+        <div class="d-flex align-items-center gap-2">
+          <button id="btnDepNext" type="button" class="btn btn-brand px-4">التالي: بيانات التحويل</button>
+          <button id="btnSubmitDeposit" type="button" class="btn btn-brand px-4 d-none">
+            <span id="btnSubmitDepositText">تأكيد ومطابقة الإيداع فوراً</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -882,4 +1012,3 @@
 </body>
 
 </html>
-
