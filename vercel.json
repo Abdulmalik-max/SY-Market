@@ -1,4 +1,5 @@
-﻿{
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "rewrites": [
     { "source": "/about", "destination": "/pages/about.html" },
@@ -7,6 +8,7 @@
     { "source": "/privacy", "destination": "/pages/privacy.html" },
     { "source": "/terms", "destination": "/pages/terms.html" },
     { "source": "/track-order", "destination": "/pages/track-order.html" },
-    { "source": "/accounts/:page", "destination": "/pages/accounts/:page.html" }
+    { "source": "/accounts/login", "destination": "/pages/accounts/login.html" },
+    { "source": "/accounts/signup", "destination": "/pages/accounts/signup.html" }
   ]
 }
